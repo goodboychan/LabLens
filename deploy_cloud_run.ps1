@@ -13,18 +13,34 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$LocalGcloudBin = "C:\Users\admin\google-cloud-sdk-install\google-cloud-sdk\bin"
+if ((Test-Path $LocalGcloudBin) -and ($env:PATH -notlike "*$LocalGcloudBin*")) {
+    $env:PATH = "$LocalGcloudBin;$env:PATH"
+}
+if (-not $env:CLOUDSDK_PYTHON -and (Test-Path "C:\Users\admin\AppData\Local\Programs\Python\Python312\python.exe")) {
+    $env:CLOUDSDK_PYTHON = "C:\Users\admin\AppData\Local\Programs\Python\Python312\python.exe"
+}
+
 if (-not (Get-Command gcloud -ErrorAction SilentlyContinue)) {
     Write-Error "Google Cloud SDK ('gcloud') was not found on PATH. Install Google Cloud SDK and run 'gcloud auth login' before executing this script."
     exit 1
 }
 
-if (-not $ProjectId) {
-    $ProjectId = (gcloud config get-value project 2>$null).Trim()
+if (-not $ProjectId -or $ProjectId -eq "(unset)" -or $ProjectId -eq "kr-ai-hackathon26gmp-2225") {
+    $AvailProjects = @(gcloud projects list --format="value(projectId)" 2>$null)
+    if ($AvailProjects -contains "h2gdm-hack26icn-2644") {
+        $ProjectId = "h2gdm-hack26icn-2644"
+    } elseif ($AvailProjects.Count -gt 0 -and $AvailProjects[0]) {
+        $ProjectId = $AvailProjects[0].Trim()
+    } else {
+        $ProjectId = (gcloud config get-value project 2>$null).Trim()
+    }
 }
 if (-not $ProjectId -or $ProjectId -eq "(unset)") {
     Write-Error "No GCP Project ID specified. Pass -ProjectId <YOUR_PROJECT_ID> or set GOOGLE_CLOUD_PROJECT."
     exit 1
 }
+gcloud config set project $ProjectId --quiet 2>$null
 
 Write-Host "==> Deploying $ServiceName to Cloud Run (Project: $ProjectId, Region: $Region)..." -ForegroundColor Cyan
 
