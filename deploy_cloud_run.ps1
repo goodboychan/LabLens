@@ -11,7 +11,7 @@ param(
     [string]$GeminiModelId = "gemini-3-flash-preview"
 )
 
-$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Continue"
 
 $LocalGcloudBin = "C:\Users\admin\google-cloud-sdk-install\google-cloud-sdk\bin"
 if ((Test-Path $LocalGcloudBin) -and ($env:PATH -notlike "*$LocalGcloudBin*")) {
@@ -21,49 +21,43 @@ if (-not $env:CLOUDSDK_PYTHON -and (Test-Path "C:\Users\admin\AppData\Local\Prog
     $env:CLOUDSDK_PYTHON = "C:\Users\admin\AppData\Local\Programs\Python\Python312\python.exe"
 }
 
-if (-not (Get-Command gcloud -ErrorAction SilentlyContinue)) {
-    Write-Error "Google Cloud SDK ('gcloud') was not found on PATH. Install Google Cloud SDK and run 'gcloud auth login' before executing this script."
+if (-not (Get-Command gcloud.cmd -ErrorAction SilentlyContinue)) {
+    Write-Error "Google Cloud SDK ('gcloud.cmd') was not found on PATH. Install Google Cloud SDK and run 'gcloud auth login' before executing this script."
     exit 1
 }
 
 if (-not $ProjectId -or $ProjectId -eq "(unset)" -or $ProjectId -eq "kr-ai-hackathon26gmp-2225") {
-    $AvailProjects = @(gcloud projects list --format="value(projectId)" 2>$null)
+    $AvailProjects = @(cmd /c "gcloud.cmd projects list --format=value(projectId) 2>nul")
     if ($AvailProjects -contains "h2gdm-hack26icn-2644") {
         $ProjectId = "h2gdm-hack26icn-2644"
     } elseif ($AvailProjects.Count -gt 0 -and $AvailProjects[0]) {
         $ProjectId = $AvailProjects[0].Trim()
     } else {
-        $ProjectId = (gcloud config get-value project 2>$null).Trim()
+        $ProjectId = (cmd /c "gcloud.cmd config get-value project 2>nul").Trim()
     }
 }
 if (-not $ProjectId -or $ProjectId -eq "(unset)") {
     Write-Error "No GCP Project ID specified. Pass -ProjectId <YOUR_PROJECT_ID> or set GOOGLE_CLOUD_PROJECT."
     exit 1
 }
-gcloud config set project $ProjectId --quiet 2>$null
+cmd /c "gcloud.cmd config set project $ProjectId --quiet >nul 2>&1"
+cmd /c "gcloud.cmd auth application-default set-quota-project $ProjectId --quiet >nul 2>&1"
 
 Write-Host "==> Deploying $ServiceName to Cloud Run (Project: $ProjectId, Region: $Region)..." -ForegroundColor Cyan
 
-gcloud services enable `
-    run.googleapis.com `
-    cloudbuild.googleapis.com `
-    artifactregistry.googleapis.com `
-    aiplatform.googleapis.com `
-    --project $ProjectId
+cmd /c "gcloud.cmd services enable run.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com aiplatform.googleapis.com --project $ProjectId --quiet"
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Failed to enable required GCP services."
+    exit $LASTEXITCODE
+}
 
-gcloud run deploy $ServiceName `
-    --source . `
-    --project $ProjectId `
-    --region $Region `
-    --platform managed `
-    --allow-unauthenticated `
-    --memory 2Gi `
-    --cpu 2 `
-    --timeout 120 `
-    --max-instances 3 `
-    --set-env-vars="LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=$ProjectId,GOOGLE_CLOUD_LOCATION=$GeminiLocation,GEMINI_MODEL_ID=$GeminiModelId"
+cmd /c "gcloud.cmd run deploy $ServiceName --source . --project $ProjectId --region $Region --platform managed --allow-unauthenticated --memory 2Gi --cpu 2 --timeout 120 --max-instances 3 --quiet --set-env-vars=""LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=$ProjectId,GOOGLE_CLOUD_LOCATION=$GeminiLocation,GEMINI_MODEL_ID=$GeminiModelId"""
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Cloud Run deployment failed."
+    exit $LASTEXITCODE
+}
 
-$ServiceUrl = (gcloud run services describe $ServiceName --project $ProjectId --region $Region --format="value(status.url)").Trim()
+$ServiceUrl = (cmd /c "gcloud.cmd run services describe $ServiceName --project $ProjectId --region $Region --format=value(status.url) 2>nul").Trim()
 Write-Host "==> Deployed URL: $ServiceUrl" -ForegroundColor Green
 
 Write-Host "==> Running post-deployment verification against $ServiceUrl/api/health ..." -ForegroundColor Cyan
