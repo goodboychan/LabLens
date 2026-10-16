@@ -1,0 +1,28 @@
+{
+ "episode_id": "teleop_demo_episode_000001",
+ "source": "teleoperated demonstration (a person drove the SO-101 leader arm; not a policy)",
+ "dataset": "chans/quantgate-so101-coaster (LeRobot v3.0), episode 1",
+ "object": "unopened 268 g cola can",
+ "start_position": "training start mark",
+ "gripper": "as recorded for the LOCK-1 dataset",
+ "task": "Pick up the cola can and place it upright on the coaster",
+ "outcome": {
+  "success": true,
+  "note": "every demonstration in the dataset is a success"
+ },
+ "trajectory": {
+  "rows": 798,
+  "state": "follower joint positions",
+  "action": "leader arm joint positions (the human command)",
+  "units": "degrees; gripper 0-100"
+ },
+ "sync": {
+  "rule": "LeRobot timestamps: frame i is at t_s = i / 30 s from the episode start",
+  "video_frames": {
+   "top": 798,
+   "wrist": 798
+  },
+  "trajectory_rows": 798,
+  "frames_equal_rows": true
+ }
+}

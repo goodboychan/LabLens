@@ -1,0 +1,29 @@
+# Exclude large duplicate archives, AV1 originals, and internal planning docs
+*.zip
+lablens_so101_episodes_av1_originals/
+planning/
+00_START_HERE.md
+01_PRD*.md
+02_ANTIGRAVITY_PROMPTS.md
+03_GEMINI_RUNTIME_PROMPTS.md
+04_DATA_TOOLS_AND_EVIDENCE_CONTRACT.md
+05_ACCEPTANCE_AND_VALIDATION.md
+06_DEMO_AND_SUBMISSION.md
+07_CLOUD_AND_DAY_OF_RUNBOOK.md
+08_SOURCES_RULES_AND_MIGRATION.md
+1000016204.svg
+1000016205.svg
+
+# Exclude local secrets, caches, and transient runtime frames
+.env
+.env.*
+*.pem
+*.key
+*credentials*.json
+__pycache__/
+*.py[cod]
+.pytest_cache/
+storage/frames/
+storage/investigations/
+demo_*.webm
+scripts/

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LabLens — Robot Episode Investigator (v1.1)</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <!-- Top Status Strip (matches 1000016204.svg / 1000016205.svg top bar) -->
+  <div class="top-status-strip" role="region" aria-label="Runtime and provenance status">
+    <div class="top-strip-left">
+      <span class="strip-badge">LABLENS v1.1 · FOUR-HOUR MVP</span>
+      <span id="adc-status-banner" class="strip-meta">ADC: checking Google Cloud credentials...</span>
+    </div>
+    <div class="top-strip-right">
+      <span id="analysis-mode-banner" class="mode-pill mode-saved">Mode: Saved analysis</span>
+      <span id="annotation-policy-banner" class="strip-meta">Annotation policy: disclosed</span>
+      <span id="budget-strip-banner" class="strip-meta">Budget: 0/2 calls · 1 tool round · T1 + T3</span>
+    </div>
+  </div>
+
+  <!-- Main Application Header -->
+  <header class="app-header">
+    <div class="brand-group">
+      <svg class="brand-icon" width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+        <circle cx="16" cy="16" r="10" fill="none" stroke="#1A73E8" stroke-width="3" />
+        <line x1="23" y1="23" x2="32" y2="32" stroke="#34A853" stroke-width="3" stroke-linecap="round" />
+      </svg>
+      <div>
+        <div class="brand-title-row">
+          <h1 class="brand-title">LabLens</h1>
+          <span class="brand-tagline">Inspect the rollout. Follow the evidence.</span>
+        </div>
+        <p class="brand-subtitle">SO-101 Pick-and-Place Episode Investigator · Annotation-Aware Cross-Modal Review</p>
+      </div>
+    </div>
+
+    <!-- Primary View Switcher (Investigation [1000016205.svg] vs Evidence Map [1000016204.svg]) -->
+    <nav class="main-tabs" role="tablist" aria-label="Primary Workspace Views">
+      <button
+        id="tab-btn-investigation"
+        class="main-tab-btn active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="panel-investigation"
+        data-tab="investigation"
+      >
+        Investigation
+      </button>
+      <button
+        id="tab-btn-evidence-map"
+        class="main-tab-btn"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-evidence-map"
+        data-tab="evidence-map"
+      >
+        Evidence Map
+      </button>
+    </nav>
+
+    <!-- Active Episode Context & Global Actions -->
+    <div class="header-actions">
+      <div class="header-pills">
+        <span id="header-episode-pill" class="header-pill">rollout_T2012_1014_231614</span>
+        <span id="header-semantics-pill" class="header-pill pill-teal">policy_rollout · failure (auto+human consensus)</span>
+      </div>
+      <button id="btn-validate-all" class="btn btn-secondary demo-utility-hidden" title="Run preflight validation on all 16 registered episodes">
+        Validate All (16)
+      </button>
+      <button id="btn-export-json" class="btn btn-export" title="Export sanitized JSON evidence bundle">
+        Export JSON
+      </button>
+    </div>
+  </header>
+
+  <!-- Sub-header Contract Bar -->
+  <div class="subheader-bar">
+    <div id="subheader-left-text" class="subheader-left">
+      16 prepared cases: 14 policy rollouts (4 success · 10 failure) + 2 teleoperation demos · 1 active investigation at a time
+    </div>
+    <div class="subheader-right">
+      <span>Model: <code id="subheader-model-id">gemini-3-flash-preview</code> · 2 Gemini calls (ADC) · 1 tool round · 2 tools (<code>query_signal_window</code>, <code>get_frame_bundle</code>)</span>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       TAB 1: INVESTIGATION VIEW (Matches 1000016205.svg)
+       ======================================================================= -->
+  <main id="panel-investigation" class="workspace-panel active" role="tabpanel" aria-labelledby="tab-btn-investigation">
+    <div class="investigation-grid">
+      <!-- LEFT COLUMN: Episode Catalog & 4 Distinct Counters -->
+      <aside class="catalog-sidebar card" aria-label="Episode catalog">
+        <div class="card-header-row">
+          <div>
+            <h2 class="card-title">Episode catalog</h2>
+            <p class="card-subtitle">Browse 16 prepared episodes; only the selected episode loads video &amp; CSV.</p>
+          </div>
+          <span class="badge-pill badge-teal">1 active at a time</span>
+        </div>
+
+        <!-- Prepared Catalog Summary Box with 4 Separate Counters (Gate G01) -->
+        <div class="catalog-summary-box">
+          <div class="summary-box-header">
+            <span class="summary-box-title">Prepared catalog counters</span>
+            <span class="summary-box-note">Never conflated</span>
+          </div>
+          <div class="four-counters-grid" role="group" aria-label="Catalog state counters">
+            <div class="counter-cell" title="User-reported prepared episodes (4 policy success, 10 policy failure, 2 teleop)">
+              <span class="counter-label">Prepared</span>
+              <span id="count-prepared" class="counter-val">16</span>
+            </div>
+            <div class="counter-cell" title="Episodes mapped in local EpisodeRegistry">
+              <span class="counter-label">Registered</span>
+              <span id="count-registered" class="counter-val">16</span>
+            </div>
+            <div class="counter-cell" title="Episodes that passed CSV &amp; PyAV source preflight validation">
+              <span class="counter-label">Validated</span>
+              <span id="count-validated" class="counter-val counter-teal">4</span>
+            </div>
+            <div class="counter-cell" title="Episodes with a completed live or saved evidence report">
+              <span class="counter-label">Analyzed</span>
+              <span id="count-analyzed" class="counter-val counter-blue">4</span>
+            </div>
+          </div>
+          <div id="catalog-breakdown-line" class="catalog-breakdown">
+            Reported: 4 policy success · 10 policy failure · 2 teleop demo
+          </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="catalog-filters" role="group" aria-label="Filter episodes by category">
+          <button class="filter-chip active" data-filter="all">All (16)</button>
+          <button class="filter-chip" data-filter="policy_failure">Policy failure (10)</button>
+          <button class="filter-chip" data-filter="policy_success">Policy success (4)</button>
+          <button class="filter-chip" data-filter="teleop_success">Teleop demo (2)</button>
+        </div>
+
+        <!-- Episode Cards List -->
+        <div id="episode-list" class="episode-list" role="listbox" aria-label="Registered SO-101 episodes">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <!-- Per-Episode Action Semantics Footer Note (Gate G02) -->
+        <div class="catalog-footer-note">
+          <strong>Semantics rule:</strong> Policy rollouts log <code>issued_robot_command</code> (clipped policy output, <em>not</em> human leader commands). Teleop demos log human <code>leader_command</code>.
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: Question/Range Bar + Dual Camera + Reference Trajectory + 3 Findings Cards -->
+      <section class="center-stage" aria-label="Episode inspection and multimodal evidence">
+        <!-- Question & Authorized Range Bar -->
+        <div class="question-bar card">
+          <div class="question-row">
+            <div class="question-field-wrap">
+              <label for="input-question" class="eyebrow-label">QUESTION</label>
+              <input
+                id="input-question"
+                type="text"
+                class="question-input"
+                value="Which interval should I inspect first, and what do the cameras and logs establish?"
+              />
+            </div>
+
+            <div class="range-field-wrap">
+              <label class="eyebrow-label">AUTHORIZED RANGE (SAMPLES)</label>
+              <div class="range-inputs-inline">
+                <input id="input-start-sample" type="number" class="range-num-input" min="0" value="1350" aria-label="Start sample" />
+                <span class="range-sep">to</span>
+                <input id="input-end-sample" type="number" class="range-num-input" min="1" value="1740" aria-label="End sample" />
+                <span id="range-time-badge" class="range-time-pill">45.00s–58.00s video time (wall 45.16s–58.16s)</span>
+              </div>
+            </div>
+
+            <div class="action-buttons-wrap">
+              <button id="btn-inspect-gemini" class="btn btn-primary" title="Authorize and run bounded 2-call Gemini investigation via Google Cloud ADC">
+                Inspect with Gemini
+              </button>
+              <button id="btn-load-saved" class="btn btn-saved demo-utility-hidden" title="Load real-tool-computed Saved Analysis report for this episode">
+                Load Saved Analysis
+              </button>
+              <button id="btn-run-tools-only" class="btn btn-secondary demo-utility-hidden" title="Run deterministic T1 + T3 tools on current sample range">
+                Run T1+T3
+              </button>
+              <button id="btn-toggle-dev-tools" class="btn-xs btn-secondary" title="Toggle developer &amp; reference utility controls" aria-expanded="false">
+                ⋯
+              </button>
+              <button id="btn-stop-investigation" class="btn btn-danger hidden" title="Stop active investigation">
+                Stop
+              </button>
+            </div>
+          </div>
+
+          <!-- Disclosed Annotation Context & Semantics Strip -->
+          <div class="context-disclosure-strip">
+            <span id="disclosure-source-badge" class="ctx-pill ctx-blue">Source: policy_rollout (ACT checkpoint 080000)</span>
+            <span id="disclosure-action-badge" class="ctx-pill ctx-teal">Action: issued_robot_command (clipped policy output, not human leader)</span>
+            <span id="disclosure-outcome-badge" class="ctx-pill ctx-amber">Supplied outcome: failure (rule: top_camera_auto_judge_plus_blind_human_rejudge_consensus)</span>
+            <span id="disclosure-notes-text" class="ctx-notes">Operator note: —</span>
+          </div>
+
+          <!-- Status / Error / Direct Answer Banner -->
+          <div id="direct-answer-box" class="direct-answer-box">
+            <div class="direct-answer-header">
+              <span id="report-mode-badge" class="badge-pill badge-blue">SAVED REFERENCE ANALYSIS</span>
+              <span id="report-focus-badge" class="badge-pill badge-outline">Focus samples: 1500–1620 (50.00s–54.00s video time)</span>
+              <span id="report-receipts-badge" class="badge-pill badge-outline">gemini-3-flash-preview · T1 + T3 verified</span>
+            </div>
+            <p id="direct-answer-text" class="direct-answer-text">
+              Loading episode evidence and computed trajectory metrics...
+            </p>
+          </div>
+        </div>
+
+        <!-- Dual Camera + Reference Trajectory Card -->
+        <div class="media-trajectory-card card">
+          <!-- Dual Camera Row -->
+          <div class="dual-camera-grid">
+            <!-- TOP CAMERA -->
+            <div class="camera-pane">
+              <div class="camera-pane-header">
+                <div>
+                  <span class="eyebrow-label">TOP CAMERA</span>
+                  <span id="top-cam-meta" class="cam-submeta">640×480 · 30 fps</span>
+                </div>
+                <div class="cam-header-controls">
+                  <span id="top-sample-pill" class="sample-readout-pill">sample 1560 · 52.00s video time (wall 52.16s)</span>
+                  <button id="btn-open-exact-top" class="btn-xs btn-teal-outline" title="Open exact PyAV-decoded top frame">
+                    Open exact frame
+                  </button>
+                </div>
+              </div>
+              <div class="video-container">
+                <video id="video-top" class="camera-video" preload="metadata" muted playsinline></video>
+                <div id="top-frame-overlay-label" class="video-overlay-tag">top.mp4 · PyAV verified</div>
+              </div>
+            </div>
+
+            <!-- WRIST CAMERA -->
+            <div class="camera-pane">
+              <div class="camera-pane-header">
+                <div>
+                  <span class="eyebrow-label">WRIST CAMERA</span>
+                  <span id="wrist-cam-meta" class="cam-submeta">320×200 · 30 fps</span>
+                </div>
+                <div class="cam-header-controls">
+                  <span id="wrist-sample-pill" class="sample-readout-pill">sample 1560 · 52.00s video time (wall 52.16s)</span>
+                  <button id="btn-open-exact-wrist" class="btn-xs btn-teal-outline" title="Open exact PyAV-decoded wrist frame">
+                    Open exact frame
+                  </button>
+                </div>
+              </div>
+              <div class="video-container">
+                <video id="video-wrist" class="camera-video" preload="metadata" muted playsinline></video>
+                <div id="wrist-frame-overlay-label" class="video-overlay-tag">wrist.mp4 · PyAV verified</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Synchronized Scrubber & Transport Controls -->
+          <div class="transport-bar">
+            <button id="btn-play-pause" class="btn-xs btn-transport" aria-label="Play or pause synchronized cameras">
+              ▶ Play
+            </button>
+            <button id="btn-prev-frame" class="btn-xs btn-transport" title="Step back 1 sample">
+              ◀ -1f
+            </button>
+            <button id="btn-next-frame" class="btn-xs btn-transport" title="Step forward 1 sample">
+              +1f ▶
+            </button>
+            <input
+              id="timeline-scrubber"
+              type="range"
+              class="timeline-slider"
+              min="0"
+              max="1795"
+              value="1560"
+              aria-label="Episode sample index scrubber"
+            />
+            <span id="scrubber-readout" class="scrubber-readout">Sample 1560 / 1795 · 52.00s video time (wall 52.16s)</span>
+            <button id="btn-set-range-start" class="btn-xs btn-transport" title="Set current sample as authorized range start">
+              [ Set Start
+            </button>
+            <button id="btn-set-range-end" class="btn-xs btn-transport" title="Set current sample as authorized range end">
+              Set End ]
+            </button>
+          </div>
+
+          <!-- Reference Trajectory Plot Section -->
+          <div class="trajectory-section">
+            <div class="trajectory-header">
+              <div>
+                <span class="eyebrow-label">REFERENCE TRAJECTORY &amp; RECORDED DIFFERENCE</span>
+                <span id="trajectory-subtitle" class="traj-subtitle">
+                  Full-resolution CSV · Click or drag on chart to scrub sample &amp; inspect row values
+                </span>
+              </div>
+              <div class="joint-selector-group" role="group" aria-label="Select robot joint to plot">
+                <button class="joint-chip active" data-joint="gripper">gripper</button>
+                <button class="joint-chip" data-joint="wrist_flex">wrist_flex</button>
+                <button class="joint-chip" data-joint="elbow_flex">elbow_flex</button>
+                <button class="joint-chip" data-joint="shoulder_lift">shoulder_lift</button>
+                <button class="joint-chip" data-joint="shoulder_pan">shoulder_pan</button>
+                <button class="joint-chip" data-joint="wrist_roll">wrist_roll</button>
+              </div>
+            </div>
+
+            <div class="trajectory-legend-row">
+              <span class="legend-item"><i class="legend-swatch swatch-state"></i> <code>state.<span class="joint-name-lbl">gripper</span></code> (Observed follower)</span>
+              <span class="legend-item"><i class="legend-swatch swatch-action"></i> <code>action.<span class="joint-name-lbl">gripper</span></code> (<span id="legend-action-kind">issued_robot_command</span>)</span>
+              <span class="legend-item"><i class="legend-swatch swatch-diff"></i> <code>state - action</code> (Recorded row difference)</span>
+              <span id="cursor-live-values" class="cursor-values-pill">state=0.00 · action=0.00 · Δ=0.00</span>
+            </div>
+
+            <div class="canvas-wrapper">
+              <canvas id="trajectory-canvas" width="920" height="165" aria-label="Interactive joint state, action, and difference trajectory plot"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom 3 Separated Findings Cards (Gate G07: Computed Facts | Visual Interpretations | Unverified Explanations) -->
+        <div class="three-findings-grid">
+          <!-- 1. COMPUTED FACTS -->
+          <div class="finding-card card finding-card-facts">
+            <div class="finding-card-header">
+              <span class="eyebrow-label text-blue">COMPUTED FACTS</span>
+              <span class="authority-badge badge-blue">Calculation checked</span>
+            </div>
+            <p class="finding-card-desc">Deterministic full-resolution CSV metrics from <code>query_signal_window</code> (T1).</p>
+            <div id="computed-facts-list" class="finding-items-list">
+              <!-- Populated by app.js -->
+            </div>
+            <button id="btn-toggle-computed-facts" class="btn-xs btn-secondary hidden" style="margin-top: 8px; align-self: flex-start;">
+              Show all
+            </button>
+          </div>
+
+          <!-- 2. VISUAL INTERPRETATIONS -->
+          <div class="finding-card card finding-card-visual">
+            <div class="finding-card-header">
+              <span class="eyebrow-label text-teal">VISUAL INTERPRETATIONS</span>
+              <span class="authority-badge badge-teal">Sampled visual interpretation</span>
+            </div>
+            <p class="finding-card-desc">Observations grounded in original frames from <code>get_frame_bundle</code> (T3). Sparse samples do not prove continuous retention.</p>
+            <div id="visual-findings-list" class="finding-items-list">
+              <!-- Populated by app.js -->
+            </div>
+          </div>
+
+          <!-- 3. UNVERIFIED EXPLANATIONS -->
+          <div class="finding-card card finding-card-unverified">
+            <div class="finding-card-header">
+              <span class="eyebrow-label text-amber">UNVERIFIED EXPLANATIONS</span>
+              <span class="authority-badge badge-amber">Cause unresolved</span>
+            </div>
+            <p class="finding-card-desc">Candidate hypotheses &amp; physical causes that cannot be proven from RGB + encoders alone.</p>
+            <div id="unverified-explanations-list" class="finding-items-list">
+              <!-- Populated by app.js -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: Semantic Evidence Map + Source Inspector -->
+      <aside class="right-inspector-col" aria-label="Evidence map and source inspector">
+        <!-- Compact Semantic Evidence Map Card -->
+        <div class="evidence-map-card card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Evidence map</h2>
+              <p class="card-subtitle">Click a node to open its exact frame or CSV source rows.</p>
+            </div>
+            <div class="map-controls-inline">
+              <span id="graph-counts-pill" class="badge-pill badge-outline">12 nodes · 15 edges</span>
+              <button id="btn-expand-map-tab" class="btn-xs btn-teal-outline" title="Open full-screen Evidence Map view">
+                Expand ↗
+              </button>
+            </div>
+          </div>
+
+          <!-- Graph Legend & Accessible List Toggle -->
+          <div class="graph-legend-bar">
+            <span class="g-leg"><i class="g-line g-solid"></i> Source relation (PART_OF, GROUNDED_IN)</span>
+            <span class="g-leg"><i class="g-line g-dashed"></i> Interpretation (INVESTIGATES, BEARS_ON)</span>
+            <button id="btn-toggle-accessible-list" class="btn-xs btn-secondary" aria-expanded="false">
+              Accessible List
+            </button>
+          </div>
+
+          <!-- Interactive SVG Graph Canvas -->
+          <div class="graph-svg-container">
+            <svg id="evidence-graph-svg-compact" class="evidence-graph-svg" viewBox="0 0 540 440" role="graphics-document" aria-label="Semantic Evidence Graph">
+              <defs>
+                <pattern id="dots-compact" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.2" fill="#CBD5E1" />
+                </pattern>
+                <marker id="arrow-solid-compact" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0 0 L8 4 L0 8" fill="none" stroke="#475569" />
+                </marker>
+                <marker id="arrow-dashed-compact" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0 0 L8 4 L0 8" fill="none" stroke="#D97706" />
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="540" height="440" fill="#F8FAFC" />
+              <rect x="0" y="0" width="540" height="440" fill="url(#dots-compact)" />
+              <g id="compact-graph-edges"></g>
+              <g id="compact-graph-nodes"></g>
+            </svg>
+          </div>
+
+          <!-- Accessible Keyboard-Navigable Node List (Gate G08) -->
+          <div id="accessible-node-list" class="accessible-node-list hidden" role="region" aria-label="Accessible Evidence Node List">
+            <!-- Populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Source Inspector Card -->
+        <div class="source-inspector-card card">
+          <div class="card-header-row">
+            <div>
+              <span class="eyebrow-label text-teal">SOURCE INSPECTOR</span>
+              <h3 id="inspector-node-title" class="inspector-title">Select a node or finding to inspect</h3>
+            </div>
+            <span id="inspector-node-type-badge" class="badge-pill badge-teal">Evidence</span>
+          </div>
+
+          <div id="inspector-provenance-meta" class="inspector-meta-grid">
+            <!-- Populated by app.js -->
+          </div>
+          <div id="inspector-summary" class="inspector-summary-box"></div>
+
+          <!-- Frame Preview Box (shown when a FrameEvidence or Event with frames is selected) -->
+          <div id="inspector-frame-box" class="inspector-frame-box hidden">
+            <div class="inspector-frame-header">
+              <span id="inspector-frame-caption" class="inspector-frame-caption">Original decoded frame</span>
+              <button id="btn-inspector-open-modal" class="btn-xs btn-teal-outline">
+                Full Resolution Modal
+              </button>
+            </div>
+            <img id="inspector-frame-img" class="inspector-frame-img" alt="Exact PyAV decoded camera frame" />
+          </div>
+
+          <!-- CSV Source Slice Table (shown for NumericalEvidence or sample cursor) -->
+          <div class="inspector-csv-wrap">
+            <div class="inspector-csv-header">
+              <span class="eyebrow-label">TRAJECTORY CSV SOURCE ROWS</span>
+              <span id="inspector-csv-range-label" class="cam-submeta">Rows around sample 1560</span>
+            </div>
+            <div class="csv-table-scroll">
+              <table class="csv-source-table" aria-label="Source CSV rows">
+                <thead>
+                  <tr>
+                    <th>Row</th>
+                    <th>Video / Wall (s)</th>
+                    <th id="csv-th-state">state.gripper</th>
+                    <th id="csv-th-action">action.gripper</th>
+                    <th id="csv-th-diff">state - action</th>
+                  </tr>
+                </thead>
+                <tbody id="inspector-csv-tbody">
+                  <!-- Populated by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Mandatory Epistemic Caution Box -->
+          <div class="epistemic-caution-box">
+            <strong>Calculation checked ≠ physical cause confirmed:</strong>
+            CSV state-minus-action differences and 30 fps RGB frames cannot by themselves prove motor stall, friction slip, or physical contact force.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- =======================================================================
+       TAB 2: EVIDENCE MAP FULL VIEW (Matches 1000016204.svg)
+       ======================================================================= -->
+  <section id="panel-evidence-map" class="workspace-panel" role="tabpanel" aria-labelledby="tab-btn-evidence-map">
+    <div class="evmap-full-layout">
+      <!-- Top 2-Column Split: Large Evidence Map (Left) + Selected Evidence Inspector (Right) -->
+      <div class="evmap-main-split">
+        <!-- Large Interactive Semantic Evidence Map -->
+        <div class="evmap-canvas-card card">
+          <div class="card-header-row">
+            <div>
+              <h2 class="card-title">Evidence map — Cross-modal relationship graph</h2>
+              <p class="card-subtitle">
+                4 node types (<code>Episode</code>, <code>Event</code>, <code>Hypothesis</code>, <code>Evidence</code>) ·
+                4 edge types (<code>PART_OF</code>, <code>GROUNDED_IN</code>, <code>INVESTIGATES</code>, <code>BEARS_ON</code>) · Bounded ≤20 nodes / ≤30 edges
+              </p>
+            </div>
+            <div class="evmap-filter-group">
+              <button class="ev-type-filter active" data-nodetype="all">All Nodes</button>
+              <button class="ev-type-filter" data-nodetype="Event">Events</button>
+              <button class="ev-type-filter" data-nodetype="Hypothesis">Hypotheses</button>
+              <button class="ev-type-filter" data-nodetype="Evidence">Evidence</button>
+            </div>
+          </div>
+
+          <div class="evmap-large-svg-wrap">
+            <svg id="evidence-graph-svg-large" class="evidence-graph-svg-large" viewBox="0 0 1160 660" role="graphics-document" aria-label="Full Semantic Evidence Map">
+              <defs>
+                <pattern id="dots-large" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.2" fill="#CBD5E1" />
+                </pattern>
+                <marker id="arrow-solid-large" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0 0 L8 4 L0 8" fill="none" stroke="#475569" />
+                </marker>
+                <marker id="arrow-dashed-large" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0 0 L8 4 L0 8" fill="none" stroke="#D97706" />
+                </marker>
+              </defs>
+              <rect x="0" y="0" width="1160" height="660" fill="#F8FAFC" />
+              <rect x="0" y="0" width="1160" height="660" fill="url(#dots-large)" />
+              <g id="large-graph-edges"></g>
+              <g id="large-graph-nodes"></g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Large Selected Evidence Detail Inspector (Matches right panel of 1000016204.svg) -->
+        <div class="evmap-detail-card card">
+          <div class="card-header-row">
+            <div>
+              <span class="eyebrow-label text-teal">SELECTED EVIDENCE</span>
+              <h2 id="large-inspector-title" class="card-title">Evidence Provenance &amp; Original Artifacts</h2>
+            </div>
+            <span id="large-inspector-badge" class="badge-pill badge-teal">Verified Source</span>
+          </div>
+
+          <p id="large-inspector-summary" class="large-inspector-summary">
+            Click any node in the Evidence Map to inspect its exact PyAV-decoded camera frames, full-resolution CSV records, SHA-256 digests, and tool/model receipts.
+          </p>
+
+          <!-- Dual Decoded Frame Comparison at Selected Sample -->
+          <div class="large-dual-frames">
+            <div class="large-frame-col">
+              <div class="large-frame-hdr">
+                <span>TOP CAMERA (PyAV Exact Frame)</span>
+                <span id="large-top-pts" class="cam-submeta">PTS: —</span>
+              </div>
+              <img id="large-top-img" class="large-decoded-img" alt="Top camera exact frame" />
+            </div>
+            <div class="large-frame-col">
+              <div class="large-frame-hdr">
+                <span>WRIST CAMERA (PyAV Exact Frame)</span>
+                <span id="large-wrist-pts" class="cam-submeta">PTS: —</span>
+              </div>
+              <img id="large-wrist-img" class="large-decoded-img" alt="Wrist camera exact frame" />
+            </div>
+          </div>
+
+          <!-- Provenance & Receipts Box -->
+          <div id="large-provenance-box" class="large-provenance-box">
+            <!-- Populated by app.js -->
+          </div>
+
+          <div class="epistemic-caution-box">
+            <strong>Calculation checked ≠ physical cause confirmed:</strong>
+            T1 calculations verify recorded trajectory numbers; T3 frames verify visual posture at sampled timestamps. Physical causes (torque saturation, friction slip, unobserved sub-frame contact) remain hypotheses unless additional sensors are provided.
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Workflow Bar: "The verification loop the app will implement" (Matches bottom of 1000016204.svg) -->
+      <div class="verification-loop-card card">
+        <div class="loop-header-row">
+          <h3 class="card-title">Bounded two-call verification loop (ADC Runtime Receipts)</h3>
+          <span id="loop-status-summary" class="badge-pill badge-teal">2 semantic calls max · 1 tool round · No hidden retries</span>
+        </div>
+        <div class="verification-steps-grid">
+          <div id="step-box-01" class="loop-step-box active">
+            <div class="step-num">01 QUESTION &amp; CONSENT</div>
+            <div class="step-title">Single-Episode Scope</div>
+            <p id="step-01-detail" class="step-desc">
+              Operator selects episode &amp; sample window; supplied outcome annotation provenance is disclosed.
+            </p>
+          </div>
+          <div id="step-box-02" class="loop-step-box">
+            <div class="step-num">02 GEMINI PLAN (CALL #1)</div>
+            <div class="step-title"><code>lablens-plan-v1_1</code></div>
+            <p id="step-02-detail" class="step-desc">
+              Inspects overview signals &amp; frames via ADC; outputs <code>InspectionPlanResponse</code> choosing 1 T1 + 1 T3 call.
+            </p>
+          </div>
+          <div id="step-box-03" class="loop-step-box">
+            <div class="step-num">03 FIXED TOOLS (1 ROUND)</div>
+            <div class="step-title"><code>query_signal_window</code> + <code>get_frame_bundle</code></div>
+            <p id="step-03-detail" class="step-desc">
+              Server computes exact full-resolution CSV metrics &amp; decodes original camera frames with SHA-256 receipts.
+            </p>
+          </div>
+          <div id="step-box-04" class="loop-step-box">
+            <div class="step-num">04 EVIDENCE REVIEW (CALL #2)</div>
+            <div class="step-title"><code>lablens-review-v1_1</code></div>
+            <p id="step-04-detail" class="step-desc">
+              Produces <code>EvidenceReviewResponse</code> separating computed facts, sampled visuals, and unverified causes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       MODAL 1: Explicit Operator Authorization Dialog (Gate G05 / G09 / G11)
+       ======================================================================= -->
+  <dialog id="modal-authorize" class="lablens-modal" aria-labelledby="modal-auth-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-auth-title" class="modal-title">Authorize Bounded Gemini Investigation (ADC)</h2>
+        <button id="btn-close-auth-modal" class="modal-close-btn" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">
+          Confirm explicit operator authorization for a bounded <strong>two-call Gemini investigation</strong> using
+          <strong>Google Cloud Application Default Credentials (ADC)</strong>.
+        </p>
+        <div id="auth-modal-summary" class="auth-summary-grid">
+          <!-- Populated dynamically before opening -->
+        </div>
+        <div class="auth-checkbox-row">
+          <input id="chk-explicit-auth" type="checkbox" checked />
+          <label for="chk-explicit-auth">
+            I authorize LabLens to transmit the selected episode's trajectory summaries and up to 24 original camera frames
+            within the selected sample window to Vertex AI / Gemini via Google Cloud ADC.
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-cancel-auth" class="btn btn-secondary">Cancel</button>
+        <button id="btn-confirm-auth-run" class="btn btn-primary">Authorize &amp; Run (≤2 Calls via ADC)</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- =======================================================================
+       MODAL 2: Exact PyAV Frame Inspector Modal (Gate G03)
+       ======================================================================= -->
+  <dialog id="modal-frame-viewer" class="lablens-modal modal-wide" aria-labelledby="modal-frame-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-frame-title" class="modal-title">Exact Decoded Source Frame (`FrameRef`)</h2>
+        <button id="btn-close-frame-modal" class="modal-close-btn" aria-label="Close frame modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="frame-modal-split">
+          <div class="frame-modal-img-wrap">
+            <img id="modal-exact-frame-img" class="modal-exact-img" alt="Exact decoded camera frame" />
+          </div>
+          <div id="modal-frame-ref-details" class="frame-modal-meta">
+            <!-- Populated with exact FrameRef fields -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

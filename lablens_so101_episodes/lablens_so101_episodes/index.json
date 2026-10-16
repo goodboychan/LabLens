@@ -1,0 +1,162 @@
+[
+ {
+  "episode_id": "rollout_T1001_1014_213934",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T1",
+  "start": "start +3 cm (not in training)",
+  "gripper": "rubber-band gripper",
+  "engine": "FT-FP16",
+  "success": true,
+  "operator_note": "No failure reported by the operator."
+ },
+ {
+  "episode_id": "rollout_T1002_1014_214044",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T1",
+  "start": "start +3 cm (not in training)",
+  "gripper": "rubber-band gripper",
+  "engine": "VC-025",
+  "success": false,
+  "operator_note": "Can ended half on the coaster (tilted on the coaster edge); the arm kept moving."
+ },
+ {
+  "episode_id": "rollout_T1006_1014_214600",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T1",
+  "start": "start +3 cm (not in training)",
+  "gripper": "rubber-band gripper",
+  "engine": "VC-025",
+  "success": false,
+  "operator_note": "Can ended half on the coaster."
+ },
+ {
+  "episode_id": "rollout_T2012_1014_231614",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T2",
+  "start": "start -3 cm (not in training)",
+  "gripper": "rubber-band gripper",
+  "engine": "FT-FP16",
+  "success": false,
+  "operator_note": "The can was set down properly, then the gripper kept moving nearby and knocked it over."
+ },
+ {
+  "episode_id": "rollout_T2014_1014_231845",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T2",
+  "start": "start -3 cm (not in training)",
+  "gripper": "rubber-band gripper",
+  "engine": "VC-025",
+  "success": false,
+  "operator_note": "The can was never grasped."
+ },
+ {
+  "episode_id": "rollout_T2002_1014_230336",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T2",
+  "start": "start -3 cm (not in training)",
+  "gripper": "rubber-band gripper",
+  "engine": "FT-FP16",
+  "success": true,
+  "operator_note": "No failure reported by the operator."
+ },
+ {
+  "episode_id": "rollout_T0018_1014_223141",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T0",
+  "start": "training start mark",
+  "gripper": "rubber-band gripper",
+  "engine": "FT-FP16",
+  "success": false,
+  "operator_note": "The can did not fall but was pushed far off the coaster."
+ },
+ {
+  "episode_id": "rollout_T0022_1014_223628",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T0",
+  "start": "training start mark",
+  "gripper": "rubber-band gripper",
+  "engine": "FT-FP16",
+  "success": false,
+  "operator_note": "The can was knocked over while being set down."
+ },
+ {
+  "episode_id": "rollout_T0001_1014_221202",
+  "source": "rollout",
+  "block": "Position fine-tune evaluation T0",
+  "start": "training start mark",
+  "gripper": "rubber-band gripper",
+  "engine": "VC-025",
+  "success": true,
+  "operator_note": "No failure reported by the operator."
+ },
+ {
+  "episode_id": "rollout_P0016_1013_214101",
+  "source": "rollout",
+  "block": "Positive-control block",
+  "start": "training start mark",
+  "gripper": "rubber-band gripper",
+  "engine": "VC-000",
+  "success": false,
+  "operator_note": "The grasp was off, and the can dropped while being carried."
+ },
+ {
+  "episode_id": "rollout_P0021_1013_214651",
+  "source": "rollout",
+  "block": "Positive-control block",
+  "start": "training start mark",
+  "gripper": "rubber-band gripper",
+  "engine": "PC-B",
+  "success": false,
+  "operator_note": "The can was placed on the coaster and the arm went back; then it came back to the coaster and knocked the can over."
+ },
+ {
+  "episode_id": "rollout_main186_1010_221517",
+  "source": "rollout",
+  "block": "G6 main study",
+  "start": "training start mark",
+  "gripper": "anti-slip pads on the gripper",
+  "engine": "VC-020",
+  "success": false,
+  "operator_note": "The can was placed, then the gripper tipped it over while pulling back (overhead review)."
+ },
+ {
+  "episode_id": "rollout_main012_1008_004335",
+  "source": "rollout",
+  "block": "G6 main study",
+  "start": "training start mark",
+  "gripper": "anti-slip pads on the gripper",
+  "engine": "VC-020",
+  "success": true,
+  "operator_note": "No failure reported by the operator."
+ },
+ {
+  "episode_id": "rollout_S0005_1011_223252",
+  "source": "rollout",
+  "block": "Stress test v1, S0",
+  "start": "training start mark",
+  "gripper": "gripper pads removed",
+  "engine": "VC-002",
+  "success": false,
+  "operator_note": "Gripper pads removed; the can dropped while being carried (overhead review)."
+ },
+ {
+  "episode_id": "teleop_demo_episode_000001",
+  "source": "teleop",
+  "block": "LOCK-1 dataset",
+  "start": "training start mark",
+  "gripper": "as recorded",
+  "engine": null,
+  "success": true,
+  "operator_note": null
+ },
+ {
+  "episode_id": "teleop_demo_episode_000047",
+  "source": "teleop",
+  "block": "LOCK-1 dataset",
+  "start": "training start mark",
+  "gripper": "as recorded",
+  "engine": null,
+  "success": true,
+  "operator_note": null
+ }
+]

@@ -1,0 +1,93 @@
+{
+ "episode_id": "rollout_P0016_1013_214101",
+ "source": "policy rollout (learned ACT policy on a Jetson Orin Nano Super; not teleoperation)",
+ "block": "Positive-control block",
+ "trial_number": 16,
+ "start_position": "training start mark",
+ "gripper": "rubber-band gripper",
+ "object": "unopened 268 g cola can",
+ "task": "Pick up the cola can and place it upright on the coaster",
+ "engine": "VC-000",
+ "engine_description": "FP32 (old policy)",
+ "outcome": {
+  "success": false,
+  "rule": "can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact",
+  "automatic_judge": {
+   "success": false,
+   "reason": "can_top_not_found(fallen_or_occluded)"
+  },
+  "video_consensus_rejudge": {
+   "success_geom": false,
+   "reason": "moving_or_not_standing"
+  },
+  "released_by_operator": true,
+  "human_contact": false,
+  "aborted": false
+ },
+ "operator_note": "The grasp was off, and the can dropped while being carried.",
+ "ai_judge_end_of_trial": null,
+ "trajectory": {
+  "rows": 1793,
+  "state": "observation.state: follower joint positions read at each control step",
+  "action": "command sent to the follower at that step (the policy output after chunk blending, clipped to the motor limits)",
+  "units": "shoulder_pan..wrist_roll in degrees; gripper 0-100 (position, not force)",
+  "space": "joint space; no end-effector pose is recorded",
+  "chunk_timing": {
+   "infer_ms": [
+    80.8,
+    82.9,
+    87.1,
+    80.6,
+    80.5,
+    83.1,
+    80.3,
+    78.0,
+    84.2,
+    81.9,
+    78.8,
+    84.2,
+    75.7,
+    76.4,
+    86.8,
+    79.0,
+    79.0,
+    78.6,
+    88.1,
+    75.6
+   ],
+   "round_trip_ms": [
+    108.5,
+    113.4,
+    115.2,
+    105.6,
+    121.9,
+    131.7,
+    111.6,
+    115.5,
+    118.2,
+    110.4,
+    107.6,
+    110.4,
+    105.2,
+    108.6,
+    113.8,
+    108.2,
+    113.2,
+    108.4,
+    114.0,
+    108.7
+   ],
+   "note": "one entry per 100-step action chunk request"
+  }
+ },
+ "sync": {
+  "rule": "frame i of each video is the camera image observed at control step i; state[i] was read at the same step and action[i] was sent right after",
+  "video_frames": {
+   "top": 1793,
+   "wrist": 1793
+  },
+  "trajectory_rows": 1793,
+  "frames_equal_rows": true,
+  "clock": "videos are encoded at a nominal 30 fps, but control steps are not evenly spaced (median 33.3 ms, max 281 ms); use t_wall_s for real time, not frame_index / 30"
+ }
+}

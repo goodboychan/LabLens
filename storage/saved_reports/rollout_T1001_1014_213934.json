@@ -1,0 +1,2703 @@
+{
+  "schema_version": "lablens.report.v1_1",
+  "report_id": "saved_rep_rollout_T1001_1014_213934",
+  "investigation_id": "saved_inv_rollout_T1001_1014_213934",
+  "episode_id": "rollout_T1001_1014_213934",
+  "episode_revision": "rev_51ac3e47d7c7",
+  "analysis_mode": "saved_analysis",
+  "processing_status": "complete",
+  "source_kind": "policy_rollout",
+  "annotation_policy": "disclosed",
+  "created_at": "2026-10-16T05:10:17.317688+00:00",
+  "question": "How do gripper and wrist_flex state trajectories compare with issued policy commands during successful cup placement in rollout_T1001?",
+  "focus_start_sample": 300,
+  "focus_end_sample": 600,
+  "annotation_disclosure": "disclosed",
+  "outcome_annotation": {
+    "status": "success",
+    "value": "success",
+    "provenance": "human",
+    "provenance_kind": "human",
+    "annotator_or_rule_id": "can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact",
+    "criterion": "can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact",
+    "annotation_revision": "rev1",
+    "rationale": "Rule: can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact; Operator note: No failure reported by the operator.; End-of-trial AI judge said YES",
+    "success_Detail": "No failure reported by the operator.",
+    "failure_stage": null,
+    "episode_notes": "No failure reported by the operator. End-of-trial AI judge said YES.",
+    "ai_judge_verdict": "YES",
+    "ground_truth_verdict": "SUCCESS",
+    "disclosed_to_model": true
+  },
+  "action_semantics": {
+    "kind": "issued_robot_command",
+    "relationship": "policy_output_After_chunk_blending_clipped_to_motor_limits",
+    "is_leader_command": false,
+    "postprocessing_note": "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+    "meaning": "Autonomous policy action command issued to follower servos at the logged control step (not a leader arm position)."
+  },
+  "timing_semantics": {
+    "nominal_fps": 30.0,
+    "primary_index_column": "frame_index",
+    "primary_time_column": "t_video_s",
+    "secondary_time_column": "t_wall_s",
+    "has_wall_clock": true,
+    "has_video_pts": true,
+    "physical_sync_uncertainty_ms": null,
+    "timing_map_revision": "tmap_v1_1_1to1",
+    "alignment_note": "Row index frame_index (0..N-1) aligns 1:1 with decoded video frame index; t_video_s is nominal 30 fps video time and t_wall_s is logger wall-clock elapsed seconds. physical_sync_uncertainty_ms is null (unmeasured)."
+  },
+  "direct_answer": "[Saved Reference Analysis] Inspect samples [300..600] (10.00s–20.00s video time) first. Episode 'rollout_T1001_1014_213934' is a policy_rollout where action.* represents 'issued_robot_command' (policy_output_After_chunk_blending_clipped_to_motor_limits), NOT a human leader arm command. In this interval, state.wrist_flex moves from -84.09 deg to 62.11 deg (min -84.35 deg, max 62.64 deg) with state-minus-action mean_signed_diff=-1.32 deg (max_abs_diff=11.32 deg at sample 423); state.gripper transitions from 35.91 to 0.94 (range 0.94..53.79) with state-minus-action mean_signed_diff=+3.40 and max_abs_diff=24.27 at sample 318 (10.60s video time). Sampled top and wrist frames ([300, 400, 500, 600]) document the workspace and end-effector posture consistent with the supplied 'success' (can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact) annotation, while physical root causes (motor torque saturation, friction/slip, or sub-frame contact onset) remain explicitly unverified.",
+  "computed_facts": [
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "signal_summary",
+      "label": "state.gripper (300–600)",
+      "summary_text": "state.gripper [300..600]: first=35.91, last=0.94, min=0.94, max=53.79, mean=17.22, Δ=-34.97 gripper_open_pct (0..100 calibrated) (peak excursion 34.97 at sample 419).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "gripper_open_pct (0..100 calibrated)",
+      "signal_metrics": {
+        "signal": "state.gripper",
+        "unit": "gripper_open_pct (0..100 calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "start_value": 35.909,
+        "end_value": 0.937,
+        "min_value": 0.937,
+        "max_value": 53.786,
+        "mean_value": 17.2198,
+        "delta": -34.972,
+        "abs_delta_max": 34.972,
+        "peak_sample": 419,
+        "peak_time_s": 13.9667
+      },
+      "difference_metrics": null,
+      "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "state.gripper"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "signal_summary",
+      "label": "action.gripper (300–600)",
+      "summary_text": "action.gripper [300..600]: first=11.94, last=0.66, min=-0.46, max=54.25, mean=13.82, Δ=-11.27 gripper_open_pct (0..100 calibrated) (peak excursion 42.32 at sample 369).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "gripper_open_pct (0..100 calibrated)",
+      "signal_metrics": {
+        "signal": "action.gripper",
+        "unit": "gripper_open_pct (0..100 calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "start_value": 11.935,
+        "end_value": 0.663,
+        "min_value": -0.463,
+        "max_value": 54.251,
+        "mean_value": 13.8213,
+        "delta": -11.272,
+        "abs_delta_max": 42.316,
+        "peak_sample": 369,
+        "peak_time_s": 12.3
+      },
+      "difference_metrics": null,
+      "caveat": "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "action.gripper"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "signal_summary",
+      "label": "state.wrist_flex (300–600)",
+      "summary_text": "state.wrist_flex [300..600]: first=-84.09, last=62.11, min=-84.35, max=62.64, mean=0.65, Δ=+146.20 deg (calibrated) (peak excursion 146.72 at sample 482).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "state.wrist_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "start_value": -84.088,
+        "end_value": 62.11,
+        "min_value": -84.352,
+        "max_value": 62.637,
+        "mean_value": 0.6494,
+        "delta": 146.198,
+        "abs_delta_max": 146.725,
+        "peak_sample": 482,
+        "peak_time_s": 16.0667
+      },
+      "difference_metrics": null,
+      "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "state.wrist_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "signal_summary",
+      "label": "action.wrist_flex (300–600)",
+      "summary_text": "action.wrist_flex [300..600]: first=-86.85, last=61.56, min=-87.02, max=62.81, mean=1.97, Δ=+148.41 deg (calibrated) (peak excursion 149.66 at sample 479).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "action.wrist_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "start_value": -86.851,
+        "end_value": 61.561,
+        "min_value": -87.02,
+        "max_value": 62.806,
+        "mean_value": 1.9674,
+        "delta": 148.412,
+        "abs_delta_max": 149.657,
+        "peak_sample": 479,
+        "peak_time_s": 15.9667
+      },
+      "difference_metrics": null,
+      "caveat": "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "action.wrist_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "signal_summary",
+      "label": "state.elbow_flex (300–600)",
+      "summary_text": "state.elbow_flex [300..600]: first=57.80, last=-26.95, min=-26.95, max=74.33, mean=20.67, Δ=-84.75 deg (calibrated) (peak excursion 84.75 at sample 556).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "state.elbow_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "start_value": 57.802,
+        "end_value": -26.945,
+        "min_value": -26.945,
+        "max_value": 74.33,
+        "mean_value": 20.6666,
+        "delta": -84.747,
+        "abs_delta_max": 84.747,
+        "peak_sample": 556,
+        "peak_time_s": 18.5333
+      },
+      "difference_metrics": null,
+      "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "state.elbow_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "signal_summary",
+      "label": "action.elbow_flex (300–600)",
+      "summary_text": "action.elbow_flex [300..600]: first=53.98, last=-28.71, min=-28.92, max=74.37, mean=17.85, Δ=-82.69 deg (calibrated) (peak excursion 82.90 at sample 565).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "action.elbow_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "start_value": 53.977,
+        "end_value": -28.71,
+        "min_value": -28.923,
+        "max_value": 74.373,
+        "mean_value": 17.8539,
+        "delta": -82.687,
+        "abs_delta_max": 82.9,
+        "peak_sample": 565,
+        "peak_time_s": 18.8333
+      },
+      "difference_metrics": null,
+      "caveat": "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "action.elbow_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_diff_gripper_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "difference_pair",
+      "label": "Δ gripper (state - action)",
+      "summary_text": "state.gripper - action.gripper [300..600]: mean_diff=+3.40, mean_abs_diff=3.89, max_abs_diff=24.27 gripper_open_pct (0..100 calibrated) (min=-6.91, max=+24.27, peak at sample 318 / 10.60s).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "gripper_open_pct (0..100 calibrated)",
+      "signal_metrics": null,
+      "difference_metrics": {
+        "pair_id": "diff_gripper",
+        "joint": "gripper",
+        "state_column": "state.gripper",
+        "action_column": "action.gripper",
+        "formula": "state.gripper - action.gripper",
+        "unit": "gripper_open_pct (0..100 calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "mean_signed_diff": 3.3985,
+        "mean_abs_diff": 3.8884,
+        "max_abs_diff": 24.274,
+        "min_signed_diff": -6.906,
+        "max_signed_diff": 24.274,
+        "peak_sample": 318,
+        "peak_time_s": 10.6,
+        "relationship": "policy_output_After_chunk_blending_clipped_to_motor_limits",
+        "caveat": "Signed difference (state.gripper - action.gripper) compares measured follower joint state against the policy's issued command (not a leader arm). A nonzero gap quantifies recorded state-vs-action discrepancy in gripper_open_pct (0..100 calibrated) and does NOT prove motor stall, slip, torque saturation, calibration offset, or external contact."
+      },
+      "caveat": "Signed difference (state.gripper - action.gripper) compares measured follower joint state against the policy's issued command (not a leader arm). A nonzero gap quantifies recorded state-vs-action discrepancy in gripper_open_pct (0..100 calibrated) and does NOT prove motor stall, slip, torque saturation, calibration offset, or external contact.",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "state.gripper",
+          "action.gripper"
+        ],
+        "formula": "state.gripper - action.gripper"
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_diff_wrist_flex_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "difference_pair",
+      "label": "Δ wrist_flex (state - action)",
+      "summary_text": "state.wrist_flex - action.wrist_flex [300..600]: mean_diff=-1.32, mean_abs_diff=2.14, max_abs_diff=11.32 deg (calibrated) (min=-11.32, max=+2.84, peak at sample 423 / 14.10s).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": null,
+      "difference_metrics": {
+        "pair_id": "diff_wrist_flex",
+        "joint": "wrist_flex",
+        "state_column": "state.wrist_flex",
+        "action_column": "action.wrist_flex",
+        "formula": "state.wrist_flex - action.wrist_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "mean_signed_diff": -1.318,
+        "mean_abs_diff": 2.1376,
+        "max_abs_diff": 11.324,
+        "min_signed_diff": -11.324,
+        "max_signed_diff": 2.844,
+        "peak_sample": 423,
+        "peak_time_s": 14.1,
+        "relationship": "policy_output_After_chunk_blending_clipped_to_motor_limits",
+        "caveat": "Signed difference (state.wrist_flex - action.wrist_flex) compares measured follower joint state against the policy's issued command (not a leader arm). A nonzero gap quantifies recorded state-vs-action discrepancy in deg (calibrated) and does NOT prove motor stall, slip, torque saturation, calibration offset, or external contact."
+      },
+      "caveat": "Signed difference (state.wrist_flex - action.wrist_flex) compares measured follower joint state against the policy's issued command (not a leader arm). A nonzero gap quantifies recorded state-vs-action discrepancy in deg (calibrated) and does NOT prove motor stall, slip, torque saturation, calibration offset, or external contact.",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "state.wrist_flex",
+          "action.wrist_flex"
+        ],
+        "formula": "state.wrist_flex - action.wrist_flex"
+      }
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_diff_elbow_flex_300_600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "kind": "difference_pair",
+      "label": "Δ elbow_flex (state - action)",
+      "summary_text": "state.elbow_flex - action.elbow_flex [300..600]: mean_diff=+2.81, mean_abs_diff=3.21, max_abs_diff=11.21 deg (calibrated) (min=-3.04, max=+11.21, peak at sample 449 / 14.97s).",
+      "start_sample": 300,
+      "end_sample": 600,
+      "start_time_s": 10.0,
+      "end_time_s": 20.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": null,
+      "difference_metrics": {
+        "pair_id": "diff_elbow_flex",
+        "joint": "elbow_flex",
+        "state_column": "state.elbow_flex",
+        "action_column": "action.elbow_flex",
+        "formula": "state.elbow_flex - action.elbow_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 301,
+        "mean_signed_diff": 2.8127,
+        "mean_abs_diff": 3.2141,
+        "max_abs_diff": 11.214,
+        "min_signed_diff": -3.044,
+        "max_signed_diff": 11.214,
+        "peak_sample": 449,
+        "peak_time_s": 14.9667,
+        "relationship": "policy_output_After_chunk_blending_clipped_to_motor_limits",
+        "caveat": "Signed difference (state.elbow_flex - action.elbow_flex) compares measured follower joint state against the policy's issued command (not a leader arm). A nonzero gap quantifies recorded state-vs-action discrepancy in deg (calibrated) and does NOT prove motor stall, slip, torque saturation, calibration offset, or external contact."
+      },
+      "caveat": "Signed difference (state.elbow_flex - action.elbow_flex) compares measured follower joint state against the policy's issued command (not a leader arm). A nonzero gap quantifies recorded state-vs-action discrepancy in deg (calibrated) and does NOT prove motor stall, slip, torque saturation, calibration offset, or external contact.",
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+        "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+        "row_start": 300,
+        "row_end": 600,
+        "columns": [
+          "frame_index",
+          "t_video_s",
+          "state.elbow_flex",
+          "action.elbow_flex"
+        ],
+        "formula": "state.elbow_flex - action.elbow_flex"
+      }
+    }
+  ],
+  "numeric_findings": [
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "state.gripper [300..600]: first=35.91, last=0.94, min=0.94, max=53.79, mean=17.22, Δ=-34.97 gripper_open_pct (0..100 calibrated) (peak excursion 34.97 at sample 419)."
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "action.gripper [300..600]: first=11.94, last=0.66, min=-0.46, max=54.25, mean=13.82, Δ=-11.27 gripper_open_pct (0..100 calibrated) (peak excursion 42.32 at sample 369)."
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "state.wrist_flex [300..600]: first=-84.09, last=62.11, min=-84.35, max=62.64, mean=0.65, Δ=+146.20 deg (calibrated) (peak excursion 146.72 at sample 482)."
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "action.wrist_flex [300..600]: first=-86.85, last=61.56, min=-87.02, max=62.81, mean=1.97, Δ=+148.41 deg (calibrated) (peak excursion 149.66 at sample 479)."
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "state.elbow_flex [300..600]: first=57.80, last=-26.95, min=-26.95, max=74.33, mean=20.67, Δ=-84.75 deg (calibrated) (peak excursion 84.75 at sample 556)."
+    },
+    {
+      "evidence_id": "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "action.elbow_flex [300..600]: first=53.98, last=-28.71, min=-28.92, max=74.37, mean=17.85, Δ=-82.69 deg (calibrated) (peak excursion 82.90 at sample 565)."
+    }
+  ],
+  "visual_findings": [
+    {
+      "finding_id": "vf_rollout_T1001_1014_213934_top",
+      "observation": "Top camera samples ([300, 400, 500, 600]) show global arm trajectory and object state relative to the coaster across 10.00s–20.00s video time (supplied outcome=success, operator_note='No failure reported by the operator. End-of-trial AI judge said YES.').",
+      "sampled_frame_evidence_ids": [
+        "ev_frame_rollout_T1001_1014_213934_top_0300",
+        "ev_frame_rollout_T1001_1014_213934_top_0400",
+        "ev_frame_rollout_T1001_1014_213934_top_0500",
+        "ev_frame_rollout_T1001_1014_213934_top_0600"
+      ],
+      "sample_range_label": "Samples 300–600 (4 top frames)",
+      "visibility_and_coverage_limits": "Overhead view cannot resolve fine fingertip contact force or micro-slip between sampled timestamps.",
+      "is_sampled_observation": true
+    },
+    {
+      "finding_id": "vf_rollout_T1001_1014_213934_wrist",
+      "observation": "Wrist camera samples ([300, 400, 500, 600]) show close-up gripper jaw aperture and wrist posture relative to the object at the sampled timestamps.",
+      "sampled_frame_evidence_ids": [
+        "ev_frame_rollout_T1001_1014_213934_wrist_0300",
+        "ev_frame_rollout_T1001_1014_213934_wrist_0400",
+        "ev_frame_rollout_T1001_1014_213934_wrist_0500",
+        "ev_frame_rollout_T1001_1014_213934_wrist_0600"
+      ],
+      "sample_range_label": "Samples 300–600 (4 wrist frames)",
+      "visibility_and_coverage_limits": "Close wrist perspective experiences partial occlusion during descent and does not observe unsampled intermediate frames.",
+      "is_sampled_observation": true
+    }
+  ],
+  "frame_evidence": [
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0300",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 300,
+      "time_s": 10.0,
+      "label": "TOP · sample 300 (10.00s)",
+      "caption": "Original top camera frame at sample_index=300, time=10.00s, pts=153600 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0300",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 300,
+        "presentation_frame_index": 300,
+        "requested_time_s": 10.0,
+        "time_s": 10.0,
+        "pts": 153600,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "20dc58e8cd9d1beb04f756ed72d806b406b40e6b4a613b37eb4822f81971501f",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 27814,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/300?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 300,
+        "row_end": 300,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0400",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 400,
+      "time_s": 13.3333,
+      "label": "TOP · sample 400 (13.33s)",
+      "caption": "Original top camera frame at sample_index=400, time=13.33s, pts=204800 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0400",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 400,
+        "presentation_frame_index": 400,
+        "requested_time_s": 13.3333,
+        "time_s": 13.3333,
+        "pts": 204800,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "c18f3cf68b9dff55cf8610f9baf2e93d90737572c8d71a40f55e6cabe750113f",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 27401,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/400?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 400,
+        "row_end": 400,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0500",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 500,
+      "time_s": 16.6667,
+      "label": "TOP · sample 500 (16.67s)",
+      "caption": "Original top camera frame at sample_index=500, time=16.67s, pts=256000 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0500",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 500,
+        "presentation_frame_index": 500,
+        "requested_time_s": 16.6667,
+        "time_s": 16.6667,
+        "pts": 256000,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "347cd76fed58441d326bc74a418c6f6d251c672a212696bc742507bf9a344ce2",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 29927,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/500?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 500,
+        "row_end": 500,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 600,
+      "time_s": 20.0,
+      "label": "TOP · sample 600 (20.00s)",
+      "caption": "Original top camera frame at sample_index=600, time=20.00s, pts=307200 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0600",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 600,
+        "presentation_frame_index": 600,
+        "requested_time_s": 20.0,
+        "time_s": 20.0,
+        "pts": 307200,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "0988845902d65f3b1171ffb5c74a3075e18cee9b9866fe72ba283591b86a91fe",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 30503,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/600?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 600,
+        "row_end": 600,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0300",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 300,
+      "time_s": 10.0,
+      "label": "WRIST · sample 300 (10.00s)",
+      "caption": "Original wrist camera frame at sample_index=300, time=10.00s, pts=153600 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0300",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 300,
+        "presentation_frame_index": 300,
+        "requested_time_s": 10.0,
+        "time_s": 10.0,
+        "pts": 153600,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "5116b10241270813e092d43c68346747c32c5e1d40cd0dc55f673aa841ab09c4",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 6879,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/300?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 300,
+        "row_end": 300,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0400",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 400,
+      "time_s": 13.3333,
+      "label": "WRIST · sample 400 (13.33s)",
+      "caption": "Original wrist camera frame at sample_index=400, time=13.33s, pts=204800 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0400",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 400,
+        "presentation_frame_index": 400,
+        "requested_time_s": 13.3333,
+        "time_s": 13.3333,
+        "pts": 204800,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "33023b57fcfb0c505fd6e71334f5d120d83d95885f2cf51817755e07a64b7366",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 8444,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/400?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 400,
+        "row_end": 400,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0500",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 500,
+      "time_s": 16.6667,
+      "label": "WRIST · sample 500 (16.67s)",
+      "caption": "Original wrist camera frame at sample_index=500, time=16.67s, pts=256000 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0500",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 500,
+        "presentation_frame_index": 500,
+        "requested_time_s": 16.6667,
+        "time_s": 16.6667,
+        "pts": 256000,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "75a8aa7b6d3db9e3a063a5588c643d4b1524d5f7a69fb2af96f09b97f6e63b07",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 4891,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/500?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 500,
+        "row_end": 500,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 600,
+      "time_s": 20.0,
+      "label": "WRIST · sample 600 (20.00s)",
+      "caption": "Original wrist camera frame at sample_index=600, time=20.00s, pts=307200 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0600",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 600,
+        "presentation_frame_index": 600,
+        "requested_time_s": 20.0,
+        "time_s": 20.0,
+        "pts": 307200,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "a3d13c196897818f761ed21dabcfd8941d549286a34688f3e894c42308287051",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 5053,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/600?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 600,
+        "row_end": 600,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    }
+  ],
+  "overview_frame_evidence": [
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0300",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 300,
+      "time_s": 10.0,
+      "label": "TOP · sample 300 (10.00s)",
+      "caption": "Original top camera frame at sample_index=300, time=10.00s, pts=153600 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0300",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 300,
+        "presentation_frame_index": 300,
+        "requested_time_s": 10.0,
+        "time_s": 10.0,
+        "pts": 153600,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "20dc58e8cd9d1beb04f756ed72d806b406b40e6b4a613b37eb4822f81971501f",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 27814,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/300?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 300,
+        "row_end": 300,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0400",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 400,
+      "time_s": 13.3333,
+      "label": "TOP · sample 400 (13.33s)",
+      "caption": "Original top camera frame at sample_index=400, time=13.33s, pts=204800 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0400",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 400,
+        "presentation_frame_index": 400,
+        "requested_time_s": 13.3333,
+        "time_s": 13.3333,
+        "pts": 204800,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "c18f3cf68b9dff55cf8610f9baf2e93d90737572c8d71a40f55e6cabe750113f",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 27401,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/400?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 400,
+        "row_end": 400,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0500",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 500,
+      "time_s": 16.6667,
+      "label": "TOP · sample 500 (16.67s)",
+      "caption": "Original top camera frame at sample_index=500, time=16.67s, pts=256000 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0500",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 500,
+        "presentation_frame_index": 500,
+        "requested_time_s": 16.6667,
+        "time_s": 16.6667,
+        "pts": 256000,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "347cd76fed58441d326bc74a418c6f6d251c672a212696bc742507bf9a344ce2",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 29927,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/500?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 500,
+        "row_end": 500,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "top",
+      "sample_index": 600,
+      "time_s": 20.0,
+      "label": "TOP · sample 600 (20.00s)",
+      "caption": "Original top camera frame at sample_index=600, time=20.00s, pts=307200 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_top_0600",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 600,
+        "presentation_frame_index": 600,
+        "requested_time_s": 20.0,
+        "time_s": 20.0,
+        "pts": 307200,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "decoded_frame_sha256": "0988845902d65f3b1171ffb5c74a3075e18cee9b9866fe72ba283591b86a91fe",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 30503,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/600?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+        "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "row_start": 600,
+        "row_end": 600,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0300",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 300,
+      "time_s": 10.0,
+      "label": "WRIST · sample 300 (10.00s)",
+      "caption": "Original wrist camera frame at sample_index=300, time=10.00s, pts=153600 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0300",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 300,
+        "presentation_frame_index": 300,
+        "requested_time_s": 10.0,
+        "time_s": 10.0,
+        "pts": 153600,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "5116b10241270813e092d43c68346747c32c5e1d40cd0dc55f673aa841ab09c4",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 6879,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/300?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 300,
+        "row_end": 300,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0400",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 400,
+      "time_s": 13.3333,
+      "label": "WRIST · sample 400 (13.33s)",
+      "caption": "Original wrist camera frame at sample_index=400, time=13.33s, pts=204800 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0400",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 400,
+        "presentation_frame_index": 400,
+        "requested_time_s": 13.3333,
+        "time_s": 13.3333,
+        "pts": 204800,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "33023b57fcfb0c505fd6e71334f5d120d83d95885f2cf51817755e07a64b7366",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 8444,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/400?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 400,
+        "row_end": 400,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0500",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 500,
+      "time_s": 16.6667,
+      "label": "WRIST · sample 500 (16.67s)",
+      "caption": "Original wrist camera frame at sample_index=500, time=16.67s, pts=256000 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0500",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 500,
+        "presentation_frame_index": 500,
+        "requested_time_s": 16.6667,
+        "time_s": 16.6667,
+        "pts": 256000,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "75a8aa7b6d3db9e3a063a5588c643d4b1524d5f7a69fb2af96f09b97f6e63b07",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 4891,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/500?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 500,
+        "row_end": 500,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_rollout_T1001_1014_213934_wrist_0600",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "wrist",
+      "sample_index": 600,
+      "time_s": 20.0,
+      "label": "WRIST · sample 600 (20.00s)",
+      "caption": "Original wrist camera frame at sample_index=600, time=20.00s, pts=307200 (window [300..600]).",
+      "frame_ref": {
+        "frame_id": "frame_rollout_T1001_1014_213934_wrist_0600",
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 600,
+        "presentation_frame_index": 600,
+        "requested_time_s": 20.0,
+        "time_s": 20.0,
+        "pts": 307200,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "source_video_sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "decoded_frame_sha256": "a3d13c196897818f761ed21dabcfd8941d549286a34688f3e894c42308287051",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 5053,
+        "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/wrist/600?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/wrist.mp4",
+        "sha256": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38",
+        "row_start": 600,
+        "row_end": 600,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_rollout_T1001_1014_213934_1",
+      "label": "Post-placement & release window (300–600)",
+      "start_sample": 300,
+      "end_sample": 600,
+      "selection_origin": "user_selected",
+      "description": "Full-resolution CSV records (301 rows, 10.00s–20.00s video time) and 8 original frames sampled at indices [300, 400, 500, 600].",
+      "uncertainty_note": "Sampled interval review suggestion; exact sub-frame physical contact onset is unmeasured.",
+      "grounded_evidence_ids": [
+        "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "ev_frame_rollout_T1001_1014_213934_top_0300",
+        "ev_frame_rollout_T1001_1014_213934_top_0400",
+        "ev_frame_rollout_T1001_1014_213934_top_0500",
+        "ev_frame_rollout_T1001_1014_213934_top_0600"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_rollout_T1001_1014_213934_1",
+      "statement": "Wrist_flex & gripper excursion at 300–600 — matches observed transition recorded under 'issued_robot_command' semantics.",
+      "status": "consistent_with_available_evidence",
+      "supporting_evidence_ids": [
+        "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_diff_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_diff_wrist_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_diff_elbow_flex_300_600"
+      ],
+      "conflicting_evidence_ids": [],
+      "missing_evidence": [
+        "Servo current / torque telemetry",
+        "Hardware command-application timestamp log"
+      ],
+      "rationale": "Server-computed T1 records confirm exact state and action trajectories (state.wrist_flex moves from -84.09 deg to 62.11 deg (min -84.35 deg, max 62.64 deg) with state-minus-action mean_signed_diff=-1.32 deg (max_abs_diff=11.32 deg at sample 423); state.gripper transitions from 35.91 to 0.94 (range 0.94..53.79) with state-minus-action mean_signed_diff=+3.40 and max_abs_diff=24.27 at sample 318 (10.60s video time)), while keeping physical actuator cause unverified."
+    },
+    {
+      "hypothesis_id": "hyp_rollout_T1001_1014_213934_2",
+      "statement": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+      "status": "insufficient_evidence",
+      "supporting_evidence_ids": [],
+      "conflicting_evidence_ids": [
+        "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "ev_frame_rollout_T1001_1014_213934_top_0300",
+        "ev_frame_rollout_T1001_1014_213934_top_0400"
+      ],
+      "missing_evidence": [
+        "Tactile / force-torque sensor at gripper jaws",
+        "Motor current and temperature logs"
+      ],
+      "rationale": "Calculation checked != physical cause confirmed: joint encoders and 30 fps RGB frames cannot isolate mechanical stall, friction slip, or calibration offset."
+    }
+  ],
+  "unresolved_physical_causes": [
+    "Motor stall vs. servo torque saturation cannot be confirmed without motor current/torque telemetry.",
+    "Object slip vs. insufficient gripper pad friction cannot be confirmed from sparse 30 fps RGB frames alone.",
+    "Calibration offset vs. mechanical backlash cannot be separated from recorded joint angle encoders alone.",
+    "Exact sub-frame contact onset is unverified because physical_sync_uncertainty_ms is unmeasured (null)."
+  ],
+  "recommended_manual_checks": [
+    "Inspect exact decoded top and wrist frames around peak gripper discrepancy sample 318.",
+    "Compare gripper closure profile against teleop_demo_episode_000001 reference trajectory.",
+    "Verify physical gripper pad condition and servo calibration zero-point on the SO-101 follower arm."
+  ],
+  "limitations": [
+    "Sampled 4 evenly spaced timestamps ([300, 400, 500, 600]) across 2 camera(s) (top, wrist) over [300..600] (301 total samples; 297 intermediate samples not viewed in this bundle). Sparse frames do not prove continuous retention or events in unsampled gaps.",
+    "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+    "Physical synchronization uncertainty (physical_sync_uncertainty_ms) is null."
+  ],
+  "semantics_and_annotation_note": "Episode 'rollout_T1001_1014_213934' is a policy_rollout where action.* represents 'issued_robot_command' (policy_output_After_chunk_blending_clipped_to_motor_limits), NOT a human leader arm command. Supplied annotation: status='success' (rule='can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact'; Rule: can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact; Operator note: No failure reported by the operator.; End-of-trial AI judge said YES). LabLens reviews this disclosed annotation against sampled evidence and does not claim blind outcome detection.",
+  "evidence_graph": {
+    "episode_id": "rollout_T1001_1014_213934",
+    "node_count": 13,
+    "edge_count": 19,
+    "omitted_items_count": 8,
+    "nodes": [
+      {
+        "node_id": "node_ep_rollout_T1001_1014_213934",
+        "node_type": "Episode",
+        "label": "Rollout T1001 · FT-FP16 (Success)",
+        "sublabel": "policy_rollout · outcome: success (human)",
+        "status": "success",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": null,
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": null,
+        "sample_end": null,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "episode",
+          "episode_id": "rollout_T1001_1014_213934",
+          "episode_revision": "rev_51ac3e47d7c7",
+          "source_type": "policy_rollout",
+          "task_label": "Pick up the cola can and place it upright on the coaster",
+          "summary_text": "Rollout T1001 · FT-FP16 (Success) (policy_rollout) — outcome: success via can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact.",
+          "action_semantics": {
+            "kind": "issued_robot_command",
+            "relationship": "policy_output_After_chunk_blending_clipped_to_motor_limits",
+            "is_leader_command": false,
+            "postprocessing_note": "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+            "meaning": "Autonomous policy action command issued to follower servos at the logged control step (not a leader arm position)."
+          },
+          "outcome_annotation": {
+            "status": "success",
+            "value": "success",
+            "provenance": "human",
+            "provenance_kind": "human",
+            "annotator_or_rule_id": "can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact",
+            "criterion": "can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact",
+            "annotation_revision": "rev1",
+            "rationale": "Rule: can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact; Operator note: No failure reported by the operator.; End-of-trial AI judge said YES",
+            "success_Detail": "No failure reported by the operator.",
+            "failure_stage": null,
+            "episode_notes": "No failure reported by the operator. End-of-trial AI judge said YES.",
+            "ai_judge_verdict": "YES",
+            "ground_truth_verdict": "SUCCESS",
+            "disclosed_to_model": true
+          },
+          "timing_semantics": {
+            "nominal_fps": 30.0,
+            "primary_index_column": "frame_index",
+            "primary_time_column": "t_video_s",
+            "secondary_time_column": "t_wall_s",
+            "has_wall_clock": true,
+            "has_video_pts": true,
+            "physical_sync_uncertainty_ms": null,
+            "timing_map_revision": "tmap_v1_1_1to1",
+            "alignment_note": "Row index frame_index (0..N-1) aligns 1:1 with decoded video frame index; t_video_s is nominal 30 fps video time and t_wall_s is logger wall-clock elapsed seconds. physical_sync_uncertainty_ms is null (unmeasured)."
+          }
+        }
+      },
+      {
+        "node_id": "node_evt_rollout_T1001_1014_213934_1",
+        "node_type": "Event",
+        "label": "Post-placement & release window (300–600)",
+        "sublabel": "Samples 300–600 (user_selected)",
+        "status": "user_selected",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": null,
+        "event_id": "evt_rollout_T1001_1014_213934_1",
+        "hypothesis_id": null,
+        "sample_start": 300,
+        "sample_end": 600,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "event",
+          "event_id": "evt_rollout_T1001_1014_213934_1",
+          "label": "Post-placement & release window (300–600)",
+          "start_sample": 300,
+          "end_sample": 600,
+          "selection_origin": "user_selected",
+          "description": "Full-resolution CSV records (301 rows, 10.00s–20.00s video time) and 8 original frames sampled at indices [300, 400, 500, 600].",
+          "summary_text": "Full-resolution CSV records (301 rows, 10.00s–20.00s video time) and 8 original frames sampled at indices [300, 400, 500, 600].",
+          "uncertainty_note": "Sampled interval review suggestion; exact sub-frame physical contact onset is unmeasured.",
+          "grounded_evidence_ids": [
+            "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+            "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+            "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+            "ev_frame_rollout_T1001_1014_213934_top_0300",
+            "ev_frame_rollout_T1001_1014_213934_top_0400",
+            "ev_frame_rollout_T1001_1014_213934_top_0500",
+            "ev_frame_rollout_T1001_1014_213934_top_0600"
+          ]
+        }
+      },
+      {
+        "node_id": "node_hyp_rollout_T1001_1014_213934_1",
+        "node_type": "Hypothesis",
+        "label": "Wrist_flex & gripper excursion at 300–600",
+        "sublabel": "Status: consistent_with_available_evidence",
+        "status": "consistent_with_available_evidence",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": null,
+        "event_id": null,
+        "hypothesis_id": "hyp_rollout_T1001_1014_213934_1",
+        "sample_start": null,
+        "sample_end": null,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "hypothesis",
+          "hypothesis_id": "hyp_rollout_T1001_1014_213934_1",
+          "statement": "Wrist_flex & gripper excursion at 300–600 — matches observed transition recorded under 'issued_robot_command' semantics.",
+          "summary_text": "Wrist_flex & gripper excursion at 300–600 — matches observed transition recorded under 'issued_robot_command' semantics.",
+          "status": "consistent_with_available_evidence",
+          "rationale": "Server-computed T1 records confirm exact state and action trajectories (state.wrist_flex moves from -84.09 deg to 62.11 deg (min -84.35 deg, max 62.64 deg) with state-minus-action mean_signed_diff=-1.32 deg (max_abs_diff=11.32 deg at sample 423); state.gripper transitions from 35.91 to 0.94 (range 0.94..53.79) with state-minus-action mean_signed_diff=+3.40 and max_abs_diff=24.27 at sample 318 (10.60s video time)), while keeping physical actuator cause unverified.",
+          "supporting_evidence_ids": [
+            "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+            "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+            "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+            "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+            "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+            "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+            "ev_num_rollout_T1001_1014_213934_diff_gripper_300_600",
+            "ev_num_rollout_T1001_1014_213934_diff_wrist_flex_300_600",
+            "ev_num_rollout_T1001_1014_213934_diff_elbow_flex_300_600"
+          ],
+          "conflicting_evidence_ids": [],
+          "missing_evidence": [
+            "Servo current / torque telemetry",
+            "Hardware command-application timestamp log"
+          ]
+        }
+      },
+      {
+        "node_id": "node_hyp_rollout_T1001_1014_213934_2",
+        "node_type": "Hypothesis",
+        "label": "Physical root cause unverified",
+        "sublabel": "Status: insufficient_evidence",
+        "status": "insufficient_evidence",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": null,
+        "event_id": null,
+        "hypothesis_id": "hyp_rollout_T1001_1014_213934_2",
+        "sample_start": null,
+        "sample_end": null,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "hypothesis",
+          "hypothesis_id": "hyp_rollout_T1001_1014_213934_2",
+          "statement": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+          "summary_text": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+          "status": "insufficient_evidence",
+          "rationale": "Calculation checked != physical cause confirmed: joint encoders and 30 fps RGB frames cannot isolate mechanical stall, friction slip, or calibration offset.",
+          "supporting_evidence_ids": [],
+          "conflicting_evidence_ids": [
+            "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+            "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+            "ev_frame_rollout_T1001_1014_213934_top_0300",
+            "ev_frame_rollout_T1001_1014_213934_top_0400"
+          ],
+          "missing_evidence": [
+            "Tactile / force-torque sensor at gripper jaws",
+            "Motor current and temperature logs"
+          ]
+        }
+      },
+      {
+        "node_id": "node_ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "node_type": "Evidence",
+        "label": "state.gripper (300–600)",
+        "sublabel": "min 0.94 · max 53.79 · Δ -34.97 gripper_open_pct (0..100 calibrated)",
+        "status": "computed_record",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 300,
+        "sample_end": 600,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "state.gripper [300..600]: first=35.91, last=0.94, min=0.94, max=53.79, mean=17.22, Δ=-34.97 gripper_open_pct (0..100 calibrated) (peak excursion 34.97 at sample 419).",
+          "evidence": {
+            "evidence_id": "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "kind": "signal_summary",
+            "label": "state.gripper (300–600)",
+            "summary_text": "state.gripper [300..600]: first=35.91, last=0.94, min=0.94, max=53.79, mean=17.22, Δ=-34.97 gripper_open_pct (0..100 calibrated) (peak excursion 34.97 at sample 419).",
+            "start_sample": 300,
+            "end_sample": 600,
+            "start_time_s": 10.0,
+            "end_time_s": 20.0,
+            "unit": "gripper_open_pct (0..100 calibrated)",
+            "signal_metrics": {
+              "signal": "state.gripper",
+              "unit": "gripper_open_pct (0..100 calibrated)",
+              "start_sample": 300,
+              "end_sample": 600,
+              "sample_count": 301,
+              "start_value": 35.909,
+              "end_value": 0.937,
+              "min_value": 0.937,
+              "max_value": 53.786,
+              "mean_value": 17.2198,
+              "delta": -34.972,
+              "abs_delta_max": 34.972,
+              "peak_sample": 419,
+              "peak_time_s": 13.9667
+            },
+            "difference_metrics": null,
+            "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+              "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+              "row_start": 300,
+              "row_end": 600,
+              "columns": [
+                "frame_index",
+                "t_video_s",
+                "state.gripper"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "node_type": "Evidence",
+        "label": "action.gripper (300–600)",
+        "sublabel": "min -0.46 · max 54.25 · Δ -11.27 gripper_open_pct (0..100 calibrated)",
+        "status": "computed_record",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 300,
+        "sample_end": 600,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "action.gripper [300..600]: first=11.94, last=0.66, min=-0.46, max=54.25, mean=13.82, Δ=-11.27 gripper_open_pct (0..100 calibrated) (peak excursion 42.32 at sample 369).",
+          "evidence": {
+            "evidence_id": "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "kind": "signal_summary",
+            "label": "action.gripper (300–600)",
+            "summary_text": "action.gripper [300..600]: first=11.94, last=0.66, min=-0.46, max=54.25, mean=13.82, Δ=-11.27 gripper_open_pct (0..100 calibrated) (peak excursion 42.32 at sample 369).",
+            "start_sample": 300,
+            "end_sample": 600,
+            "start_time_s": 10.0,
+            "end_time_s": 20.0,
+            "unit": "gripper_open_pct (0..100 calibrated)",
+            "signal_metrics": {
+              "signal": "action.gripper",
+              "unit": "gripper_open_pct (0..100 calibrated)",
+              "start_sample": 300,
+              "end_sample": 600,
+              "sample_count": 301,
+              "start_value": 11.935,
+              "end_value": 0.663,
+              "min_value": -0.463,
+              "max_value": 54.251,
+              "mean_value": 13.8213,
+              "delta": -11.272,
+              "abs_delta_max": 42.316,
+              "peak_sample": 369,
+              "peak_time_s": 12.3
+            },
+            "difference_metrics": null,
+            "caveat": "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+              "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+              "row_start": 300,
+              "row_end": 600,
+              "columns": [
+                "frame_index",
+                "t_video_s",
+                "action.gripper"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "node_type": "Evidence",
+        "label": "state.wrist_flex (300–600)",
+        "sublabel": "min -84.35 · max 62.64 · Δ +146.20 deg (calibrated)",
+        "status": "computed_record",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 300,
+        "sample_end": 600,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "state.wrist_flex [300..600]: first=-84.09, last=62.11, min=-84.35, max=62.64, mean=0.65, Δ=+146.20 deg (calibrated) (peak excursion 146.72 at sample 482).",
+          "evidence": {
+            "evidence_id": "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "kind": "signal_summary",
+            "label": "state.wrist_flex (300–600)",
+            "summary_text": "state.wrist_flex [300..600]: first=-84.09, last=62.11, min=-84.35, max=62.64, mean=0.65, Δ=+146.20 deg (calibrated) (peak excursion 146.72 at sample 482).",
+            "start_sample": 300,
+            "end_sample": 600,
+            "start_time_s": 10.0,
+            "end_time_s": 20.0,
+            "unit": "deg (calibrated)",
+            "signal_metrics": {
+              "signal": "state.wrist_flex",
+              "unit": "deg (calibrated)",
+              "start_sample": 300,
+              "end_sample": 600,
+              "sample_count": 301,
+              "start_value": -84.088,
+              "end_value": 62.11,
+              "min_value": -84.352,
+              "max_value": 62.637,
+              "mean_value": 0.6494,
+              "delta": 146.198,
+              "abs_delta_max": 146.725,
+              "peak_sample": 482,
+              "peak_time_s": 16.0667
+            },
+            "difference_metrics": null,
+            "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+              "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+              "row_start": 300,
+              "row_end": 600,
+              "columns": [
+                "frame_index",
+                "t_video_s",
+                "state.wrist_flex"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+        "node_type": "Evidence",
+        "label": "action.wrist_flex (300–600)",
+        "sublabel": "min -87.02 · max 62.81 · Δ +148.41 deg (calibrated)",
+        "status": "computed_record",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 300,
+        "sample_end": 600,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "action.wrist_flex [300..600]: first=-86.85, last=61.56, min=-87.02, max=62.81, mean=1.97, Δ=+148.41 deg (calibrated) (peak excursion 149.66 at sample 479).",
+          "evidence": {
+            "evidence_id": "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "kind": "signal_summary",
+            "label": "action.wrist_flex (300–600)",
+            "summary_text": "action.wrist_flex [300..600]: first=-86.85, last=61.56, min=-87.02, max=62.81, mean=1.97, Δ=+148.41 deg (calibrated) (peak excursion 149.66 at sample 479).",
+            "start_sample": 300,
+            "end_sample": 600,
+            "start_time_s": 10.0,
+            "end_time_s": 20.0,
+            "unit": "deg (calibrated)",
+            "signal_metrics": {
+              "signal": "action.wrist_flex",
+              "unit": "deg (calibrated)",
+              "start_sample": 300,
+              "end_sample": 600,
+              "sample_count": 301,
+              "start_value": -86.851,
+              "end_value": 61.561,
+              "min_value": -87.02,
+              "max_value": 62.806,
+              "mean_value": 1.9674,
+              "delta": 148.412,
+              "abs_delta_max": 149.657,
+              "peak_sample": 479,
+              "peak_time_s": 15.9667
+            },
+            "difference_metrics": null,
+            "caveat": "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+              "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+              "row_start": 300,
+              "row_end": 600,
+              "columns": [
+                "frame_index",
+                "t_video_s",
+                "action.wrist_flex"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+        "node_type": "Evidence",
+        "label": "state.elbow_flex (300–600)",
+        "sublabel": "min -26.95 · max 74.33 · Δ -84.75 deg (calibrated)",
+        "status": "computed_record",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 300,
+        "sample_end": 600,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "state.elbow_flex [300..600]: first=57.80, last=-26.95, min=-26.95, max=74.33, mean=20.67, Δ=-84.75 deg (calibrated) (peak excursion 84.75 at sample 556).",
+          "evidence": {
+            "evidence_id": "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "kind": "signal_summary",
+            "label": "state.elbow_flex (300–600)",
+            "summary_text": "state.elbow_flex [300..600]: first=57.80, last=-26.95, min=-26.95, max=74.33, mean=20.67, Δ=-84.75 deg (calibrated) (peak excursion 84.75 at sample 556).",
+            "start_sample": 300,
+            "end_sample": 600,
+            "start_time_s": 10.0,
+            "end_time_s": 20.0,
+            "unit": "deg (calibrated)",
+            "signal_metrics": {
+              "signal": "state.elbow_flex",
+              "unit": "deg (calibrated)",
+              "start_sample": 300,
+              "end_sample": 600,
+              "sample_count": 301,
+              "start_value": 57.802,
+              "end_value": -26.945,
+              "min_value": -26.945,
+              "max_value": 74.33,
+              "mean_value": 20.6666,
+              "delta": -84.747,
+              "abs_delta_max": 84.747,
+              "peak_sample": 556,
+              "peak_time_s": 18.5333
+            },
+            "difference_metrics": null,
+            "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/trajectory.csv",
+              "sha256": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a",
+              "row_start": 300,
+              "row_end": 600,
+              "columns": [
+                "frame_index",
+                "t_video_s",
+                "state.elbow_flex"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_rollout_T1001_1014_213934_top_0300",
+        "node_type": "Evidence",
+        "label": "TOP · sample 300 (10.00s)",
+        "sublabel": "Camera: top · 10.00s video · PTS 153600",
+        "status": "sampled_frame",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0300",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 300,
+        "sample_end": 300,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 300 (10.00s video time, PTS 153600, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0300",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "camera": "top",
+            "sample_index": 300,
+            "time_s": 10.0,
+            "label": "TOP · sample 300 (10.00s)",
+            "caption": "Original top camera frame at sample_index=300, time=10.00s, pts=153600 (window [300..600]).",
+            "frame_ref": {
+              "frame_id": "frame_rollout_T1001_1014_213934_top_0300",
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 300,
+              "presentation_frame_index": 300,
+              "requested_time_s": 10.0,
+              "time_s": 10.0,
+              "pts": 153600,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "decoded_frame_sha256": "20dc58e8cd9d1beb04f756ed72d806b406b40e6b4a613b37eb4822f81971501f",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 27814,
+              "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/300?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "row_start": 300,
+              "row_end": 300,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_rollout_T1001_1014_213934_top_0400",
+        "node_type": "Evidence",
+        "label": "TOP · sample 400 (13.33s)",
+        "sublabel": "Camera: top · 13.33s video · PTS 204800",
+        "status": "sampled_frame",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0400",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 400,
+        "sample_end": 400,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 400 (13.33s video time, PTS 204800, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0400",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "camera": "top",
+            "sample_index": 400,
+            "time_s": 13.3333,
+            "label": "TOP · sample 400 (13.33s)",
+            "caption": "Original top camera frame at sample_index=400, time=13.33s, pts=204800 (window [300..600]).",
+            "frame_ref": {
+              "frame_id": "frame_rollout_T1001_1014_213934_top_0400",
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 400,
+              "presentation_frame_index": 400,
+              "requested_time_s": 13.3333,
+              "time_s": 13.3333,
+              "pts": 204800,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "decoded_frame_sha256": "c18f3cf68b9dff55cf8610f9baf2e93d90737572c8d71a40f55e6cabe750113f",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 27401,
+              "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/400?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "row_start": 400,
+              "row_end": 400,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_rollout_T1001_1014_213934_top_0500",
+        "node_type": "Evidence",
+        "label": "TOP · sample 500 (16.67s)",
+        "sublabel": "Camera: top · 16.67s video · PTS 256000",
+        "status": "sampled_frame",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0500",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 500,
+        "sample_end": 500,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 500 (16.67s video time, PTS 256000, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0500",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "camera": "top",
+            "sample_index": 500,
+            "time_s": 16.6667,
+            "label": "TOP · sample 500 (16.67s)",
+            "caption": "Original top camera frame at sample_index=500, time=16.67s, pts=256000 (window [300..600]).",
+            "frame_ref": {
+              "frame_id": "frame_rollout_T1001_1014_213934_top_0500",
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 500,
+              "presentation_frame_index": 500,
+              "requested_time_s": 16.6667,
+              "time_s": 16.6667,
+              "pts": 256000,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "decoded_frame_sha256": "347cd76fed58441d326bc74a418c6f6d251c672a212696bc742507bf9a344ce2",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 29927,
+              "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/500?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "row_start": 500,
+              "row_end": 500,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_rollout_T1001_1014_213934_top_0600",
+        "node_type": "Evidence",
+        "label": "TOP · sample 600 (20.00s)",
+        "sublabel": "Camera: top · 20.00s video · PTS 307200",
+        "status": "sampled_frame",
+        "episode_id": "rollout_T1001_1014_213934",
+        "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0600",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 600,
+        "sample_end": 600,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 600 (20.00s video time, PTS 307200, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_rollout_T1001_1014_213934_top_0600",
+            "episode_id": "rollout_T1001_1014_213934",
+            "episode_revision": "rev_51ac3e47d7c7",
+            "camera": "top",
+            "sample_index": 600,
+            "time_s": 20.0,
+            "label": "TOP · sample 600 (20.00s)",
+            "caption": "Original top camera frame at sample_index=600, time=20.00s, pts=307200 (window [300..600]).",
+            "frame_ref": {
+              "frame_id": "frame_rollout_T1001_1014_213934_top_0600",
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 600,
+              "presentation_frame_index": 600,
+              "requested_time_s": 20.0,
+              "time_s": 20.0,
+              "pts": 307200,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "source_video_sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "decoded_frame_sha256": "0988845902d65f3b1171ffb5c74a3075e18cee9b9866fe72ba283591b86a91fe",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 30503,
+              "image_url": "/api/episodes/rollout_T1001_1014_213934/frames/top/600?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "rollout_T1001_1014_213934",
+              "episode_revision": "rev_51ac3e47d7c7",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/rollout_T1001_1014_213934/video/top.mp4",
+              "sha256": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+              "row_start": 600,
+              "row_end": 600,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "edge_partof_evt_rollout_T1001_1014_213934_1",
+        "edge_type": "PART_OF",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ep_rollout_T1001_1014_213934",
+        "style": "solid",
+        "label": "PART_OF"
+      },
+      {
+        "edge_id": "edge_inv_hyp_rollout_T1001_1014_213934_1_evt_rollout_T1001_1014_213934_1",
+        "edge_type": "INVESTIGATES",
+        "source": "node_hyp_rollout_T1001_1014_213934_1",
+        "target": "node_evt_rollout_T1001_1014_213934_1",
+        "style": "dashed",
+        "label": "INVESTIGATES"
+      },
+      {
+        "edge_id": "edge_inv_hyp_rollout_T1001_1014_213934_2_evt_rollout_T1001_1014_213934_1",
+        "edge_type": "INVESTIGATES",
+        "source": "node_hyp_rollout_T1001_1014_213934_2",
+        "target": "node_evt_rollout_T1001_1014_213934_1",
+        "style": "dashed",
+        "label": "INVESTIGATES"
+      },
+      {
+        "edge_id": "edge_ground_evt_rollout_T1001_1014_213934_1_ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_rollout_T1001_1014_213934_1_ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_rollout_T1001_1014_213934_1_ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_rollout_T1001_1014_213934_1_ev_frame_rollout_T1001_1014_213934_top_0300",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ev_frame_rollout_T1001_1014_213934_top_0300",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_rollout_T1001_1014_213934_1_ev_frame_rollout_T1001_1014_213934_top_0400",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ev_frame_rollout_T1001_1014_213934_top_0400",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_rollout_T1001_1014_213934_1_ev_frame_rollout_T1001_1014_213934_top_0500",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ev_frame_rollout_T1001_1014_213934_top_0500",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_rollout_T1001_1014_213934_1_ev_frame_rollout_T1001_1014_213934_top_0600",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_rollout_T1001_1014_213934_1",
+        "target": "node_ev_frame_rollout_T1001_1014_213934_top_0600",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_rollout_T1001_1014_213934_state_gripper_300_600_hyp_rollout_T1001_1014_213934_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "target": "node_hyp_rollout_T1001_1014_213934_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_rollout_T1001_1014_213934_action_gripper_300_600_hyp_rollout_T1001_1014_213934_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "target": "node_hyp_rollout_T1001_1014_213934_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600_hyp_rollout_T1001_1014_213934_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "target": "node_hyp_rollout_T1001_1014_213934_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600_hyp_rollout_T1001_1014_213934_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+        "target": "node_hyp_rollout_T1001_1014_213934_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600_hyp_rollout_T1001_1014_213934_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+        "target": "node_hyp_rollout_T1001_1014_213934_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_num_rollout_T1001_1014_213934_state_gripper_300_600_hyp_rollout_T1001_1014_213934_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "target": "node_hyp_rollout_T1001_1014_213934_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_num_rollout_T1001_1014_213934_action_gripper_300_600_hyp_rollout_T1001_1014_213934_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "target": "node_hyp_rollout_T1001_1014_213934_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_frame_rollout_T1001_1014_213934_top_0300_hyp_rollout_T1001_1014_213934_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_frame_rollout_T1001_1014_213934_top_0300",
+        "target": "node_hyp_rollout_T1001_1014_213934_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_frame_rollout_T1001_1014_213934_top_0400_hyp_rollout_T1001_1014_213934_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_frame_rollout_T1001_1014_213934_top_0400",
+        "target": "node_hyp_rollout_T1001_1014_213934_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      }
+    ]
+  },
+  "plan_response": {
+    "schema_version": "lablens.plan.v1_1",
+    "request_id": "req_p_saved_inv_rollout_T1001_1014_213934",
+    "investigation_id": "saved_inv_rollout_T1001_1014_213934",
+    "episode_id": "rollout_T1001_1014_213934",
+    "episode_revision": "rev_51ac3e47d7c7",
+    "decision": "inspect",
+    "annotation_disclosure": "disclosed",
+    "restated_question": "Investigate 'How do gripper and wrist_flex state trajectories compare with issued policy commands during successful cup placement in rollout_T1001?' within authorized samples [200..700], treating supplied outcome='success' (rule=can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact) as disclosed context.",
+    "focus_start_sample": 300,
+    "focus_end_sample": 600,
+    "focus_rationale": "Window [300..600] (10.00s–20.00s video time) captures the critical post-placement / release transition where wrist_flex and gripper interact with the object.",
+    "candidate_intervals": [
+      {
+        "interval_id": "cand_int_1",
+        "start_sample": 300,
+        "end_sample": 600,
+        "selection_origin": "user_selected",
+        "reason": "Primary post-placement and release interval selected for cross-modal verification.",
+        "delivered_frame_ids": [
+          "ev_frame_rollout_T1001_1014_213934_top_0300",
+          "ev_frame_rollout_T1001_1014_213934_top_0400",
+          "ev_frame_rollout_T1001_1014_213934_top_0500",
+          "ev_frame_rollout_T1001_1014_213934_top_0600"
+        ],
+        "visibility_and_coverage_limits": "Evenly sampled at [300, 400, 500, 600]; intermediate frames are unobserved."
+      }
+    ],
+    "candidate_hypotheses": [
+      "Wrist_flex excursion and gripper transition in [300..600] align with the observed outcome.",
+      "Physical root cause (stall, slip, or contact force) cannot be proven from CSV and 30 fps RGB alone."
+    ],
+    "hypotheses": [
+      {
+        "hypothesis_id": "hyp_1",
+        "statement": "Wrist_flex and gripper trajectories in [300..600] align with the observed outcome.",
+        "supplied_evidence_refs": [
+          "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+          "ev_num_rollout_T1001_1014_213934_action_gripper_300_600"
+        ],
+        "evidence_needed": "Full-resolution T1 signal window over gripper and wrist_flex pairs."
+      },
+      {
+        "hypothesis_id": "hyp_2",
+        "statement": "Sampled top and wrist camera views show the physical object-coaster relationship across the transition.",
+        "supplied_evidence_refs": [
+          "ev_frame_rollout_T1001_1014_213934_top_0300",
+          "ev_frame_rollout_T1001_1014_213934_top_0400"
+        ],
+        "evidence_needed": "Synchronized top and wrist frames across the release interval."
+      }
+    ],
+    "signal_window_request": {
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "start_sample": 300,
+      "end_sample": 600,
+      "signals": [
+        "state.gripper",
+        "action.gripper",
+        "state.wrist_flex",
+        "action.wrist_flex",
+        "state.elbow_flex",
+        "action.elbow_flex"
+      ],
+      "include_State_action_diff": true,
+      "difference_pair_id": null,
+      "requested_difference_pairs": [
+        "diff_gripper",
+        "diff_wrist_flex",
+        "diff_elbow_flex"
+      ]
+    },
+    "frame_bundle_request": {
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "camera": "both",
+      "camera_ids": [
+        "top",
+        "wrist"
+      ],
+      "start_sample": 300,
+      "end_sample": 600,
+      "sample_count": 4,
+      "resolution_tier": "overview"
+    },
+    "unresolved_without_sensors": [
+      "Motor stall vs. servo torque saturation cannot be confirmed without motor current/torque telemetry.",
+      "Object slip vs. insufficient gripper pad friction cannot be confirmed from sparse 30 fps RGB frames alone.",
+      "Calibration offset vs. mechanical backlash cannot be separated from recorded joint angle encoders alone."
+    ],
+    "limitations": [
+      "Sparse frame sampling does not prove continuous retention between sampled indices.",
+      "Recorded state - action differences do not measure physical contact force or motor current."
+    ]
+  },
+  "review_response": {
+    "schema_version": "lablens.review.v1_1",
+    "request_id": "req_r_saved_inv_rollout_T1001_1014_213934",
+    "investigation_id": "saved_inv_rollout_T1001_1014_213934",
+    "episode_id": "rollout_T1001_1014_213934",
+    "episode_revision": "rev_51ac3e47d7c7",
+    "decision": "report",
+    "annotation_disclosure": "disclosed",
+    "direct_answer": "[Saved Reference Analysis] Inspect samples [300..600] (10.00s–20.00s video time) first. Episode 'rollout_T1001_1014_213934' is a policy_rollout where action.* represents 'issued_robot_command' (policy_output_After_chunk_blending_clipped_to_motor_limits), NOT a human leader arm command. In this interval, state.wrist_flex moves from -84.09 deg to 62.11 deg (min -84.35 deg, max 62.64 deg) with state-minus-action mean_signed_diff=-1.32 deg (max_abs_diff=11.32 deg at sample 423); state.gripper transitions from 35.91 to 0.94 (range 0.94..53.79) with state-minus-action mean_signed_diff=+3.40 and max_abs_diff=24.27 at sample 318 (10.60s video time). Sampled top and wrist frames ([300, 400, 500, 600]) document the workspace and end-effector posture consistent with the supplied 'success' (can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact) annotation, while physical root causes (motor torque saturation, friction/slip, or sub-frame contact onset) remain explicitly unverified.",
+    "computed_fact_citations": [
+      "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+      "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+      "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+      "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+      "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+      "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+      "ev_num_rollout_T1001_1014_213934_diff_gripper_300_600",
+      "ev_num_rollout_T1001_1014_213934_diff_wrist_flex_300_600",
+      "ev_num_rollout_T1001_1014_213934_diff_elbow_flex_300_600"
+    ],
+    "numeric_findings": [
+      {
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "state.gripper [300..600]: first=35.91, last=0.94, min=0.94, max=53.79, mean=17.22, Δ=-34.97 gripper_open_pct (0..100 calibrated) (peak excursion 34.97 at sample 419)."
+      },
+      {
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "action.gripper [300..600]: first=11.94, last=0.66, min=-0.46, max=54.25, mean=13.82, Δ=-11.27 gripper_open_pct (0..100 calibrated) (peak excursion 42.32 at sample 369)."
+      },
+      {
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "state.wrist_flex [300..600]: first=-84.09, last=62.11, min=-84.35, max=62.64, mean=0.65, Δ=+146.20 deg (calibrated) (peak excursion 146.72 at sample 482)."
+      },
+      {
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "action.wrist_flex [300..600]: first=-86.85, last=61.56, min=-87.02, max=62.81, mean=1.97, Δ=+148.41 deg (calibrated) (peak excursion 149.66 at sample 479)."
+      },
+      {
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "state.elbow_flex [300..600]: first=57.80, last=-26.95, min=-26.95, max=74.33, mean=20.67, Δ=-84.75 deg (calibrated) (peak excursion 84.75 at sample 556)."
+      },
+      {
+        "evidence_id": "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "action.elbow_flex [300..600]: first=53.98, last=-28.71, min=-28.92, max=74.37, mean=17.85, Δ=-82.69 deg (calibrated) (peak excursion 82.90 at sample 565)."
+      }
+    ],
+    "events": [
+      {
+        "event_id": "evt_rollout_T1001_1014_213934_1",
+        "label": "Post-placement & release window (300–600)",
+        "start_sample": 300,
+        "end_sample": 600,
+        "selection_origin": "user_selected",
+        "description": "Full-resolution CSV records (301 rows, 10.00s–20.00s video time) and 8 original frames sampled at indices [300, 400, 500, 600].",
+        "uncertainty_note": "Sampled interval review suggestion; exact sub-frame physical contact onset is unmeasured.",
+        "grounded_evidence_ids": [
+          "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+          "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+          "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+          "ev_frame_rollout_T1001_1014_213934_top_0300",
+          "ev_frame_rollout_T1001_1014_213934_top_0400",
+          "ev_frame_rollout_T1001_1014_213934_top_0500",
+          "ev_frame_rollout_T1001_1014_213934_top_0600"
+        ]
+      }
+    ],
+    "visual_findings": [
+      {
+        "finding_id": "vf_rollout_T1001_1014_213934_top",
+        "observation": "Top camera samples ([300, 400, 500, 600]) show global arm trajectory and object state relative to the coaster across 10.00s–20.00s video time (supplied outcome=success, operator_note='No failure reported by the operator. End-of-trial AI judge said YES.').",
+        "sampled_frame_evidence_ids": [
+          "ev_frame_rollout_T1001_1014_213934_top_0300",
+          "ev_frame_rollout_T1001_1014_213934_top_0400",
+          "ev_frame_rollout_T1001_1014_213934_top_0500",
+          "ev_frame_rollout_T1001_1014_213934_top_0600"
+        ],
+        "sample_range_label": "Samples 300–600 (4 top frames)",
+        "visibility_and_coverage_limits": "Overhead view cannot resolve fine fingertip contact force or micro-slip between sampled timestamps.",
+        "is_sampled_observation": true
+      },
+      {
+        "finding_id": "vf_rollout_T1001_1014_213934_wrist",
+        "observation": "Wrist camera samples ([300, 400, 500, 600]) show close-up gripper jaw aperture and wrist posture relative to the object at the sampled timestamps.",
+        "sampled_frame_evidence_ids": [
+          "ev_frame_rollout_T1001_1014_213934_wrist_0300",
+          "ev_frame_rollout_T1001_1014_213934_wrist_0400",
+          "ev_frame_rollout_T1001_1014_213934_wrist_0500",
+          "ev_frame_rollout_T1001_1014_213934_wrist_0600"
+        ],
+        "sample_range_label": "Samples 300–600 (4 wrist frames)",
+        "visibility_and_coverage_limits": "Close wrist perspective experiences partial occlusion during descent and does not observe unsampled intermediate frames.",
+        "is_sampled_observation": true
+      }
+    ],
+    "hypothesis_assessments": [
+      {
+        "hypothesis_id": "hyp_rollout_T1001_1014_213934_1",
+        "statement": "Wrist_flex & gripper excursion at 300–600 — matches observed transition recorded under 'issued_robot_command' semantics.",
+        "status": "consistent_with_available_evidence",
+        "supporting_evidence_ids": [
+          "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+          "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+          "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+          "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+          "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+          "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+          "ev_num_rollout_T1001_1014_213934_diff_gripper_300_600",
+          "ev_num_rollout_T1001_1014_213934_diff_wrist_flex_300_600",
+          "ev_num_rollout_T1001_1014_213934_diff_elbow_flex_300_600"
+        ],
+        "conflicting_evidence_ids": [],
+        "missing_evidence": [
+          "Servo current / torque telemetry",
+          "Hardware command-application timestamp log"
+        ],
+        "rationale": "Server-computed T1 records confirm exact state and action trajectories (state.wrist_flex moves from -84.09 deg to 62.11 deg (min -84.35 deg, max 62.64 deg) with state-minus-action mean_signed_diff=-1.32 deg (max_abs_diff=11.32 deg at sample 423); state.gripper transitions from 35.91 to 0.94 (range 0.94..53.79) with state-minus-action mean_signed_diff=+3.40 and max_abs_diff=24.27 at sample 318 (10.60s video time)), while keeping physical actuator cause unverified."
+      },
+      {
+        "hypothesis_id": "hyp_rollout_T1001_1014_213934_2",
+        "statement": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+        "status": "insufficient_evidence",
+        "supporting_evidence_ids": [],
+        "conflicting_evidence_ids": [
+          "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+          "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+          "ev_frame_rollout_T1001_1014_213934_top_0300",
+          "ev_frame_rollout_T1001_1014_213934_top_0400"
+        ],
+        "missing_evidence": [
+          "Tactile / force-torque sensor at gripper jaws",
+          "Motor current and temperature logs"
+        ],
+        "rationale": "Calculation checked != physical cause confirmed: joint encoders and 30 fps RGB frames cannot isolate mechanical stall, friction slip, or calibration offset."
+      }
+    ],
+    "unresolved_physical_causes": [
+      "Motor stall vs. servo torque saturation cannot be confirmed without motor current/torque telemetry.",
+      "Object slip vs. insufficient gripper pad friction cannot be confirmed from sparse 30 fps RGB frames alone.",
+      "Calibration offset vs. mechanical backlash cannot be separated from recorded joint angle encoders alone.",
+      "Exact sub-frame contact onset is unverified because physical_sync_uncertainty_ms is unmeasured (null)."
+    ],
+    "recommended_manual_checks": [
+      "Inspect exact decoded top and wrist frames around peak gripper discrepancy sample 318.",
+      "Compare gripper closure profile against teleop_demo_episode_000001 reference trajectory.",
+      "Verify physical gripper pad condition and servo calibration zero-point on the SO-101 follower arm."
+    ],
+    "limitations": [
+      "Sampled 4 evenly spaced timestamps ([300, 400, 500, 600]) across 2 camera(s) (top, wrist) over [300..600] (301 total samples; 297 intermediate samples not viewed in this bundle). Sparse frames do not prove continuous retention or events in unsampled gaps.",
+      "Policy-issued action values after temporal chunk blending and motor limit clipping. These are NOT human teleoperation leader arm commands.",
+      "Physical synchronization uncertainty (physical_sync_uncertainty_ms) is null."
+    ],
+    "Semantics_and_annotation_note": "Episode 'rollout_T1001_1014_213934' is a policy_rollout where action.* represents 'issued_robot_command' (policy_output_After_chunk_blending_clipped_to_motor_limits), NOT a human leader arm command. Supplied annotation: status='success' (rule='can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact'; Rule: can standing upright on the coaster at the end (geometric judge on the overhead video) AND gripper released AND no human contact; Operator note: No failure reported by the operator.; End-of-trial AI judge said YES). LabLens reviews this disclosed annotation against sampled evidence and does not claim blind outcome detection."
+  },
+  "tool_receipts": [
+    {
+      "receipt_id": "tr_t1_saved_inv_rollout_T1001_1014_213934_300_600",
+      "investigation_id": "saved_inv_rollout_T1001_1014_213934",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "tool_name": "query_signal_window",
+      "tool_version": "t1.v1_1",
+      "status": "completed",
+      "started_at": "2026-10-16T05:10:17.317688+00:00",
+      "completed_at": "2026-10-16T05:10:17.321436+00:00",
+      "duration_ms": 3.79,
+      "request_args": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "start_sample": 300,
+        "end_sample": 600,
+        "signals": [
+          "state.gripper",
+          "action.gripper",
+          "state.wrist_flex",
+          "action.wrist_flex",
+          "state.elbow_flex",
+          "action.elbow_flex"
+        ],
+        "include_State_action_diff": true,
+        "difference_pair_id": null,
+        "requested_difference_pairs": [
+          "diff_gripper",
+          "diff_wrist_flex",
+          "diff_elbow_flex"
+        ]
+      },
+      "source_digests": {
+        "trajectory_csv": "d8a2d5ffc033122a19fa8322b8b55b47bf93ee7d141d1f2a3acfa85f63f8a58a"
+      },
+      "produced_evidence_ids": [
+        "ev_num_rollout_T1001_1014_213934_state_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_state_wrist_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_wrist_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_state_elbow_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_action_elbow_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_diff_gripper_300_600",
+        "ev_num_rollout_T1001_1014_213934_diff_wrist_flex_300_600",
+        "ev_num_rollout_T1001_1014_213934_diff_elbow_flex_300_600"
+      ],
+      "image_count": 0,
+      "payload_bytes": 19715,
+      "note": "Computed 6 signal summaries and 3 difference pairs across 301 full-resolution rows."
+    },
+    {
+      "receipt_id": "tr_t3_saved_inv_rollout_T1001_1014_213934_300_600",
+      "investigation_id": "saved_inv_rollout_T1001_1014_213934",
+      "episode_id": "rollout_T1001_1014_213934",
+      "episode_revision": "rev_51ac3e47d7c7",
+      "tool_name": "get_frame_bundle",
+      "tool_version": "t3.v1_1",
+      "status": "completed",
+      "started_at": "2026-10-16T05:10:17.321436+00:00",
+      "completed_at": "2026-10-16T05:10:17.329228+00:00",
+      "duration_ms": 7.11,
+      "request_args": {
+        "episode_id": "rollout_T1001_1014_213934",
+        "episode_revision": "rev_51ac3e47d7c7",
+        "camera": "both",
+        "camera_ids": [
+          "top",
+          "wrist"
+        ],
+        "start_sample": 300,
+        "end_sample": 600,
+        "sample_count": 4,
+        "resolution_tier": "overview"
+      },
+      "source_digests": {
+        "video_top": "f9e8b28bad2e6169f3389c6de08eddc302c84c26682b7b1d6dc01db0709580aa",
+        "video_wrist": "fc2282862042cc461550f61df75e1431ad36d50f978b2d990e3ba3186e777f38"
+      },
+      "produced_evidence_ids": [
+        "ev_frame_rollout_T1001_1014_213934_top_0300",
+        "ev_frame_rollout_T1001_1014_213934_top_0400",
+        "ev_frame_rollout_T1001_1014_213934_top_0500",
+        "ev_frame_rollout_T1001_1014_213934_top_0600",
+        "ev_frame_rollout_T1001_1014_213934_wrist_0300",
+        "ev_frame_rollout_T1001_1014_213934_wrist_0400",
+        "ev_frame_rollout_T1001_1014_213934_wrist_0500",
+        "ev_frame_rollout_T1001_1014_213934_wrist_0600"
+      ],
+      "image_count": 8,
+      "payload_bytes": 140912,
+      "note": "Decoded 8 original frames (top, wrist) at indices [300, 400, 500, 600]."
+    }
+  ],
+  "model_receipts": [],
+  "budget_usage": {
+    "semantic_calls_used": 0,
+    "semantic_calls_limit": 2,
+    "tool_rounds_used": 1,
+    "tool_rounds_limit": 1,
+    "tool_requests_used": 2,
+    "tool_requests_limit": 2,
+    "overview_images_sent": 8,
+    "overview_images_limit": 12,
+    "detail_images_sent": 0,
+    "detail_images_limit": 12,
+    "unique_images_sent": 8,
+    "unique_images_limit": 24,
+    "total_image_transmissions": 8,
+    "total_image_transmissions_limit": 36,
+    "max_request_bytes_used": 140912,
+    "max_request_bytes_limit": 12582912
+  }
+}

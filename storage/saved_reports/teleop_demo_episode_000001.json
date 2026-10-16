@@ -1,0 +1,2703 @@
+{
+  "schema_version": "lablens.report.v1_1",
+  "report_id": "saved_rep_teleop_demo_episode_000001",
+  "investigation_id": "saved_inv_teleop_demo_episode_000001",
+  "episode_id": "teleop_demo_episode_000001",
+  "episode_revision": "rev_daa3c8e704cc",
+  "analysis_mode": "saved_analysis",
+  "processing_status": "complete",
+  "source_kind": "teleoperation",
+  "annotation_policy": "disclosed",
+  "created_at": "2026-10-16T05:10:17.336564+00:00",
+  "question": "How does follower state track human leader arm commands across grasp, transport, and release in teleop_demo_episode_000001?",
+  "focus_start_sample": 220,
+  "focus_end_sample": 480,
+  "annotation_disclosure": "disclosed",
+  "outcome_annotation": {
+    "status": "success",
+    "value": "success",
+    "provenance": "human",
+    "provenance_kind": "human",
+    "annotator_or_rule_id": "every demonstration in the dataset is a success",
+    "criterion": "every demonstration in the dataset is a success",
+    "annotation_revision": "rev1",
+    "rationale": "Rule: every demonstration in the dataset is a success",
+    "success_Detail": "—",
+    "failure_stage": null,
+    "episode_notes": null,
+    "ai_judge_verdict": null,
+    "ground_truth_verdict": "SUCCESS",
+    "disclosed_to_model": true
+  },
+  "action_semantics": {
+    "kind": "leader_command",
+    "relationship": "leader_target",
+    "is_leader_command": true,
+    "postprocessing_note": "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+    "meaning": "Teleoperation leader arm joint target command sent to the follower arm."
+  },
+  "timing_semantics": {
+    "nominal_fps": 30.0,
+    "primary_index_column": "frame_index",
+    "primary_time_column": "t_s",
+    "secondary_time_column": null,
+    "has_wall_clock": false,
+    "has_video_pts": true,
+    "physical_sync_uncertainty_ms": null,
+    "timing_map_revision": "tmap_v1_1_1to1",
+    "alignment_note": "Row index frame_index (0..N-1) aligns 1:1 with decoded video frame index; t_s is nominal 30 Hz demonstration timestamp. physical_sync_uncertainty_ms is null (unmeasured)."
+  },
+  "direct_answer": "[Saved Reference Analysis] Inspect samples [220..480] (7.33s–16.00s video time) first. Episode 'teleop_demo_episode_000001' is a teleoperation demonstration where action.* represents human 'leader_command' targets. In this interval, state.wrist_flex moves from -31.52 deg to -46.55 deg (min -46.55 deg, max -9.54 deg) with state-minus-action mean_signed_diff=+1.72 deg (max_abs_diff=9.89 deg at sample 293); state.gripper transitions from 51.91 to 36.77 (range 36.77..52.30) with state-minus-action mean_signed_diff=+6.24 and max_abs_diff=8.43 at sample 251 (8.37s video time). Sampled top and wrist frames ([220, 307, 393, 480]) document the workspace and end-effector posture consistent with the supplied 'success' (every demonstration in the dataset is a success) annotation, while physical root causes (motor torque saturation, friction/slip, or sub-frame contact onset) remain explicitly unverified.",
+  "computed_facts": [
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "signal_summary",
+      "label": "state.gripper (220–480)",
+      "summary_text": "state.gripper [220..480]: first=51.91, last=36.77, min=36.77, max=52.30, mean=39.01, Δ=-15.14 gripper_open_pct (0..100 calibrated) (peak excursion 15.14 at sample 360).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "gripper_open_pct (0..100 calibrated)",
+      "signal_metrics": {
+        "signal": "state.gripper",
+        "unit": "gripper_open_pct (0..100 calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "start_value": 51.913,
+        "end_value": 36.768,
+        "min_value": 36.768,
+        "max_value": 52.303,
+        "mean_value": 39.0103,
+        "delta": -15.145,
+        "abs_delta_max": 15.145,
+        "peak_sample": 360,
+        "peak_time_s": 12.0
+      },
+      "difference_metrics": null,
+      "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "state.gripper"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "signal_summary",
+      "label": "action.gripper (220–480)",
+      "summary_text": "action.gripper [220..480]: first=52.44, last=29.19, min=29.19, max=52.44, mean=32.77, Δ=-23.25 gripper_open_pct (0..100 calibrated) (peak excursion 23.25 at sample 363).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "gripper_open_pct (0..100 calibrated)",
+      "signal_metrics": {
+        "signal": "action.gripper",
+        "unit": "gripper_open_pct (0..100 calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "start_value": 52.439,
+        "end_value": 29.187,
+        "min_value": 29.187,
+        "max_value": 52.439,
+        "mean_value": 32.7689,
+        "delta": -23.252,
+        "abs_delta_max": 23.252,
+        "peak_sample": 363,
+        "peak_time_s": 12.1
+      },
+      "difference_metrics": null,
+      "caveat": "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "action.gripper"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "signal_summary",
+      "label": "state.wrist_flex (220–480)",
+      "summary_text": "state.wrist_flex [220..480]: first=-31.52, last=-46.55, min=-46.55, max=-9.54, mean=-31.33, Δ=-15.03 deg (calibrated) (peak excursion 21.98 at sample 322).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "state.wrist_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "start_value": -31.516,
+        "end_value": -46.549,
+        "min_value": -46.549,
+        "max_value": -9.538,
+        "mean_value": -31.3324,
+        "delta": -15.033,
+        "abs_delta_max": 21.978,
+        "peak_sample": 322,
+        "peak_time_s": 10.7333
+      },
+      "difference_metrics": null,
+      "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "state.wrist_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "signal_summary",
+      "label": "action.wrist_flex (220–480)",
+      "summary_text": "action.wrist_flex [220..480]: first=-36.13, last=-49.23, min=-49.23, max=-9.67, mean=-33.05, Δ=-13.10 deg (calibrated) (peak excursion 26.46 at sample 317).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "action.wrist_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "start_value": -36.132,
+        "end_value": -49.231,
+        "min_value": -49.231,
+        "max_value": -9.67,
+        "mean_value": -33.0512,
+        "delta": -13.099,
+        "abs_delta_max": 26.462,
+        "peak_sample": 317,
+        "peak_time_s": 10.5667
+      },
+      "difference_metrics": null,
+      "caveat": "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "action.wrist_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "signal_summary",
+      "label": "state.elbow_flex (220–480)",
+      "summary_text": "state.elbow_flex [220..480]: first=58.15, last=57.36, min=33.63, max=71.34, mean=51.47, Δ=-0.79 deg (calibrated) (peak excursion 24.53 at sample 298).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "state.elbow_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "start_value": 58.154,
+        "end_value": 57.363,
+        "min_value": 33.626,
+        "max_value": 71.341,
+        "mean_value": 51.4713,
+        "delta": -0.791,
+        "abs_delta_max": 24.528,
+        "peak_sample": 298,
+        "peak_time_s": 9.9333
+      },
+      "difference_metrics": null,
+      "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "state.elbow_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "signal_summary",
+      "label": "action.elbow_flex (220–480)",
+      "summary_text": "action.elbow_flex [220..480]: first=54.64, last=55.69, min=30.02, max=70.55, mean=49.13, Δ=+1.05 deg (calibrated) (peak excursion 24.61 at sample 296).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": {
+        "signal": "action.elbow_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "start_value": 54.637,
+        "end_value": 55.692,
+        "min_value": 30.022,
+        "max_value": 70.549,
+        "mean_value": 49.1262,
+        "delta": 1.055,
+        "abs_delta_max": 24.615,
+        "peak_sample": 296,
+        "peak_time_s": 9.8667
+      },
+      "difference_metrics": null,
+      "caveat": "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "action.elbow_flex"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_diff_gripper_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "difference_pair",
+      "label": "Δ gripper (state - action)",
+      "summary_text": "state.gripper - action.gripper [220..480]: mean_diff=+6.24, mean_abs_diff=6.28, max_abs_diff=8.43 gripper_open_pct (0..100 calibrated) (min=-0.53, max=+8.43, peak at sample 251 / 8.37s).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "gripper_open_pct (0..100 calibrated)",
+      "signal_metrics": null,
+      "difference_metrics": {
+        "pair_id": "diff_gripper",
+        "joint": "gripper",
+        "state_column": "state.gripper",
+        "action_column": "action.gripper",
+        "formula": "state.gripper - action.gripper",
+        "unit": "gripper_open_pct (0..100 calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "mean_signed_diff": 6.2414,
+        "mean_abs_diff": 6.2797,
+        "max_abs_diff": 8.433,
+        "min_signed_diff": -0.526,
+        "max_signed_diff": 8.433,
+        "peak_sample": 251,
+        "peak_time_s": 8.3667,
+        "relationship": "leader_target",
+        "caveat": "Signed difference (state.gripper - action.gripper) compares measured follower joint state against the teleoperation leader target in gripper_open_pct (0..100 calibrated). A nonzero gap indicates recorded tracking difference, not a confirmed physical fault."
+      },
+      "caveat": "Signed difference (state.gripper - action.gripper) compares measured follower joint state against the teleoperation leader target in gripper_open_pct (0..100 calibrated). A nonzero gap indicates recorded tracking difference, not a confirmed physical fault.",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "state.gripper",
+          "action.gripper"
+        ],
+        "formula": "state.gripper - action.gripper"
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_diff_wrist_flex_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "difference_pair",
+      "label": "Δ wrist_flex (state - action)",
+      "summary_text": "state.wrist_flex - action.wrist_flex [220..480]: mean_diff=+1.72, mean_abs_diff=2.35, max_abs_diff=9.89 deg (calibrated) (min=-9.89, max=+9.28, peak at sample 293 / 9.77s).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": null,
+      "difference_metrics": {
+        "pair_id": "diff_wrist_flex",
+        "joint": "wrist_flex",
+        "state_column": "state.wrist_flex",
+        "action_column": "action.wrist_flex",
+        "formula": "state.wrist_flex - action.wrist_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "mean_signed_diff": 1.7188,
+        "mean_abs_diff": 2.3456,
+        "max_abs_diff": 9.89,
+        "min_signed_diff": -9.89,
+        "max_signed_diff": 9.275,
+        "peak_sample": 293,
+        "peak_time_s": 9.7667,
+        "relationship": "leader_target",
+        "caveat": "Signed difference (state.wrist_flex - action.wrist_flex) compares measured follower joint state against the teleoperation leader target in deg (calibrated). A nonzero gap indicates recorded tracking difference, not a confirmed physical fault."
+      },
+      "caveat": "Signed difference (state.wrist_flex - action.wrist_flex) compares measured follower joint state against the teleoperation leader target in deg (calibrated). A nonzero gap indicates recorded tracking difference, not a confirmed physical fault.",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "state.wrist_flex",
+          "action.wrist_flex"
+        ],
+        "formula": "state.wrist_flex - action.wrist_flex"
+      }
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_diff_elbow_flex_220_480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "kind": "difference_pair",
+      "label": "Δ elbow_flex (state - action)",
+      "summary_text": "state.elbow_flex - action.elbow_flex [220..480]: mean_diff=+2.35, mean_abs_diff=2.60, max_abs_diff=8.35 deg (calibrated) (min=-1.49, max=+8.35, peak at sample 403 / 13.43s).",
+      "start_sample": 220,
+      "end_sample": 480,
+      "start_time_s": 7.3333,
+      "end_time_s": 16.0,
+      "unit": "deg (calibrated)",
+      "signal_metrics": null,
+      "difference_metrics": {
+        "pair_id": "diff_elbow_flex",
+        "joint": "elbow_flex",
+        "state_column": "state.elbow_flex",
+        "action_column": "action.elbow_flex",
+        "formula": "state.elbow_flex - action.elbow_flex",
+        "unit": "deg (calibrated)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 261,
+        "mean_signed_diff": 2.3451,
+        "mean_abs_diff": 2.599,
+        "max_abs_diff": 8.352,
+        "min_signed_diff": -1.494,
+        "max_signed_diff": 8.352,
+        "peak_sample": 403,
+        "peak_time_s": 13.4333,
+        "relationship": "leader_target",
+        "caveat": "Signed difference (state.elbow_flex - action.elbow_flex) compares measured follower joint state against the teleoperation leader target in deg (calibrated). A nonzero gap indicates recorded tracking difference, not a confirmed physical fault."
+      },
+      "caveat": "Signed difference (state.elbow_flex - action.elbow_flex) compares measured follower joint state against the teleoperation leader target in deg (calibrated). A nonzero gap indicates recorded tracking difference, not a confirmed physical fault.",
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "trajectory_csv",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+        "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+        "row_start": 220,
+        "row_end": 480,
+        "columns": [
+          "frame_index",
+          "t_s",
+          "state.elbow_flex",
+          "action.elbow_flex"
+        ],
+        "formula": "state.elbow_flex - action.elbow_flex"
+      }
+    }
+  ],
+  "numeric_findings": [
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "state.gripper [220..480]: first=51.91, last=36.77, min=36.77, max=52.30, mean=39.01, Δ=-15.14 gripper_open_pct (0..100 calibrated) (peak excursion 15.14 at sample 360)."
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "action.gripper [220..480]: first=52.44, last=29.19, min=29.19, max=52.44, mean=32.77, Δ=-23.25 gripper_open_pct (0..100 calibrated) (peak excursion 23.25 at sample 363)."
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "state.wrist_flex [220..480]: first=-31.52, last=-46.55, min=-46.55, max=-9.54, mean=-31.33, Δ=-15.03 deg (calibrated) (peak excursion 21.98 at sample 322)."
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "action.wrist_flex [220..480]: first=-36.13, last=-49.23, min=-49.23, max=-9.67, mean=-33.05, Δ=-13.10 deg (calibrated) (peak excursion 26.46 at sample 317)."
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "state.elbow_flex [220..480]: first=58.15, last=57.36, min=33.63, max=71.34, mean=51.47, Δ=-0.79 deg (calibrated) (peak excursion 24.53 at sample 298)."
+    },
+    {
+      "evidence_id": "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+      "metric_keys": [
+        "start_value",
+        "end_value",
+        "min_value",
+        "max_value",
+        "mean_value",
+        "delta",
+        "peak_sample"
+      ],
+      "concise_interpretation": "action.elbow_flex [220..480]: first=54.64, last=55.69, min=30.02, max=70.55, mean=49.13, Δ=+1.05 deg (calibrated) (peak excursion 24.61 at sample 296)."
+    }
+  ],
+  "visual_findings": [
+    {
+      "finding_id": "vf_teleop_demo_episode_000001_top",
+      "observation": "Top camera samples ([220, 307, 393, 480]) show global arm trajectory and object state relative to the coaster across 7.33s–16.00s video time (supplied outcome=success, operator_note='—').",
+      "sampled_frame_evidence_ids": [
+        "ev_frame_teleop_demo_episode_000001_top_0220",
+        "ev_frame_teleop_demo_episode_000001_top_0307",
+        "ev_frame_teleop_demo_episode_000001_top_0393",
+        "ev_frame_teleop_demo_episode_000001_top_0480"
+      ],
+      "sample_range_label": "Samples 220–480 (4 top frames)",
+      "visibility_and_coverage_limits": "Overhead view cannot resolve fine fingertip contact force or micro-slip between sampled timestamps.",
+      "is_sampled_observation": true
+    },
+    {
+      "finding_id": "vf_teleop_demo_episode_000001_wrist",
+      "observation": "Wrist camera samples ([220, 307, 393, 480]) show close-up gripper jaw aperture and wrist posture relative to the object at the sampled timestamps.",
+      "sampled_frame_evidence_ids": [
+        "ev_frame_teleop_demo_episode_000001_wrist_0220",
+        "ev_frame_teleop_demo_episode_000001_wrist_0307",
+        "ev_frame_teleop_demo_episode_000001_wrist_0393",
+        "ev_frame_teleop_demo_episode_000001_wrist_0480"
+      ],
+      "sample_range_label": "Samples 220–480 (4 wrist frames)",
+      "visibility_and_coverage_limits": "Close wrist perspective experiences partial occlusion during descent and does not observe unsampled intermediate frames.",
+      "is_sampled_observation": true
+    }
+  ],
+  "frame_evidence": [
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0220",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 220,
+      "time_s": 30.7333,
+      "label": "TOP · sample 220 (30.73s)",
+      "caption": "Original top camera frame at sample_index=220, time=30.73s, pts=472064 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0220",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 220,
+        "presentation_frame_index": 220,
+        "requested_time_s": 7.3333,
+        "time_s": 30.7333,
+        "pts": 472064,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "5c51d6f73d4022108e6ce907415611e8bcbbfebca2fc188c01dce7d8a2357ea4",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 32005,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/220?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 220,
+        "row_end": 220,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0307",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 307,
+      "time_s": 33.6333,
+      "label": "TOP · sample 307 (33.63s)",
+      "caption": "Original top camera frame at sample_index=307, time=33.63s, pts=516608 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0307",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 307,
+        "presentation_frame_index": 307,
+        "requested_time_s": 10.2333,
+        "time_s": 33.6333,
+        "pts": 516608,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "c475002a39008949054f5539eed9ad1476c240402562bd794b0b203bebb768c8",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 32159,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/307?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 307,
+        "row_end": 307,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0393",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 393,
+      "time_s": 36.5,
+      "label": "TOP · sample 393 (36.50s)",
+      "caption": "Original top camera frame at sample_index=393, time=36.50s, pts=560640 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0393",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 393,
+        "presentation_frame_index": 393,
+        "requested_time_s": 13.1,
+        "time_s": 36.5,
+        "pts": 560640,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "54e08569e7bf5e937e9395453c101ee9ac89657548fc299afdf9a280de8238b1",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 30761,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/393?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 393,
+        "row_end": 393,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 480,
+      "time_s": 39.4,
+      "label": "TOP · sample 480 (39.40s)",
+      "caption": "Original top camera frame at sample_index=480, time=39.40s, pts=605184 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0480",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 480,
+        "presentation_frame_index": 480,
+        "requested_time_s": 16.0,
+        "time_s": 39.4,
+        "pts": 605184,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "582e0251767bc68f7dd250210e486dc80e9c09d8afe86168167db2076d79f267",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 30645,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/480?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 480,
+        "row_end": 480,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0220",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 220,
+      "time_s": 30.7333,
+      "label": "WRIST · sample 220 (30.73s)",
+      "caption": "Original wrist camera frame at sample_index=220, time=30.73s, pts=472064 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0220",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 220,
+        "presentation_frame_index": 220,
+        "requested_time_s": 7.3333,
+        "time_s": 30.7333,
+        "pts": 472064,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "7be3670cb291f6f1368d3964c5ee27862ab45f8fc51c74237f415b1c35401b6f",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 6462,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/220?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 220,
+        "row_end": 220,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0307",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 307,
+      "time_s": 33.6333,
+      "label": "WRIST · sample 307 (33.63s)",
+      "caption": "Original wrist camera frame at sample_index=307, time=33.63s, pts=516608 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0307",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 307,
+        "presentation_frame_index": 307,
+        "requested_time_s": 10.2333,
+        "time_s": 33.6333,
+        "pts": 516608,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "864810903d254f171946a46bd444e47243271396c4525341fba0ea73080383ba",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 5507,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/307?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 307,
+        "row_end": 307,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0393",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 393,
+      "time_s": 36.5,
+      "label": "WRIST · sample 393 (36.50s)",
+      "caption": "Original wrist camera frame at sample_index=393, time=36.50s, pts=560640 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0393",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 393,
+        "presentation_frame_index": 393,
+        "requested_time_s": 13.1,
+        "time_s": 36.5,
+        "pts": 560640,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "8a484e70ded189499efcc93af02faf934444b366ceaff2a851f8039097f8d292",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 5678,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/393?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 393,
+        "row_end": 393,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 480,
+      "time_s": 39.4,
+      "label": "WRIST · sample 480 (39.40s)",
+      "caption": "Original wrist camera frame at sample_index=480, time=39.40s, pts=605184 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0480",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 480,
+        "presentation_frame_index": 480,
+        "requested_time_s": 16.0,
+        "time_s": 39.4,
+        "pts": 605184,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "f92f5bb36c3e912eeff2ac77855ee45747c3a8bf00b364bd89e5919c2e261be5",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 6298,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/480?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 480,
+        "row_end": 480,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    }
+  ],
+  "overview_frame_evidence": [
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0220",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 220,
+      "time_s": 30.7333,
+      "label": "TOP · sample 220 (30.73s)",
+      "caption": "Original top camera frame at sample_index=220, time=30.73s, pts=472064 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0220",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 220,
+        "presentation_frame_index": 220,
+        "requested_time_s": 7.3333,
+        "time_s": 30.7333,
+        "pts": 472064,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "5c51d6f73d4022108e6ce907415611e8bcbbfebca2fc188c01dce7d8a2357ea4",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 32005,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/220?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 220,
+        "row_end": 220,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0307",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 307,
+      "time_s": 33.6333,
+      "label": "TOP · sample 307 (33.63s)",
+      "caption": "Original top camera frame at sample_index=307, time=33.63s, pts=516608 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0307",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 307,
+        "presentation_frame_index": 307,
+        "requested_time_s": 10.2333,
+        "time_s": 33.6333,
+        "pts": 516608,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "c475002a39008949054f5539eed9ad1476c240402562bd794b0b203bebb768c8",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 32159,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/307?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 307,
+        "row_end": 307,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0393",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 393,
+      "time_s": 36.5,
+      "label": "TOP · sample 393 (36.50s)",
+      "caption": "Original top camera frame at sample_index=393, time=36.50s, pts=560640 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0393",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 393,
+        "presentation_frame_index": 393,
+        "requested_time_s": 13.1,
+        "time_s": 36.5,
+        "pts": 560640,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "54e08569e7bf5e937e9395453c101ee9ac89657548fc299afdf9a280de8238b1",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 30761,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/393?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 393,
+        "row_end": 393,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "top",
+      "sample_index": 480,
+      "time_s": 39.4,
+      "label": "TOP · sample 480 (39.40s)",
+      "caption": "Original top camera frame at sample_index=480, time=39.40s, pts=605184 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_top_0480",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "top",
+        "camera_id": "top",
+        "sample_index": 480,
+        "presentation_frame_index": 480,
+        "requested_time_s": 16.0,
+        "time_s": 39.4,
+        "pts": 605184,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "decoded_frame_sha256": "582e0251767bc68f7dd250210e486dc80e9c09d8afe86168167db2076d79f267",
+        "width": 640,
+        "height": 480,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 30645,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/480?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+        "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "row_start": 480,
+        "row_end": 480,
+        "columns": [
+          "top"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0220",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 220,
+      "time_s": 30.7333,
+      "label": "WRIST · sample 220 (30.73s)",
+      "caption": "Original wrist camera frame at sample_index=220, time=30.73s, pts=472064 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0220",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 220,
+        "presentation_frame_index": 220,
+        "requested_time_s": 7.3333,
+        "time_s": 30.7333,
+        "pts": 472064,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "7be3670cb291f6f1368d3964c5ee27862ab45f8fc51c74237f415b1c35401b6f",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 6462,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/220?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 220,
+        "row_end": 220,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0307",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 307,
+      "time_s": 33.6333,
+      "label": "WRIST · sample 307 (33.63s)",
+      "caption": "Original wrist camera frame at sample_index=307, time=33.63s, pts=516608 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0307",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 307,
+        "presentation_frame_index": 307,
+        "requested_time_s": 10.2333,
+        "time_s": 33.6333,
+        "pts": 516608,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "864810903d254f171946a46bd444e47243271396c4525341fba0ea73080383ba",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 5507,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/307?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 307,
+        "row_end": 307,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0393",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 393,
+      "time_s": 36.5,
+      "label": "WRIST · sample 393 (36.50s)",
+      "caption": "Original wrist camera frame at sample_index=393, time=36.50s, pts=560640 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0393",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 393,
+        "presentation_frame_index": 393,
+        "requested_time_s": 13.1,
+        "time_s": 36.5,
+        "pts": 560640,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "8a484e70ded189499efcc93af02faf934444b366ceaff2a851f8039097f8d292",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 5678,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/393?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 393,
+        "row_end": 393,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    },
+    {
+      "evidence_id": "ev_frame_teleop_demo_episode_000001_wrist_0480",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "wrist",
+      "sample_index": 480,
+      "time_s": 39.4,
+      "label": "WRIST · sample 480 (39.40s)",
+      "caption": "Original wrist camera frame at sample_index=480, time=39.40s, pts=605184 (window [220..480]).",
+      "frame_ref": {
+        "frame_id": "frame_teleop_demo_episode_000001_wrist_0480",
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "wrist",
+        "camera_id": "wrist",
+        "sample_index": 480,
+        "presentation_frame_index": 480,
+        "requested_time_s": 16.0,
+        "time_s": 39.4,
+        "pts": 605184,
+        "timing_map_revision": "tmap_v1_1_1to1",
+        "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "source_video_sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "decoded_frame_sha256": "f92f5bb36c3e912eeff2ac77855ee45747c3a8bf00b364bd89e5919c2e261be5",
+        "width": 320,
+        "height": 200,
+        "resolution_tier": "overview",
+        "mime_type": "image/jpeg",
+        "byte_size": 6298,
+        "image_url": "/api/episodes/teleop_demo_episode_000001/frames/wrist/480?tier=overview&codec=h264"
+      },
+      "source_ref": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "artifact_kind": "video_mp4",
+        "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/wrist.mp4",
+        "sha256": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d",
+        "row_start": 480,
+        "row_end": 480,
+        "columns": [
+          "wrist"
+        ],
+        "formula": null
+      }
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_teleop_demo_episode_000001_1",
+      "label": "Post-placement & release window (220–480)",
+      "start_sample": 220,
+      "end_sample": 480,
+      "selection_origin": "user_selected",
+      "description": "Full-resolution CSV records (261 rows, 7.33s–16.00s video time) and 8 original frames sampled at indices [220, 307, 393, 480].",
+      "uncertainty_note": "Sampled interval review suggestion; exact sub-frame physical contact onset is unmeasured.",
+      "grounded_evidence_ids": [
+        "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "ev_frame_teleop_demo_episode_000001_top_0220",
+        "ev_frame_teleop_demo_episode_000001_top_0307",
+        "ev_frame_teleop_demo_episode_000001_top_0393",
+        "ev_frame_teleop_demo_episode_000001_top_0480"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "hyp_teleop_demo_episode_000001_1",
+      "statement": "Wrist_flex & gripper excursion at 220–480 — matches observed transition recorded under 'leader_command' semantics.",
+      "status": "consistent_with_available_evidence",
+      "supporting_evidence_ids": [
+        "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_diff_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_diff_wrist_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_diff_elbow_flex_220_480"
+      ],
+      "conflicting_evidence_ids": [],
+      "missing_evidence": [
+        "Servo current / torque telemetry",
+        "Hardware command-application timestamp log"
+      ],
+      "rationale": "Server-computed T1 records confirm exact state and action trajectories (state.wrist_flex moves from -31.52 deg to -46.55 deg (min -46.55 deg, max -9.54 deg) with state-minus-action mean_signed_diff=+1.72 deg (max_abs_diff=9.89 deg at sample 293); state.gripper transitions from 51.91 to 36.77 (range 36.77..52.30) with state-minus-action mean_signed_diff=+6.24 and max_abs_diff=8.43 at sample 251 (8.37s video time)), while keeping physical actuator cause unverified."
+    },
+    {
+      "hypothesis_id": "hyp_teleop_demo_episode_000001_2",
+      "statement": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+      "status": "insufficient_evidence",
+      "supporting_evidence_ids": [],
+      "conflicting_evidence_ids": [
+        "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "ev_frame_teleop_demo_episode_000001_top_0220",
+        "ev_frame_teleop_demo_episode_000001_top_0307"
+      ],
+      "missing_evidence": [
+        "Tactile / force-torque sensor at gripper jaws",
+        "Motor current and temperature logs"
+      ],
+      "rationale": "Calculation checked != physical cause confirmed: joint encoders and 30 fps RGB frames cannot isolate mechanical stall, friction slip, or calibration offset."
+    }
+  ],
+  "unresolved_physical_causes": [
+    "Motor stall vs. servo torque saturation cannot be confirmed without motor current/torque telemetry.",
+    "Object slip vs. insufficient gripper pad friction cannot be confirmed from sparse 30 fps RGB frames alone.",
+    "Calibration offset vs. mechanical backlash cannot be separated from recorded joint angle encoders alone.",
+    "Exact sub-frame contact onset is unverified because physical_sync_uncertainty_ms is unmeasured (null)."
+  ],
+  "recommended_manual_checks": [
+    "Inspect exact decoded top and wrist frames around peak gripper discrepancy sample 251.",
+    "Compare gripper closure profile against teleop_demo_episode_000001 reference trajectory.",
+    "Verify physical gripper pad condition and servo calibration zero-point on the SO-101 follower arm."
+  ],
+  "limitations": [
+    "Sampled 4 evenly spaced timestamps ([220, 307, 393, 480]) across 2 camera(s) (top, wrist) over [220..480] (261 total samples; 257 intermediate samples not viewed in this bundle). Sparse frames do not prove continuous retention or events in unsampled gaps.",
+    "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+    "Physical synchronization uncertainty (physical_sync_uncertainty_ms) is null."
+  ],
+  "semantics_and_annotation_note": "Episode 'teleop_demo_episode_000001' is a teleoperation demonstration where action.* represents human 'leader_command' targets. Supplied annotation: status='success' (rule='every demonstration in the dataset is a success'; Rule: every demonstration in the dataset is a success). LabLens reviews this disclosed annotation against sampled evidence and does not claim blind outcome detection.",
+  "evidence_graph": {
+    "episode_id": "teleop_demo_episode_000001",
+    "node_count": 13,
+    "edge_count": 19,
+    "omitted_items_count": 8,
+    "nodes": [
+      {
+        "node_id": "node_ep_teleop_demo_episode_000001",
+        "node_type": "Episode",
+        "label": "Teleop Demo #000001 (Success)",
+        "sublabel": "teleoperation · outcome: success (human)",
+        "status": "success",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": null,
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": null,
+        "sample_end": null,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "episode",
+          "episode_id": "teleop_demo_episode_000001",
+          "episode_revision": "rev_daa3c8e704cc",
+          "source_type": "teleoperation",
+          "task_label": "Pick up the cola can and place it upright on the coaster",
+          "summary_text": "Teleop Demo #000001 (Success) (teleoperation) — outcome: success via every demonstration in the dataset is a success.",
+          "action_semantics": {
+            "kind": "leader_command",
+            "relationship": "leader_target",
+            "is_leader_command": true,
+            "postprocessing_note": "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+            "meaning": "Teleoperation leader arm joint target command sent to the follower arm."
+          },
+          "outcome_annotation": {
+            "status": "success",
+            "value": "success",
+            "provenance": "human",
+            "provenance_kind": "human",
+            "annotator_or_rule_id": "every demonstration in the dataset is a success",
+            "criterion": "every demonstration in the dataset is a success",
+            "annotation_revision": "rev1",
+            "rationale": "Rule: every demonstration in the dataset is a success",
+            "success_Detail": "—",
+            "failure_stage": null,
+            "episode_notes": null,
+            "ai_judge_verdict": null,
+            "ground_truth_verdict": "SUCCESS",
+            "disclosed_to_model": true
+          },
+          "timing_semantics": {
+            "nominal_fps": 30.0,
+            "primary_index_column": "frame_index",
+            "primary_time_column": "t_s",
+            "secondary_time_column": null,
+            "has_wall_clock": false,
+            "has_video_pts": true,
+            "physical_sync_uncertainty_ms": null,
+            "timing_map_revision": "tmap_v1_1_1to1",
+            "alignment_note": "Row index frame_index (0..N-1) aligns 1:1 with decoded video frame index; t_s is nominal 30 Hz demonstration timestamp. physical_sync_uncertainty_ms is null (unmeasured)."
+          }
+        }
+      },
+      {
+        "node_id": "node_evt_teleop_demo_episode_000001_1",
+        "node_type": "Event",
+        "label": "Post-placement & release window (220–480)",
+        "sublabel": "Samples 220–480 (user_selected)",
+        "status": "user_selected",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": null,
+        "event_id": "evt_teleop_demo_episode_000001_1",
+        "hypothesis_id": null,
+        "sample_start": 220,
+        "sample_end": 480,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "event",
+          "event_id": "evt_teleop_demo_episode_000001_1",
+          "label": "Post-placement & release window (220–480)",
+          "start_sample": 220,
+          "end_sample": 480,
+          "selection_origin": "user_selected",
+          "description": "Full-resolution CSV records (261 rows, 7.33s–16.00s video time) and 8 original frames sampled at indices [220, 307, 393, 480].",
+          "summary_text": "Full-resolution CSV records (261 rows, 7.33s–16.00s video time) and 8 original frames sampled at indices [220, 307, 393, 480].",
+          "uncertainty_note": "Sampled interval review suggestion; exact sub-frame physical contact onset is unmeasured.",
+          "grounded_evidence_ids": [
+            "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+            "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+            "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+            "ev_frame_teleop_demo_episode_000001_top_0220",
+            "ev_frame_teleop_demo_episode_000001_top_0307",
+            "ev_frame_teleop_demo_episode_000001_top_0393",
+            "ev_frame_teleop_demo_episode_000001_top_0480"
+          ]
+        }
+      },
+      {
+        "node_id": "node_hyp_teleop_demo_episode_000001_1",
+        "node_type": "Hypothesis",
+        "label": "Wrist_flex & gripper excursion at 220–480",
+        "sublabel": "Status: consistent_with_available_evidence",
+        "status": "consistent_with_available_evidence",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": null,
+        "event_id": null,
+        "hypothesis_id": "hyp_teleop_demo_episode_000001_1",
+        "sample_start": null,
+        "sample_end": null,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "hypothesis",
+          "hypothesis_id": "hyp_teleop_demo_episode_000001_1",
+          "statement": "Wrist_flex & gripper excursion at 220–480 — matches observed transition recorded under 'leader_command' semantics.",
+          "summary_text": "Wrist_flex & gripper excursion at 220–480 — matches observed transition recorded under 'leader_command' semantics.",
+          "status": "consistent_with_available_evidence",
+          "rationale": "Server-computed T1 records confirm exact state and action trajectories (state.wrist_flex moves from -31.52 deg to -46.55 deg (min -46.55 deg, max -9.54 deg) with state-minus-action mean_signed_diff=+1.72 deg (max_abs_diff=9.89 deg at sample 293); state.gripper transitions from 51.91 to 36.77 (range 36.77..52.30) with state-minus-action mean_signed_diff=+6.24 and max_abs_diff=8.43 at sample 251 (8.37s video time)), while keeping physical actuator cause unverified.",
+          "supporting_evidence_ids": [
+            "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+            "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+            "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+            "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+            "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+            "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+            "ev_num_teleop_demo_episode_000001_diff_gripper_220_480",
+            "ev_num_teleop_demo_episode_000001_diff_wrist_flex_220_480",
+            "ev_num_teleop_demo_episode_000001_diff_elbow_flex_220_480"
+          ],
+          "conflicting_evidence_ids": [],
+          "missing_evidence": [
+            "Servo current / torque telemetry",
+            "Hardware command-application timestamp log"
+          ]
+        }
+      },
+      {
+        "node_id": "node_hyp_teleop_demo_episode_000001_2",
+        "node_type": "Hypothesis",
+        "label": "Physical root cause unverified",
+        "sublabel": "Status: insufficient_evidence",
+        "status": "insufficient_evidence",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": null,
+        "event_id": null,
+        "hypothesis_id": "hyp_teleop_demo_episode_000001_2",
+        "sample_start": null,
+        "sample_end": null,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "hypothesis",
+          "hypothesis_id": "hyp_teleop_demo_episode_000001_2",
+          "statement": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+          "summary_text": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+          "status": "insufficient_evidence",
+          "rationale": "Calculation checked != physical cause confirmed: joint encoders and 30 fps RGB frames cannot isolate mechanical stall, friction slip, or calibration offset.",
+          "supporting_evidence_ids": [],
+          "conflicting_evidence_ids": [
+            "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+            "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+            "ev_frame_teleop_demo_episode_000001_top_0220",
+            "ev_frame_teleop_demo_episode_000001_top_0307"
+          ],
+          "missing_evidence": [
+            "Tactile / force-torque sensor at gripper jaws",
+            "Motor current and temperature logs"
+          ]
+        }
+      },
+      {
+        "node_id": "node_ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "node_type": "Evidence",
+        "label": "state.gripper (220–480)",
+        "sublabel": "min 36.77 · max 52.30 · Δ -15.14 gripper_open_pct (0..100 calibrated)",
+        "status": "computed_record",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 220,
+        "sample_end": 480,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "state.gripper [220..480]: first=51.91, last=36.77, min=36.77, max=52.30, mean=39.01, Δ=-15.14 gripper_open_pct (0..100 calibrated) (peak excursion 15.14 at sample 360).",
+          "evidence": {
+            "evidence_id": "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "kind": "signal_summary",
+            "label": "state.gripper (220–480)",
+            "summary_text": "state.gripper [220..480]: first=51.91, last=36.77, min=36.77, max=52.30, mean=39.01, Δ=-15.14 gripper_open_pct (0..100 calibrated) (peak excursion 15.14 at sample 360).",
+            "start_sample": 220,
+            "end_sample": 480,
+            "start_time_s": 7.3333,
+            "end_time_s": 16.0,
+            "unit": "gripper_open_pct (0..100 calibrated)",
+            "signal_metrics": {
+              "signal": "state.gripper",
+              "unit": "gripper_open_pct (0..100 calibrated)",
+              "start_sample": 220,
+              "end_sample": 480,
+              "sample_count": 261,
+              "start_value": 51.913,
+              "end_value": 36.768,
+              "min_value": 36.768,
+              "max_value": 52.303,
+              "mean_value": 39.0103,
+              "delta": -15.145,
+              "abs_delta_max": 15.145,
+              "peak_sample": 360,
+              "peak_time_s": 12.0
+            },
+            "difference_metrics": null,
+            "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+              "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+              "row_start": 220,
+              "row_end": 480,
+              "columns": [
+                "frame_index",
+                "t_s",
+                "state.gripper"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "node_type": "Evidence",
+        "label": "action.gripper (220–480)",
+        "sublabel": "min 29.19 · max 52.44 · Δ -23.25 gripper_open_pct (0..100 calibrated)",
+        "status": "computed_record",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 220,
+        "sample_end": 480,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "action.gripper [220..480]: first=52.44, last=29.19, min=29.19, max=52.44, mean=32.77, Δ=-23.25 gripper_open_pct (0..100 calibrated) (peak excursion 23.25 at sample 363).",
+          "evidence": {
+            "evidence_id": "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "kind": "signal_summary",
+            "label": "action.gripper (220–480)",
+            "summary_text": "action.gripper [220..480]: first=52.44, last=29.19, min=29.19, max=52.44, mean=32.77, Δ=-23.25 gripper_open_pct (0..100 calibrated) (peak excursion 23.25 at sample 363).",
+            "start_sample": 220,
+            "end_sample": 480,
+            "start_time_s": 7.3333,
+            "end_time_s": 16.0,
+            "unit": "gripper_open_pct (0..100 calibrated)",
+            "signal_metrics": {
+              "signal": "action.gripper",
+              "unit": "gripper_open_pct (0..100 calibrated)",
+              "start_sample": 220,
+              "end_sample": 480,
+              "sample_count": 261,
+              "start_value": 52.439,
+              "end_value": 29.187,
+              "min_value": 29.187,
+              "max_value": 52.439,
+              "mean_value": 32.7689,
+              "delta": -23.252,
+              "abs_delta_max": 23.252,
+              "peak_sample": 363,
+              "peak_time_s": 12.1
+            },
+            "difference_metrics": null,
+            "caveat": "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+              "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+              "row_start": 220,
+              "row_end": 480,
+              "columns": [
+                "frame_index",
+                "t_s",
+                "action.gripper"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "node_type": "Evidence",
+        "label": "state.wrist_flex (220–480)",
+        "sublabel": "min -46.55 · max -9.54 · Δ -15.03 deg (calibrated)",
+        "status": "computed_record",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 220,
+        "sample_end": 480,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "state.wrist_flex [220..480]: first=-31.52, last=-46.55, min=-46.55, max=-9.54, mean=-31.33, Δ=-15.03 deg (calibrated) (peak excursion 21.98 at sample 322).",
+          "evidence": {
+            "evidence_id": "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "kind": "signal_summary",
+            "label": "state.wrist_flex (220–480)",
+            "summary_text": "state.wrist_flex [220..480]: first=-31.52, last=-46.55, min=-46.55, max=-9.54, mean=-31.33, Δ=-15.03 deg (calibrated) (peak excursion 21.98 at sample 322).",
+            "start_sample": 220,
+            "end_sample": 480,
+            "start_time_s": 7.3333,
+            "end_time_s": 16.0,
+            "unit": "deg (calibrated)",
+            "signal_metrics": {
+              "signal": "state.wrist_flex",
+              "unit": "deg (calibrated)",
+              "start_sample": 220,
+              "end_sample": 480,
+              "sample_count": 261,
+              "start_value": -31.516,
+              "end_value": -46.549,
+              "min_value": -46.549,
+              "max_value": -9.538,
+              "mean_value": -31.3324,
+              "delta": -15.033,
+              "abs_delta_max": 21.978,
+              "peak_sample": 322,
+              "peak_time_s": 10.7333
+            },
+            "difference_metrics": null,
+            "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+              "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+              "row_start": 220,
+              "row_end": 480,
+              "columns": [
+                "frame_index",
+                "t_s",
+                "state.wrist_flex"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+        "node_type": "Evidence",
+        "label": "action.wrist_flex (220–480)",
+        "sublabel": "min -49.23 · max -9.67 · Δ -13.10 deg (calibrated)",
+        "status": "computed_record",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 220,
+        "sample_end": 480,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "action.wrist_flex [220..480]: first=-36.13, last=-49.23, min=-49.23, max=-9.67, mean=-33.05, Δ=-13.10 deg (calibrated) (peak excursion 26.46 at sample 317).",
+          "evidence": {
+            "evidence_id": "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "kind": "signal_summary",
+            "label": "action.wrist_flex (220–480)",
+            "summary_text": "action.wrist_flex [220..480]: first=-36.13, last=-49.23, min=-49.23, max=-9.67, mean=-33.05, Δ=-13.10 deg (calibrated) (peak excursion 26.46 at sample 317).",
+            "start_sample": 220,
+            "end_sample": 480,
+            "start_time_s": 7.3333,
+            "end_time_s": 16.0,
+            "unit": "deg (calibrated)",
+            "signal_metrics": {
+              "signal": "action.wrist_flex",
+              "unit": "deg (calibrated)",
+              "start_sample": 220,
+              "end_sample": 480,
+              "sample_count": 261,
+              "start_value": -36.132,
+              "end_value": -49.231,
+              "min_value": -49.231,
+              "max_value": -9.67,
+              "mean_value": -33.0512,
+              "delta": -13.099,
+              "abs_delta_max": 26.462,
+              "peak_sample": 317,
+              "peak_time_s": 10.5667
+            },
+            "difference_metrics": null,
+            "caveat": "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+              "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+              "row_start": 220,
+              "row_end": 480,
+              "columns": [
+                "frame_index",
+                "t_s",
+                "action.wrist_flex"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+        "node_type": "Evidence",
+        "label": "state.elbow_flex (220–480)",
+        "sublabel": "min 33.63 · max 71.34 · Δ -0.79 deg (calibrated)",
+        "status": "computed_record",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 220,
+        "sample_end": 480,
+        "camera": null,
+        "inspector_payload": {
+          "kind": "numerical_evidence",
+          "summary_text": "state.elbow_flex [220..480]: first=58.15, last=57.36, min=33.63, max=71.34, mean=51.47, Δ=-0.79 deg (calibrated) (peak excursion 24.53 at sample 298).",
+          "evidence": {
+            "evidence_id": "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "kind": "signal_summary",
+            "label": "state.elbow_flex (220–480)",
+            "summary_text": "state.elbow_flex [220..480]: first=58.15, last=57.36, min=33.63, max=71.34, mean=51.47, Δ=-0.79 deg (calibrated) (peak excursion 24.53 at sample 298).",
+            "start_sample": 220,
+            "end_sample": 480,
+            "start_time_s": 7.3333,
+            "end_time_s": 16.0,
+            "unit": "deg (calibrated)",
+            "signal_metrics": {
+              "signal": "state.elbow_flex",
+              "unit": "deg (calibrated)",
+              "start_sample": 220,
+              "end_sample": 480,
+              "sample_count": 261,
+              "start_value": 58.154,
+              "end_value": 57.363,
+              "min_value": 33.626,
+              "max_value": 71.341,
+              "mean_value": 51.4713,
+              "delta": -0.791,
+              "abs_delta_max": 24.528,
+              "peak_sample": 298,
+              "peak_time_s": 9.9333
+            },
+            "difference_metrics": null,
+            "caveat": "Measured follower arm joint positions read from SO-101 servos at each sample index in calibrated joint degrees (and 0..100 open scale for gripper).",
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "trajectory_csv",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/trajectory.csv",
+              "sha256": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8",
+              "row_start": 220,
+              "row_end": 480,
+              "columns": [
+                "frame_index",
+                "t_s",
+                "state.elbow_flex"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_teleop_demo_episode_000001_top_0220",
+        "node_type": "Evidence",
+        "label": "TOP · sample 220 (30.73s)",
+        "sublabel": "Camera: top · 30.73s video · PTS 472064",
+        "status": "sampled_frame",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0220",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 220,
+        "sample_end": 220,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 220 (30.73s video time, PTS 472064, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0220",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "camera": "top",
+            "sample_index": 220,
+            "time_s": 30.7333,
+            "label": "TOP · sample 220 (30.73s)",
+            "caption": "Original top camera frame at sample_index=220, time=30.73s, pts=472064 (window [220..480]).",
+            "frame_ref": {
+              "frame_id": "frame_teleop_demo_episode_000001_top_0220",
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 220,
+              "presentation_frame_index": 220,
+              "requested_time_s": 7.3333,
+              "time_s": 30.7333,
+              "pts": 472064,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "decoded_frame_sha256": "5c51d6f73d4022108e6ce907415611e8bcbbfebca2fc188c01dce7d8a2357ea4",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 32005,
+              "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/220?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "row_start": 220,
+              "row_end": 220,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_teleop_demo_episode_000001_top_0307",
+        "node_type": "Evidence",
+        "label": "TOP · sample 307 (33.63s)",
+        "sublabel": "Camera: top · 33.63s video · PTS 516608",
+        "status": "sampled_frame",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0307",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 307,
+        "sample_end": 307,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 307 (33.63s video time, PTS 516608, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0307",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "camera": "top",
+            "sample_index": 307,
+            "time_s": 33.6333,
+            "label": "TOP · sample 307 (33.63s)",
+            "caption": "Original top camera frame at sample_index=307, time=33.63s, pts=516608 (window [220..480]).",
+            "frame_ref": {
+              "frame_id": "frame_teleop_demo_episode_000001_top_0307",
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 307,
+              "presentation_frame_index": 307,
+              "requested_time_s": 10.2333,
+              "time_s": 33.6333,
+              "pts": 516608,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "decoded_frame_sha256": "c475002a39008949054f5539eed9ad1476c240402562bd794b0b203bebb768c8",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 32159,
+              "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/307?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "row_start": 307,
+              "row_end": 307,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_teleop_demo_episode_000001_top_0393",
+        "node_type": "Evidence",
+        "label": "TOP · sample 393 (36.50s)",
+        "sublabel": "Camera: top · 36.50s video · PTS 560640",
+        "status": "sampled_frame",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0393",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 393,
+        "sample_end": 393,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 393 (36.50s video time, PTS 560640, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0393",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "camera": "top",
+            "sample_index": 393,
+            "time_s": 36.5,
+            "label": "TOP · sample 393 (36.50s)",
+            "caption": "Original top camera frame at sample_index=393, time=36.50s, pts=560640 (window [220..480]).",
+            "frame_ref": {
+              "frame_id": "frame_teleop_demo_episode_000001_top_0393",
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 393,
+              "presentation_frame_index": 393,
+              "requested_time_s": 13.1,
+              "time_s": 36.5,
+              "pts": 560640,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "decoded_frame_sha256": "54e08569e7bf5e937e9395453c101ee9ac89657548fc299afdf9a280de8238b1",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 30761,
+              "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/393?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "row_start": 393,
+              "row_end": 393,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      },
+      {
+        "node_id": "node_ev_frame_teleop_demo_episode_000001_top_0480",
+        "node_type": "Evidence",
+        "label": "TOP · sample 480 (39.40s)",
+        "sublabel": "Camera: top · 39.40s video · PTS 605184",
+        "status": "sampled_frame",
+        "episode_id": "teleop_demo_episode_000001",
+        "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0480",
+        "event_id": null,
+        "hypothesis_id": null,
+        "sample_start": 480,
+        "sample_end": 480,
+        "camera": "top",
+        "inspector_payload": {
+          "kind": "frame_evidence",
+          "summary_text": "Original top camera frame at sample 480 (39.40s video time, PTS 605184, 640x480 overview).",
+          "evidence": {
+            "evidence_id": "ev_frame_teleop_demo_episode_000001_top_0480",
+            "episode_id": "teleop_demo_episode_000001",
+            "episode_revision": "rev_daa3c8e704cc",
+            "camera": "top",
+            "sample_index": 480,
+            "time_s": 39.4,
+            "label": "TOP · sample 480 (39.40s)",
+            "caption": "Original top camera frame at sample_index=480, time=39.40s, pts=605184 (window [220..480]).",
+            "frame_ref": {
+              "frame_id": "frame_teleop_demo_episode_000001_top_0480",
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "camera": "top",
+              "camera_id": "top",
+              "sample_index": 480,
+              "presentation_frame_index": 480,
+              "requested_time_s": 16.0,
+              "time_s": 39.4,
+              "pts": 605184,
+              "timing_map_revision": "tmap_v1_1_1to1",
+              "source_video_path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "source_video_sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "decoded_frame_sha256": "582e0251767bc68f7dd250210e486dc80e9c09d8afe86168167db2076d79f267",
+              "width": 640,
+              "height": 480,
+              "resolution_tier": "overview",
+              "mime_type": "image/jpeg",
+              "byte_size": 30645,
+              "image_url": "/api/episodes/teleop_demo_episode_000001/frames/top/480?tier=overview&codec=h264"
+            },
+            "source_ref": {
+              "episode_id": "teleop_demo_episode_000001",
+              "episode_revision": "rev_daa3c8e704cc",
+              "artifact_kind": "video_mp4",
+              "path": "lablens_so101_episodes/lablens_so101_episodes/teleop_demo_episode_000001/video/top.mp4",
+              "sha256": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+              "row_start": 480,
+              "row_end": 480,
+              "columns": [
+                "top"
+              ],
+              "formula": null
+            }
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "edge_partof_evt_teleop_demo_episode_000001_1",
+        "edge_type": "PART_OF",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ep_teleop_demo_episode_000001",
+        "style": "solid",
+        "label": "PART_OF"
+      },
+      {
+        "edge_id": "edge_inv_hyp_teleop_demo_episode_000001_1_evt_teleop_demo_episode_000001_1",
+        "edge_type": "INVESTIGATES",
+        "source": "node_hyp_teleop_demo_episode_000001_1",
+        "target": "node_evt_teleop_demo_episode_000001_1",
+        "style": "dashed",
+        "label": "INVESTIGATES"
+      },
+      {
+        "edge_id": "edge_inv_hyp_teleop_demo_episode_000001_2_evt_teleop_demo_episode_000001_1",
+        "edge_type": "INVESTIGATES",
+        "source": "node_hyp_teleop_demo_episode_000001_2",
+        "target": "node_evt_teleop_demo_episode_000001_1",
+        "style": "dashed",
+        "label": "INVESTIGATES"
+      },
+      {
+        "edge_id": "edge_ground_evt_teleop_demo_episode_000001_1_ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_teleop_demo_episode_000001_1_ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_teleop_demo_episode_000001_1_ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_teleop_demo_episode_000001_1_ev_frame_teleop_demo_episode_000001_top_0220",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ev_frame_teleop_demo_episode_000001_top_0220",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_teleop_demo_episode_000001_1_ev_frame_teleop_demo_episode_000001_top_0307",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ev_frame_teleop_demo_episode_000001_top_0307",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_teleop_demo_episode_000001_1_ev_frame_teleop_demo_episode_000001_top_0393",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ev_frame_teleop_demo_episode_000001_top_0393",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_ground_evt_teleop_demo_episode_000001_1_ev_frame_teleop_demo_episode_000001_top_0480",
+        "edge_type": "GROUNDED_IN",
+        "source": "node_evt_teleop_demo_episode_000001_1",
+        "target": "node_ev_frame_teleop_demo_episode_000001_top_0480",
+        "style": "solid",
+        "label": "GROUNDED_IN"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_teleop_demo_episode_000001_state_gripper_220_480_hyp_teleop_demo_episode_000001_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "target": "node_hyp_teleop_demo_episode_000001_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_teleop_demo_episode_000001_action_gripper_220_480_hyp_teleop_demo_episode_000001_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "target": "node_hyp_teleop_demo_episode_000001_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480_hyp_teleop_demo_episode_000001_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "target": "node_hyp_teleop_demo_episode_000001_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480_hyp_teleop_demo_episode_000001_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+        "target": "node_hyp_teleop_demo_episode_000001_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_sup_ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480_hyp_teleop_demo_episode_000001_1",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+        "target": "node_hyp_teleop_demo_episode_000001_1",
+        "style": "dashed",
+        "label": "BEARS_ON (consistent)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_num_teleop_demo_episode_000001_state_gripper_220_480_hyp_teleop_demo_episode_000001_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "target": "node_hyp_teleop_demo_episode_000001_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_num_teleop_demo_episode_000001_action_gripper_220_480_hyp_teleop_demo_episode_000001_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "target": "node_hyp_teleop_demo_episode_000001_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_frame_teleop_demo_episode_000001_top_0220_hyp_teleop_demo_episode_000001_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_frame_teleop_demo_episode_000001_top_0220",
+        "target": "node_hyp_teleop_demo_episode_000001_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      },
+      {
+        "edge_id": "edge_bearson_conf_ev_frame_teleop_demo_episode_000001_top_0307_hyp_teleop_demo_episode_000001_2",
+        "edge_type": "BEARS_ON",
+        "source": "node_ev_frame_teleop_demo_episode_000001_top_0307",
+        "target": "node_hyp_teleop_demo_episode_000001_2",
+        "style": "dashed",
+        "label": "BEARS_ON (challenges)"
+      }
+    ]
+  },
+  "plan_response": {
+    "schema_version": "lablens.plan.v1_1",
+    "request_id": "req_p_saved_inv_teleop_demo_episode_000001",
+    "investigation_id": "saved_inv_teleop_demo_episode_000001",
+    "episode_id": "teleop_demo_episode_000001",
+    "episode_revision": "rev_daa3c8e704cc",
+    "decision": "inspect",
+    "annotation_disclosure": "disclosed",
+    "restated_question": "Investigate 'How does follower state track human leader arm commands across grasp, transport, and release in teleop_demo_episode_000001?' within authorized samples [150..550], treating supplied outcome='success' (rule=every demonstration in the dataset is a success) as disclosed context.",
+    "focus_start_sample": 220,
+    "focus_end_sample": 480,
+    "focus_rationale": "Window [220..480] (7.33s–16.00s video time) captures the critical post-placement / release transition where wrist_flex and gripper interact with the object.",
+    "candidate_intervals": [
+      {
+        "interval_id": "cand_int_1",
+        "start_sample": 220,
+        "end_sample": 480,
+        "selection_origin": "user_selected",
+        "reason": "Primary post-placement and release interval selected for cross-modal verification.",
+        "delivered_frame_ids": [
+          "ev_frame_teleop_demo_episode_000001_top_0220",
+          "ev_frame_teleop_demo_episode_000001_top_0307",
+          "ev_frame_teleop_demo_episode_000001_top_0393",
+          "ev_frame_teleop_demo_episode_000001_top_0480"
+        ],
+        "visibility_and_coverage_limits": "Evenly sampled at [220, 307, 393, 480]; intermediate frames are unobserved."
+      }
+    ],
+    "candidate_hypotheses": [
+      "Wrist_flex excursion and gripper transition in [220..480] align with the observed outcome.",
+      "Physical root cause (stall, slip, or contact force) cannot be proven from CSV and 30 fps RGB alone."
+    ],
+    "hypotheses": [
+      {
+        "hypothesis_id": "hyp_1",
+        "statement": "Wrist_flex and gripper trajectories in [220..480] align with the observed outcome.",
+        "supplied_evidence_refs": [
+          "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+          "ev_num_teleop_demo_episode_000001_action_gripper_220_480"
+        ],
+        "evidence_needed": "Full-resolution T1 signal window over gripper and wrist_flex pairs."
+      },
+      {
+        "hypothesis_id": "hyp_2",
+        "statement": "Sampled top and wrist camera views show the physical object-coaster relationship across the transition.",
+        "supplied_evidence_refs": [
+          "ev_frame_teleop_demo_episode_000001_top_0220",
+          "ev_frame_teleop_demo_episode_000001_top_0307"
+        ],
+        "evidence_needed": "Synchronized top and wrist frames across the release interval."
+      }
+    ],
+    "signal_window_request": {
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "start_sample": 220,
+      "end_sample": 480,
+      "signals": [
+        "state.gripper",
+        "action.gripper",
+        "state.wrist_flex",
+        "action.wrist_flex",
+        "state.elbow_flex",
+        "action.elbow_flex"
+      ],
+      "include_State_action_diff": true,
+      "difference_pair_id": null,
+      "requested_difference_pairs": [
+        "diff_gripper",
+        "diff_wrist_flex",
+        "diff_elbow_flex"
+      ]
+    },
+    "frame_bundle_request": {
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "camera": "both",
+      "camera_ids": [
+        "top",
+        "wrist"
+      ],
+      "start_sample": 220,
+      "end_sample": 480,
+      "sample_count": 4,
+      "resolution_tier": "overview"
+    },
+    "unresolved_without_sensors": [
+      "Motor stall vs. servo torque saturation cannot be confirmed without motor current/torque telemetry.",
+      "Object slip vs. insufficient gripper pad friction cannot be confirmed from sparse 30 fps RGB frames alone.",
+      "Calibration offset vs. mechanical backlash cannot be separated from recorded joint angle encoders alone."
+    ],
+    "limitations": [
+      "Sparse frame sampling does not prove continuous retention between sampled indices.",
+      "Recorded state - action differences do not measure physical contact force or motor current."
+    ]
+  },
+  "review_response": {
+    "schema_version": "lablens.review.v1_1",
+    "request_id": "req_r_saved_inv_teleop_demo_episode_000001",
+    "investigation_id": "saved_inv_teleop_demo_episode_000001",
+    "episode_id": "teleop_demo_episode_000001",
+    "episode_revision": "rev_daa3c8e704cc",
+    "decision": "report",
+    "annotation_disclosure": "disclosed",
+    "direct_answer": "[Saved Reference Analysis] Inspect samples [220..480] (7.33s–16.00s video time) first. Episode 'teleop_demo_episode_000001' is a teleoperation demonstration where action.* represents human 'leader_command' targets. In this interval, state.wrist_flex moves from -31.52 deg to -46.55 deg (min -46.55 deg, max -9.54 deg) with state-minus-action mean_signed_diff=+1.72 deg (max_abs_diff=9.89 deg at sample 293); state.gripper transitions from 51.91 to 36.77 (range 36.77..52.30) with state-minus-action mean_signed_diff=+6.24 and max_abs_diff=8.43 at sample 251 (8.37s video time). Sampled top and wrist frames ([220, 307, 393, 480]) document the workspace and end-effector posture consistent with the supplied 'success' (every demonstration in the dataset is a success) annotation, while physical root causes (motor torque saturation, friction/slip, or sub-frame contact onset) remain explicitly unverified.",
+    "computed_fact_citations": [
+      "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+      "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+      "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+      "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+      "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+      "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+      "ev_num_teleop_demo_episode_000001_diff_gripper_220_480",
+      "ev_num_teleop_demo_episode_000001_diff_wrist_flex_220_480",
+      "ev_num_teleop_demo_episode_000001_diff_elbow_flex_220_480"
+    ],
+    "numeric_findings": [
+      {
+        "evidence_id": "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "state.gripper [220..480]: first=51.91, last=36.77, min=36.77, max=52.30, mean=39.01, Δ=-15.14 gripper_open_pct (0..100 calibrated) (peak excursion 15.14 at sample 360)."
+      },
+      {
+        "evidence_id": "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "action.gripper [220..480]: first=52.44, last=29.19, min=29.19, max=52.44, mean=32.77, Δ=-23.25 gripper_open_pct (0..100 calibrated) (peak excursion 23.25 at sample 363)."
+      },
+      {
+        "evidence_id": "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "state.wrist_flex [220..480]: first=-31.52, last=-46.55, min=-46.55, max=-9.54, mean=-31.33, Δ=-15.03 deg (calibrated) (peak excursion 21.98 at sample 322)."
+      },
+      {
+        "evidence_id": "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "action.wrist_flex [220..480]: first=-36.13, last=-49.23, min=-49.23, max=-9.67, mean=-33.05, Δ=-13.10 deg (calibrated) (peak excursion 26.46 at sample 317)."
+      },
+      {
+        "evidence_id": "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "state.elbow_flex [220..480]: first=58.15, last=57.36, min=33.63, max=71.34, mean=51.47, Δ=-0.79 deg (calibrated) (peak excursion 24.53 at sample 298)."
+      },
+      {
+        "evidence_id": "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+        "metric_keys": [
+          "start_value",
+          "end_value",
+          "min_value",
+          "max_value",
+          "mean_value",
+          "delta",
+          "peak_sample"
+        ],
+        "concise_interpretation": "action.elbow_flex [220..480]: first=54.64, last=55.69, min=30.02, max=70.55, mean=49.13, Δ=+1.05 deg (calibrated) (peak excursion 24.61 at sample 296)."
+      }
+    ],
+    "events": [
+      {
+        "event_id": "evt_teleop_demo_episode_000001_1",
+        "label": "Post-placement & release window (220–480)",
+        "start_sample": 220,
+        "end_sample": 480,
+        "selection_origin": "user_selected",
+        "description": "Full-resolution CSV records (261 rows, 7.33s–16.00s video time) and 8 original frames sampled at indices [220, 307, 393, 480].",
+        "uncertainty_note": "Sampled interval review suggestion; exact sub-frame physical contact onset is unmeasured.",
+        "grounded_evidence_ids": [
+          "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+          "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+          "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+          "ev_frame_teleop_demo_episode_000001_top_0220",
+          "ev_frame_teleop_demo_episode_000001_top_0307",
+          "ev_frame_teleop_demo_episode_000001_top_0393",
+          "ev_frame_teleop_demo_episode_000001_top_0480"
+        ]
+      }
+    ],
+    "visual_findings": [
+      {
+        "finding_id": "vf_teleop_demo_episode_000001_top",
+        "observation": "Top camera samples ([220, 307, 393, 480]) show global arm trajectory and object state relative to the coaster across 7.33s–16.00s video time (supplied outcome=success, operator_note='—').",
+        "sampled_frame_evidence_ids": [
+          "ev_frame_teleop_demo_episode_000001_top_0220",
+          "ev_frame_teleop_demo_episode_000001_top_0307",
+          "ev_frame_teleop_demo_episode_000001_top_0393",
+          "ev_frame_teleop_demo_episode_000001_top_0480"
+        ],
+        "sample_range_label": "Samples 220–480 (4 top frames)",
+        "visibility_and_coverage_limits": "Overhead view cannot resolve fine fingertip contact force or micro-slip between sampled timestamps.",
+        "is_sampled_observation": true
+      },
+      {
+        "finding_id": "vf_teleop_demo_episode_000001_wrist",
+        "observation": "Wrist camera samples ([220, 307, 393, 480]) show close-up gripper jaw aperture and wrist posture relative to the object at the sampled timestamps.",
+        "sampled_frame_evidence_ids": [
+          "ev_frame_teleop_demo_episode_000001_wrist_0220",
+          "ev_frame_teleop_demo_episode_000001_wrist_0307",
+          "ev_frame_teleop_demo_episode_000001_wrist_0393",
+          "ev_frame_teleop_demo_episode_000001_wrist_0480"
+        ],
+        "sample_range_label": "Samples 220–480 (4 wrist frames)",
+        "visibility_and_coverage_limits": "Close wrist perspective experiences partial occlusion during descent and does not observe unsampled intermediate frames.",
+        "is_sampled_observation": true
+      }
+    ],
+    "hypothesis_assessments": [
+      {
+        "hypothesis_id": "hyp_teleop_demo_episode_000001_1",
+        "statement": "Wrist_flex & gripper excursion at 220–480 — matches observed transition recorded under 'leader_command' semantics.",
+        "status": "consistent_with_available_evidence",
+        "supporting_evidence_ids": [
+          "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+          "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+          "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+          "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+          "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+          "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+          "ev_num_teleop_demo_episode_000001_diff_gripper_220_480",
+          "ev_num_teleop_demo_episode_000001_diff_wrist_flex_220_480",
+          "ev_num_teleop_demo_episode_000001_diff_elbow_flex_220_480"
+        ],
+        "conflicting_evidence_ids": [],
+        "missing_evidence": [
+          "Servo current / torque telemetry",
+          "Hardware command-application timestamp log"
+        ],
+        "rationale": "Server-computed T1 records confirm exact state and action trajectories (state.wrist_flex moves from -31.52 deg to -46.55 deg (min -46.55 deg, max -9.54 deg) with state-minus-action mean_signed_diff=+1.72 deg (max_abs_diff=9.89 deg at sample 293); state.gripper transitions from 51.91 to 36.77 (range 36.77..52.30) with state-minus-action mean_signed_diff=+6.24 and max_abs_diff=8.43 at sample 251 (8.37s video time)), while keeping physical actuator cause unverified."
+      },
+      {
+        "hypothesis_id": "hyp_teleop_demo_episode_000001_2",
+        "statement": "Physical root cause unverified — CSV and 30 fps RGB alone cannot isolate stall, pad friction, or contact force without dedicated sensors.",
+        "status": "insufficient_evidence",
+        "supporting_evidence_ids": [],
+        "conflicting_evidence_ids": [
+          "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+          "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+          "ev_frame_teleop_demo_episode_000001_top_0220",
+          "ev_frame_teleop_demo_episode_000001_top_0307"
+        ],
+        "missing_evidence": [
+          "Tactile / force-torque sensor at gripper jaws",
+          "Motor current and temperature logs"
+        ],
+        "rationale": "Calculation checked != physical cause confirmed: joint encoders and 30 fps RGB frames cannot isolate mechanical stall, friction slip, or calibration offset."
+      }
+    ],
+    "unresolved_physical_causes": [
+      "Motor stall vs. servo torque saturation cannot be confirmed without motor current/torque telemetry.",
+      "Object slip vs. insufficient gripper pad friction cannot be confirmed from sparse 30 fps RGB frames alone.",
+      "Calibration offset vs. mechanical backlash cannot be separated from recorded joint angle encoders alone.",
+      "Exact sub-frame contact onset is unverified because physical_sync_uncertainty_ms is unmeasured (null)."
+    ],
+    "recommended_manual_checks": [
+      "Inspect exact decoded top and wrist frames around peak gripper discrepancy sample 251.",
+      "Compare gripper closure profile against teleop_demo_episode_000001 reference trajectory.",
+      "Verify physical gripper pad condition and servo calibration zero-point on the SO-101 follower arm."
+    ],
+    "limitations": [
+      "Sampled 4 evenly spaced timestamps ([220, 307, 393, 480]) across 2 camera(s) (top, wrist) over [220..480] (261 total samples; 257 intermediate samples not viewed in this bundle). Sparse frames do not prove continuous retention or events in unsampled gaps.",
+      "Human teleoperation leader arm target position recorded at 30 Hz during demonstration.",
+      "Physical synchronization uncertainty (physical_sync_uncertainty_ms) is null."
+    ],
+    "Semantics_and_annotation_note": "Episode 'teleop_demo_episode_000001' is a teleoperation demonstration where action.* represents human 'leader_command' targets. Supplied annotation: status='success' (rule='every demonstration in the dataset is a success'; Rule: every demonstration in the dataset is a success). LabLens reviews this disclosed annotation against sampled evidence and does not claim blind outcome detection."
+  },
+  "tool_receipts": [
+    {
+      "receipt_id": "tr_t1_saved_inv_teleop_demo_episode_000001_220_480",
+      "investigation_id": "saved_inv_teleop_demo_episode_000001",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "tool_name": "query_signal_window",
+      "tool_version": "t1.v1_1",
+      "status": "completed",
+      "started_at": "2026-10-16T05:10:17.336564+00:00",
+      "completed_at": "2026-10-16T05:10:17.340566+00:00",
+      "duration_ms": 3.89,
+      "request_args": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "start_sample": 220,
+        "end_sample": 480,
+        "signals": [
+          "state.gripper",
+          "action.gripper",
+          "state.wrist_flex",
+          "action.wrist_flex",
+          "state.elbow_flex",
+          "action.elbow_flex"
+        ],
+        "include_State_action_diff": true,
+        "difference_pair_id": null,
+        "requested_difference_pairs": [
+          "diff_gripper",
+          "diff_wrist_flex",
+          "diff_elbow_flex"
+        ]
+      },
+      "source_digests": {
+        "trajectory_csv": "91024da16acf94ad328465e3280959b76093a57e32dd167a39b863b844eeaad8"
+      },
+      "produced_evidence_ids": [
+        "ev_num_teleop_demo_episode_000001_state_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_action_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_state_wrist_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_action_wrist_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_state_elbow_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_action_elbow_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_diff_gripper_220_480",
+        "ev_num_teleop_demo_episode_000001_diff_wrist_flex_220_480",
+        "ev_num_teleop_demo_episode_000001_diff_elbow_flex_220_480"
+      ],
+      "image_count": 0,
+      "payload_bytes": 18420,
+      "note": "Computed 6 signal summaries and 3 difference pairs across 261 full-resolution rows."
+    },
+    {
+      "receipt_id": "tr_t3_saved_inv_teleop_demo_episode_000001_220_480",
+      "investigation_id": "saved_inv_teleop_demo_episode_000001",
+      "episode_id": "teleop_demo_episode_000001",
+      "episode_revision": "rev_daa3c8e704cc",
+      "tool_name": "get_frame_bundle",
+      "tool_version": "t3.v1_1",
+      "status": "completed",
+      "started_at": "2026-10-16T05:10:17.340566+00:00",
+      "completed_at": "2026-10-16T05:10:17.347761+00:00",
+      "duration_ms": 7.61,
+      "request_args": {
+        "episode_id": "teleop_demo_episode_000001",
+        "episode_revision": "rev_daa3c8e704cc",
+        "camera": "both",
+        "camera_ids": [
+          "top",
+          "wrist"
+        ],
+        "start_sample": 220,
+        "end_sample": 480,
+        "sample_count": 4,
+        "resolution_tier": "overview"
+      },
+      "source_digests": {
+        "video_top": "aca087c225dc199f829a5b4defe0526f8a4756794599e1861a4bb2f0a402f0f4",
+        "video_wrist": "c397e7cad66d4a051097367bf512d0f68761fa9c13d1f54e36d101fd4270c73d"
+      },
+      "produced_evidence_ids": [
+        "ev_frame_teleop_demo_episode_000001_top_0220",
+        "ev_frame_teleop_demo_episode_000001_top_0307",
+        "ev_frame_teleop_demo_episode_000001_top_0393",
+        "ev_frame_teleop_demo_episode_000001_top_0480",
+        "ev_frame_teleop_demo_episode_000001_wrist_0220",
+        "ev_frame_teleop_demo_episode_000001_wrist_0307",
+        "ev_frame_teleop_demo_episode_000001_wrist_0393",
+        "ev_frame_teleop_demo_episode_000001_wrist_0480"
+      ],
+      "image_count": 8,
+      "payload_bytes": 149515,
+      "note": "Decoded 8 original frames (top, wrist) at indices [220, 307, 393, 480]."
+    }
+  ],
+  "model_receipts": [],
+  "budget_usage": {
+    "semantic_calls_used": 0,
+    "semantic_calls_limit": 2,
+    "tool_rounds_used": 1,
+    "tool_rounds_limit": 1,
+    "tool_requests_used": 2,
+    "tool_requests_limit": 2,
+    "overview_images_sent": 8,
+    "overview_images_limit": 12,
+    "detail_images_sent": 0,
+    "detail_images_limit": 12,
+    "unique_images_sent": 8,
+    "unique_images_limit": 24,
+    "total_image_transmissions": 8,
+    "total_image_transmissions_limit": 36,
+    "max_request_bytes_used": 149515,
+    "max_request_bytes_limit": 12582912
+  }
+}
