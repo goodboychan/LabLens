@@ -29,6 +29,8 @@ gcloud services enable \
   aiplatform.googleapis.com \
   --project "${PROJECT_ID}"
 
+OPERATOR_SECRET="${LABLENS_OPERATOR_SECRET:-$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')}"
+
 echo "==> Deploying ${SERVICE_NAME} to Cloud Run (${REGION})..."
 gcloud run deploy "${SERVICE_NAME}" \
   --source . \
@@ -40,7 +42,7 @@ gcloud run deploy "${SERVICE_NAME}" \
   --cpu 2 \
   --timeout 120 \
   --max-instances 3 \
-  --set-env-vars="LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=${GEMINI_LOCATION},GEMINI_MODEL_ID=${GEMINI_MODEL_ID}"
+  --set-env-vars="LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=${GEMINI_LOCATION},GEMINI_MODEL_ID=${GEMINI_MODEL_ID},LABLENS_OPERATOR_SECRET=${OPERATOR_SECRET},LABLENS_SESSION_TOKEN=${OPERATOR_SECRET}"
 
 SERVICE_URL="$(gcloud run services describe "${SERVICE_NAME}" --project "${PROJECT_ID}" --region "${REGION}" --format='value(status.url)')"
 echo "==> Deployed URL: ${SERVICE_URL}"

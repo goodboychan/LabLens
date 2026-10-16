@@ -51,7 +51,14 @@ if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
 
-cmd /c "gcloud.cmd run deploy $ServiceName --source . --project $ProjectId --region $Region --platform managed --allow-unauthenticated --memory 2Gi --cpu 2 --timeout 120 --max-instances 3 --quiet --set-env-vars=""LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=$ProjectId,GOOGLE_CLOUD_LOCATION=$GeminiLocation,GEMINI_MODEL_ID=$GeminiModelId"""
+$OperatorSecret = $env:LABLENS_OPERATOR_SECRET
+if (-not $OperatorSecret) {
+    $RngBytes = New-Object byte[] 32
+    [System.Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($RngBytes)
+    $OperatorSecret = [Convert]::ToBase64String($RngBytes).TrimEnd('=').Replace('+', '-').Replace('/', '_')
+}
+
+cmd /c "gcloud.cmd run deploy $ServiceName --source . --project $ProjectId --region $Region --platform managed --allow-unauthenticated --memory 2Gi --cpu 2 --timeout 120 --max-instances 3 --quiet --set-env-vars=""LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=$ProjectId,GOOGLE_CLOUD_LOCATION=$GeminiLocation,GEMINI_MODEL_ID=$GeminiModelId,LABLENS_OPERATOR_SECRET=$OperatorSecret,LABLENS_SESSION_TOKEN=$OperatorSecret"""
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Cloud Run deployment failed."
     exit $LASTEXITCODE

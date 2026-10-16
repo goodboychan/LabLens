@@ -72,6 +72,7 @@ def check_gemini_auth_status() -> Dict[str, Any]:
             os.environ.get("GOOGLE_CLOUD_PROJECT")
             or os.environ.get("GCLOUD_PROJECT")
             or adc_project
+            or getattr(creds, "quota_project_id", None)
             or DEFAULT_GCP_PROJECT
         )
         is_avail = creds is not None
@@ -127,6 +128,7 @@ def create_gemini_client_via_adc() -> Tuple[Optional[genai.Client], Dict[str, An
         os.environ.get("GOOGLE_CLOUD_PROJECT")
         or os.environ.get("GCLOUD_PROJECT")
         or adc_project
+        or getattr(creds, "quota_project_id", None)
         or DEFAULT_GCP_PROJECT
     )
     client = genai.Client(

@@ -54,7 +54,15 @@ manager = InvestigationManager(registry=registry, toolkit=toolkit)
 # Operator session security state (Gate G11)
 SESSION_COOKIE_NAME = "lablens_operator_session"
 CSRF_COOKIE_NAME = "lablens_csrf_token"
-OPERATOR_SESSION_TOKEN = os.environ.get("LABLENS_SESSION_TOKEN") or secrets.token_urlsafe(32)
+_configured_operator_secret = (
+    os.environ.get("LABLENS_OPERATOR_SECRET")
+    or os.environ.get("LABLENS_SESSION_TOKEN")
+    or ""
+).strip()
+if not _configured_operator_secret or _configured_operator_secret == "lablens-so101-operator":
+    OPERATOR_SESSION_TOKEN = secrets.token_urlsafe(32)
+else:
+    OPERATOR_SESSION_TOKEN = _configured_operator_secret
 OPERATOR_CSRF_TOKEN = os.environ.get("LABLENS_CSRF_TOKEN") or secrets.token_urlsafe(24)
 ALLOWED_HOSTS = {"localhost", "127.0.0.1", "testserver", "0.0.0.0"}
 
