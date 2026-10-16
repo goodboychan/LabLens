@@ -8,7 +8,7 @@ param(
     [string]$ServiceName = "lablens",
     [string]$Region = "us-central1",
     [string]$GeminiLocation = "global",
-    [string]$GeminiModelId = "gemini-3-flash-preview"
+    [string]$GeminiModelId = "gemini-4-argon"
 )
 
 $ErrorActionPreference = "Continue"

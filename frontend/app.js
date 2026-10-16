@@ -639,7 +639,7 @@
     const modelId =
       firstModelRec.reported_model_id ||
       firstModelRec.model_id ||
-      'gemini-3-flash-preview';
+      'gemini-4-argon';
     const subheaderModelEl = document.getElementById('subheader-model-id');
     if (subheaderModelEl) {
       subheaderModelEl.textContent = modelId;
@@ -1245,7 +1245,7 @@
     const modelId =
       firstModelRec.reported_model_id ||
       firstModelRec.model_id ||
-      'gemini-3-flash-preview';
+      'gemini-4-argon';
     const authorityText =
       node.status === 'computed_record' || isNumericalEvidenceNode(node)
         ? 'Calculation checked (T1 CSV)'
@@ -1332,7 +1332,7 @@
     const modelId =
       firstModelRec.reported_model_id ||
       firstModelRec.model_id ||
-      'gemini-3-flash-preview';
+      'gemini-4-argon';
     const trList = (state.currentReport.tool_receipts || [])
       .map((tr) => `${tr.tool_name} (${tr.status}, ${tr.duration_ms}ms, rev=${tr.episode_revision})`)
       .join(' | ');
@@ -1401,7 +1401,7 @@
     const modelId =
       firstModelRec.reported_model_id ||
       firstModelRec.model_id ||
-      'gemini-3-flash-preview';
+      'gemini-4-argon';
     if (summaryBadge) {
       summaryBadge.textContent = `${modelId} · 2 semantic calls max · 1 tool round · No hidden retries`;
     }

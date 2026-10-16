@@ -52,7 +52,7 @@ from backend.schemas import (
 )
 from backend.tools import EvidenceToolkit
 
-DEFAULT_MODEL_ID = os.environ.get("GEMINI_MODEL_ID", "gemini-3-flash-preview")
+DEFAULT_MODEL_ID = os.environ.get("GEMINI_MODEL_ID", "gemini-4-argon")
 DEFAULT_GCP_PROJECT = (
     os.environ.get("GOOGLE_CLOUD_PROJECT")
     or os.environ.get("GCLOUD_PROJECT")

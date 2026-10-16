@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PORT=8080 \
     LABLENS_USE_ADC=true \
     GOOGLE_CLOUD_LOCATION=global \
-    GEMINI_MODEL_ID=gemini-3-flash-preview
+    GEMINI_MODEL_ID=gemini-4-argon
 
 WORKDIR /app
 

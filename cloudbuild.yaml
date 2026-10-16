@@ -33,7 +33,7 @@ steps:
       - '--max-instances'
       - '3'
       - '--set-env-vars'
-      - 'LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL_ID=gemini-3-flash-preview'
+      - 'LABLENS_USE_ADC=true,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=global,GEMINI_MODEL_ID=gemini-4-argon'
 
 substitutions:
   _SERVICE: lablens

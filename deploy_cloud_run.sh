@@ -5,7 +5,7 @@ PROJECT_ID="${1:-${GOOGLE_CLOUD_PROJECT:-}}"
 SERVICE_NAME="${SERVICE_NAME:-lablens}"
 REGION="${REGION:-us-central1}"
 GEMINI_LOCATION="${GOOGLE_CLOUD_LOCATION:-global}"
-GEMINI_MODEL_ID="${GEMINI_MODEL_ID:-gemini-3-flash-preview}"
+GEMINI_MODEL_ID="${GEMINI_MODEL_ID:-gemini-4-argon}"
 
 if ! command -v gcloud >/dev/null 2>&1; then
   echo "Error: gcloud CLI is not installed or not on PATH." >&2
