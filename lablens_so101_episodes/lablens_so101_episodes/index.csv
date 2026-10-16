@@ -1,0 +1,17 @@
+episode_id,source,block,start,gripper,engine,success,operator_note
+rollout_T1001_1014_213934,rollout,Position fine-tune evaluation T1,start +3 cm (not in training),rubber-band gripper,FT-FP16,True,No failure reported by the operator.
+rollout_T1002_1014_214044,rollout,Position fine-tune evaluation T1,start +3 cm (not in training),rubber-band gripper,VC-025,False,Can ended half on the coaster (tilted on the coaster edge); the arm kept moving.
+rollout_T1006_1014_214600,rollout,Position fine-tune evaluation T1,start +3 cm (not in training),rubber-band gripper,VC-025,False,Can ended half on the coaster.
+rollout_T2012_1014_231614,rollout,Position fine-tune evaluation T2,start -3 cm (not in training),rubber-band gripper,FT-FP16,False,"The can was set down properly, then the gripper kept moving nearby and knocked it over."
+rollout_T2014_1014_231845,rollout,Position fine-tune evaluation T2,start -3 cm (not in training),rubber-band gripper,VC-025,False,The can was never grasped.
+rollout_T2002_1014_230336,rollout,Position fine-tune evaluation T2,start -3 cm (not in training),rubber-band gripper,FT-FP16,True,No failure reported by the operator.
+rollout_T0018_1014_223141,rollout,Position fine-tune evaluation T0,training start mark,rubber-band gripper,FT-FP16,False,The can did not fall but was pushed far off the coaster.
+rollout_T0022_1014_223628,rollout,Position fine-tune evaluation T0,training start mark,rubber-band gripper,FT-FP16,False,The can was knocked over while being set down.
+rollout_T0001_1014_221202,rollout,Position fine-tune evaluation T0,training start mark,rubber-band gripper,VC-025,True,No failure reported by the operator.
+rollout_P0016_1013_214101,rollout,Positive-control block,training start mark,rubber-band gripper,VC-000,False,"The grasp was off, and the can dropped while being carried."
+rollout_P0021_1013_214651,rollout,Positive-control block,training start mark,rubber-band gripper,PC-B,False,The can was placed on the coaster and the arm went back; then it came back to the coaster and knocked the can over.
+rollout_main186_1010_221517,rollout,G6 main study,training start mark,anti-slip pads on the gripper,VC-020,False,"The can was placed, then the gripper tipped it over while pulling back (overhead review)."
+rollout_main012_1008_004335,rollout,G6 main study,training start mark,anti-slip pads on the gripper,VC-020,True,No failure reported by the operator.
+rollout_S0005_1011_223252,rollout,"Stress test v1, S0",training start mark,gripper pads removed,VC-002,False,Gripper pads removed; the can dropped while being carried (overhead review).
+teleop_demo_episode_000001,teleop,LOCK-1 dataset,training start mark,as recorded,,True,
+teleop_demo_episode_000047,teleop,LOCK-1 dataset,training start mark,as recorded,,True,
