@@ -2,7 +2,7 @@
 
 Strictly implements:
 - Two-call runtime loop: Task P (lablens-plan-v1_1) -> 1 Tool Round (T1 + T3) -> Task R (lablens-review-v1_1)
-- Official google-genai SDK with gemini-3-flash-preview and ThinkingConfig(thinking_level="MEDIUM")
+- Official google-genai SDK with gemini-4-argon and ThinkingConfig(thinking_level="MEDIUM")
 - Hard server-side budget enforcement (Gates G05, G06, G07, G08, G09, G10)
 - Semantic Evidence Map builder (<=20 nodes, <=30 edges)
 - Saved reference analysis generator grounded in real T1/T3 tool outputs
@@ -52,7 +52,11 @@ from backend.schemas import (
 )
 from backend.tools import EvidenceToolkit
 
-DEFAULT_MODEL_ID = os.environ.get("GEMINI_MODEL_ID", "gemini-4-argon")
+DEFAULT_MODEL_ID = (
+    os.environ.get("LABLENS_MODEL_ID")
+    or os.environ.get("GEMINI_MODEL_ID")
+    or "gemini-4-argon"
+)
 DEFAULT_GCP_PROJECT = (
     os.environ.get("GOOGLE_CLOUD_PROJECT")
     or os.environ.get("GCLOUD_PROJECT")

@@ -1,0 +1,196 @@
+{
+  "wall_clock_wait_seconds": 115.45,
+  "focus_window": {
+    "start_sample": 1570,
+    "end_sample": 1620
+  },
+  "direct_answer": "Inspect model-selected interval [1600, 1620] first, followed by [1535, 1587]. Sampled top-camera images show the can upright on the coaster with the right gripper finger adjacent to its base through sample 1603, and tipped onto its side on the mat by sample 1620. Computed joint logs over [1500, 1620] show policy-issued wrist_flex pitching negative to its peak excursion near sample 1602, followed by shoulder_pan peaking at sample 1614 and shoulder_lift and gripper opening reaching their window peaks at sample 1620 (with diff_gripper peaking at sample 1618). These observations align with the supplied human failure annotation that nearby gripper motion knocked the can over, though exact contact onset and force between samples 1603 and 1620 remain unverified.",
+  "model_receipts": [
+    {
+      "receipt_id": "mr_p_inv_rollout_T2012_1014_231614_92878b46",
+      "investigation_id": "inv_rollout_T2012_1014_231614_92878b46",
+      "episode_id": "rollout_T2012_1014_231614",
+      "episode_revision": "rev_9d9be918a08d",
+      "task_id": "lablens-plan-v1_1",
+      "prompt_version": "lablens-plan-v1_1",
+      "call_number": 1,
+      "model_id": "gemini-4-argon",
+      "reported_model_id": "gemini-4-argon",
+      "sdk_name": "google-genai",
+      "thinking_level": "MEDIUM",
+      "response_schema_name": "InspectionPlanResponse",
+      "started_at": "2026-10-16T06:12:45.490868+00:00",
+      "completed_at": "2026-10-16T06:13:23.047568+00:00",
+      "duration_ms": 37557.08,
+      "delivered_image_ids": [
+        "ev_frame_rollout_T2012_1014_231614_top_1500",
+        "ev_frame_rollout_T2012_1014_231614_top_1540",
+        "ev_frame_rollout_T2012_1014_231614_top_1580",
+        "ev_frame_rollout_T2012_1014_231614_top_1620",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1500",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1540",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1580",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1620"
+      ],
+      "overview_images_sent": 8,
+      "detail_images_sent": 0,
+      "total_images_sent": 8,
+      "request_payload_bytes": 163409,
+      "input_tokens": 20855,
+      "output_tokens": 2608,
+      "status": "completed"
+    },
+    {
+      "receipt_id": "mr_r_inv_rollout_T2012_1014_231614_92878b46",
+      "investigation_id": "inv_rollout_T2012_1014_231614_92878b46",
+      "episode_id": "rollout_T2012_1014_231614",
+      "episode_revision": "rev_9d9be918a08d",
+      "task_id": "lablens-review-v1_1",
+      "prompt_version": "lablens-review-v1_1",
+      "call_number": 2,
+      "model_id": "gemini-4-argon",
+      "reported_model_id": "gemini-4-argon",
+      "sdk_name": "google-genai",
+      "thinking_level": "MEDIUM",
+      "response_schema_name": "EvidenceReviewResponse",
+      "started_at": "2026-10-16T06:13:23.445916+00:00",
+      "completed_at": "2026-10-16T06:14:38.202487+00:00",
+      "duration_ms": 74757.37,
+      "delivered_image_ids": [
+        "ev_frame_rollout_T2012_1014_231614_top_1570",
+        "ev_frame_rollout_T2012_1014_231614_top_1587",
+        "ev_frame_rollout_T2012_1014_231614_top_1603",
+        "ev_frame_rollout_T2012_1014_231614_top_1620",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1570",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1587",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1603",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1620",
+        "ev_frame_rollout_T2012_1014_231614_top_1500",
+        "ev_frame_rollout_T2012_1014_231614_top_1540",
+        "ev_frame_rollout_T2012_1014_231614_top_1580",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1500",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1540",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1580"
+      ],
+      "overview_images_sent": 8,
+      "detail_images_sent": 8,
+      "total_images_sent": 14,
+      "request_payload_bytes": 331763,
+      "input_tokens": 36932,
+      "output_tokens": 5895,
+      "status": "completed"
+    }
+  ],
+  "tool_receipts": [
+    {
+      "receipt_id": "tr_t1_inv_rollout_T2012_1014_231614_92878b46_1500_1620",
+      "investigation_id": "inv_rollout_T2012_1014_231614_92878b46",
+      "episode_id": "rollout_T2012_1014_231614",
+      "episode_revision": "rev_9d9be918a08d",
+      "tool_name": "query_signal_window",
+      "tool_version": "t1.v1_1",
+      "status": "completed",
+      "started_at": "2026-10-16T06:13:23.051569+00:00",
+      "completed_at": "2026-10-16T06:13:23.090910+00:00",
+      "duration_ms": 39.33,
+      "request_args": {
+        "episode_id": "rollout_T2012_1014_231614",
+        "episode_revision": "rev_9d9be918a08d",
+        "start_sample": 1500,
+        "end_sample": 1620,
+        "signals": [
+          "state.shoulder_pan",
+          "action.shoulder_pan",
+          "state.shoulder_lift",
+          "action.shoulder_lift",
+          "state.elbow_flex",
+          "action.elbow_flex",
+          "state.wrist_flex",
+          "action.wrist_flex",
+          "state.wrist_roll",
+          "action.wrist_roll",
+          "state.gripper",
+          "action.gripper"
+        ],
+        "include_State_action_diff": true,
+        "difference_pair_id": "diff_wrist_flex",
+        "requested_difference_pairs": [
+          "diff_shoulder_pan",
+          "diff_shoulder_lift",
+          "diff_elbow_flex",
+          "diff_wrist_flex",
+          "diff_wrist_roll",
+          "diff_gripper"
+        ]
+      },
+      "source_digests": {
+        "trajectory_csv": "a000d1d7cafa96e5b9b726c66968ababa7544b8bd4cab670d45e55fd600c242d"
+      },
+      "produced_evidence_ids": [
+        "ev_num_rollout_T2012_1014_231614_state_shoulder_pan_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_action_shoulder_pan_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_state_shoulder_lift_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_action_shoulder_lift_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_state_elbow_flex_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_action_elbow_flex_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_state_wrist_flex_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_action_wrist_flex_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_state_wrist_roll_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_action_wrist_roll_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_state_gripper_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_action_gripper_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_diff_wrist_flex_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_diff_shoulder_pan_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_diff_shoulder_lift_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_diff_elbow_flex_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_diff_wrist_roll_1500_1620",
+        "ev_num_rollout_T2012_1014_231614_diff_gripper_1500_1620"
+      ],
+      "image_count": 0,
+      "payload_bytes": 39152,
+      "note": "Computed 12 signal summaries and 6 difference pairs across 121 full-resolution rows."
+    },
+    {
+      "receipt_id": "tr_t3_inv_rollout_T2012_1014_231614_92878b46_1570_1620",
+      "investigation_id": "inv_rollout_T2012_1014_231614_92878b46",
+      "episode_id": "rollout_T2012_1014_231614",
+      "episode_revision": "rev_9d9be918a08d",
+      "tool_name": "get_frame_bundle",
+      "tool_version": "t3.v1_1",
+      "status": "completed",
+      "started_at": "2026-10-16T06:13:23.091900+00:00",
+      "completed_at": "2026-10-16T06:13:23.440915+00:00",
+      "duration_ms": 348.5,
+      "request_args": {
+        "episode_id": "rollout_T2012_1014_231614",
+        "episode_revision": "rev_9d9be918a08d",
+        "camera": "top",
+        "camera_ids": [
+          "top",
+          "wrist"
+        ],
+        "start_sample": 1570,
+        "end_sample": 1620,
+        "sample_count": 6,
+        "resolution_tier": "detail"
+      },
+      "source_digests": {
+        "video_top": "ed8af2e2dac7662dad840e8f1d624122c8d2070bccd4a40e594b3b820af0354f",
+        "video_wrist": "2aa595109df3b25c8621cc89eccb67bc7505906e8d01428cc19e41e043b08045"
+      },
+      "produced_evidence_ids": [
+        "ev_frame_rollout_T2012_1014_231614_top_1570",
+        "ev_frame_rollout_T2012_1014_231614_top_1587",
+        "ev_frame_rollout_T2012_1014_231614_top_1603",
+        "ev_frame_rollout_T2012_1014_231614_top_1620",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1570",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1587",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1603",
+        "ev_frame_rollout_T2012_1014_231614_wrist_1620"
+      ],
+      "image_count": 8,
+      "payload_bytes": 180864,
+      "note": "Decoded 8 original frames (top, wrist) at indices [1570, 1587, 1603, 1620]."
+    }
+  ]
+}
